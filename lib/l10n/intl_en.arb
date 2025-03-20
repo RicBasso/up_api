@@ -1,0 +1,8 @@
+{
+  "login_page_title": "Login",
+  "login_page_submit_button": "Login",
+  "lost_password": "Forgot your password?",
+  "sign_up_now_label": "Sign up now",
+  "email_label": "Email",
+  "password_label": "Password"
+}

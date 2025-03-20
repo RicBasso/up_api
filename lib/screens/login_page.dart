@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:up_api/classes/up_api_spacing.dart';
 import '../classes/up_api_padding.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -14,8 +15,8 @@ class LoginPage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Accedi',
-            style: Theme.of(context).textTheme.headlineLarge,
+              AppLocalizations.of(context)?.login_page_title ?? "login_page_title",
+              style: Theme.of(context).textTheme.headlineLarge
           ),
           Padding(
             padding: UpApiPadding.formPadding,
@@ -25,8 +26,8 @@ class LoginPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Email',
-                    style: Theme.of(context).textTheme.labelMedium,
+                      AppLocalizations.of(context)?.email_label ?? "email_label",
+                      style: Theme.of(context).textTheme.labelMedium
                   ),
                   UpApiSpacing.spacingLabelField,
                   TextFormField(
@@ -38,7 +39,8 @@ class LoginPage extends StatelessWidget {
                     },
                   ),
                   UpApiSpacing.spacingFormFields,
-                  Text('Password',
+                  Text(
+                    AppLocalizations.of(context)?.email_label ?? "password_label",
                     style: Theme.of(context).textTheme.labelMedium,
                   ),
                   UpApiSpacing.spacingLabelField,
@@ -63,7 +65,9 @@ class LoginPage extends StatelessWidget {
                         );
                       }
                     },
-                    child: const Text('Login'),
+                    child: Text(
+                      AppLocalizations.of(context)?.login_page_submit_button ?? "login_page_submit_button",
+                    ),
                   ),
                 ],
               ),
