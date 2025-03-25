@@ -1,7 +1,7 @@
 {
   "login_page_title" : "Accedi",
   "login_page_submit_button" : "Login",
-  "lost_password" : "Hai dimenticato la password?",
+  "lost_password_label" : "Hai dimenticato la password?",
   "sign_up_now_label" : "Registrati ora",
   "email_label" : "Email",
   "password_label" : "Password"
