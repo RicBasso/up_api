@@ -1,20 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
+import 'package:up_api/features/login/bloc/login_cubit.dart';
+import 'package:up_api/features/login/bloc/login_state.dart';
 import 'package:up_api/features/login/presentation/widgets/modal_register.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
 import 'package:up_api/widgets/input_widget.dart';
 
-
+final emailController = TextEditingController();
+final passController = TextEditingController();
 
 class ModalLogin extends StatelessWidget {
   const ModalLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const LoginScreen();
+    return BlocProvider(
+        create: (context) => LoginCubit(LoginState()),
+        child: const LoginScreen(),
+    );
   }
 }
 
@@ -42,7 +49,21 @@ class LoginScreen extends StatelessWidget {
                 AppLocalizations.of(context)?.login_page_title ?? 'login_page_title',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
+              UpApiSpacing.large,
               _buildFormSection(context),
+              UpApiSpacing.extraLarge,
+              Container(
+                alignment: Alignment.center,
+                child: TextButton(
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                    showModalHandler(context, const ModalRegister());
+                  },
+                  child: Text(
+                    AppLocalizations.of(context)?.sign_up_now_label ?? 'sign_up_now_label',
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -53,6 +74,7 @@ class LoginScreen extends StatelessWidget {
 }
 
 Widget _buildFormSection(BuildContext context) {
+
   return Padding(
     padding: UpApiPadding.mediumHorizontalPadding,
     child: Column(
@@ -63,15 +85,30 @@ Widget _buildFormSection(BuildContext context) {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         UpApiSpacing.spacingLabelField,
-        const InputWidget(),
+        BlocBuilder<LoginCubit,LoginState>(
+          builder: (context, state) {
+            return InputWidget(
+              onChange: (p0) => context.read<LoginCubit>().cleanEmailError(),
+              controller: emailController,
+              errorText: state.emailError,
+            );
+          },
+        ),
         UpApiSpacing.spacingFormFields,
         Text(
           AppLocalizations.of(context)?.password_label ?? 'password_label',
           style: Theme.of(context).textTheme.labelMedium,
         ),
         UpApiSpacing.spacingLabelField,
-        const InputWidget(
-          password: true,
+        BlocBuilder<LoginCubit,LoginState>(
+          builder: (context, state) {
+            return InputWidget(
+              onChange: (p0) => context.read<LoginCubit>().cleanPassError(),
+              controller: passController,
+              password: true,
+              errorText: state.passError,
+            );
+          },
         ),
         UpApiSpacing.medium,
         Container(
@@ -79,7 +116,7 @@ Widget _buildFormSection(BuildContext context) {
           child: TextButton(
             onPressed: () {
               GoRouter.of(context).pop();
-              showModalHandler(context, ModalRegister());
+              showModalHandler(context, const ModalRegister());
             },
             child: Text(
               AppLocalizations.of(context)?.lost_password_label ?? 'lost_password_label',
@@ -89,23 +126,15 @@ Widget _buildFormSection(BuildContext context) {
         UpApiSpacing.extraLarge,
         ElevatedButton(
           onPressed: () {
-
+            context.read<LoginCubit>().login(
+                emailController.text,
+                passController.text,
+                AppLocalizations.of(context)?.error_empty_email ?? 'error_empty_email',
+                AppLocalizations.of(context)?.error_empty_pass ?? 'error_empty_pass',
+            );
           },
           child: Text(
             AppLocalizations.of(context)?.login_page_submit_button ?? 'login_page_submit_button',
-          ),
-        ),
-        UpApiSpacing.extraLarge,
-        Container(
-          alignment: Alignment.center,
-          child: TextButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-              showModalHandler(context, ModalRegister());
-            },
-            child: Text(
-              AppLocalizations.of(context)?.sign_up_now_label ?? 'sign_up_now_label',
-            ),
           ),
         ),
       ],

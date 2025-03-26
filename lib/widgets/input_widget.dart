@@ -9,6 +9,7 @@ class InputWidget extends StatefulWidget {
     this.controller,
     this.hintText,
     this.fillColor = Colors.transparent,
+    this.errorText,
   });
 
   final void Function(String)? onChange;
@@ -17,6 +18,7 @@ class InputWidget extends StatefulWidget {
   final TextEditingController? controller;
   final String? hintText;
   final Color fillColor;
+  final String? errorText;
 
   @override
   State<InputWidget> createState() => _InputWidgetState();
@@ -36,14 +38,15 @@ class _InputWidgetState extends State<InputWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
       child: TextField(
         controller: widget.controller ?? _controller,
         obscureText: _obscureText,
         onChanged: widget.onChange,
         onSubmitted: widget.onSubmitted,
+
         //textInputAction: TextInputAction.continueAction,
         decoration: InputDecoration(
+          errorText: widget.errorText,
           fillColor: widget.fillColor,
           filled: true,
           hintText: widget.hintText,

@@ -4,5 +4,15 @@
   "lost_password_label" : "Hai dimenticato la password?",
   "sign_up_now_label" : "Registrati ora",
   "email_label" : "Email",
-  "password_label" : "Password"
+  "password_label" : "Password",
+
+  "sing_up_page_title" : "Registrati",
+  "name_label" : "Nome",
+  "surname_label" : "Cognome",
+  "business_label" : "Nome azienda",
+  "login_now_label" : "Registrati ora",
+  "sing_up_page_submit_button" : "Registrati",
+
+  "error_empty_email" : "Il campo Email non puo' essere vuoto",
+  "error_empty_pass" : "Il campo Password non puo' essere vuoto"
 }

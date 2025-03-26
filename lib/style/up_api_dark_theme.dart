@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:up_api/style/colors/up_api_colors_light.dart';
+import 'package:up_api/style/colors/up_api_colors_dark.dart';
 
-class UpApiTheme {
+class UpApiDarkTheme {
   static ThemeData myTheme = ThemeData(
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
@@ -9,12 +9,12 @@ class UpApiTheme {
           TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
         ),
         minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 52)),
-        backgroundColor: const WidgetStatePropertyAll(UpApiColorsLight.primaryBrand),
-        foregroundColor: const WidgetStatePropertyAll(UpApiColorsLight.secondaryText),
+        backgroundColor: const WidgetStatePropertyAll(UpApiColorsDark.primaryBrand),
+        foregroundColor: const WidgetStatePropertyAll(UpApiColorsDark.secondaryText),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
-          ),
+          ), // Imposta il border-radius a 5px
         ),
       ),
     ),
@@ -37,16 +37,16 @@ class UpApiTheme {
 
 
     colorScheme: const ColorScheme(
-      onPrimary: UpApiColorsLight.primaryBrand,
-      onSecondary: UpApiColorsLight.secondaryBrand,
-      primary: UpApiColorsLight.primaryText,
-      secondary: UpApiColorsLight.secondaryBrand,
+      onPrimary: UpApiColorsDark.primaryBrand,
+      onSecondary: UpApiColorsDark.secondaryBrand,
+      primary: UpApiColorsDark.primaryText,
+      secondary: UpApiColorsDark.secondaryBrand,
       brightness: Brightness.light,
-      error: UpApiColorsLight.error,
-      onError: UpApiColorsLight.onError,
-      surfaceContainer: UpApiColorsLight.primaryBackground,
-      surface: UpApiColorsLight.secondaryBackground,
-      onSurface: UpApiColorsLight.primaryText,
+      error: UpApiColorsDark.error,
+      onError: UpApiColorsDark.onError,
+      surfaceContainer: UpApiColorsDark.primaryBackground,
+      surface: UpApiColorsDark.secondaryBackground,
+      onSurface: UpApiColorsDark.primaryText,
     ),
 
 

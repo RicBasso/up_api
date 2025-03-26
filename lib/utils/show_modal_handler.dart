@@ -6,6 +6,7 @@ void showModalHandler( BuildContext context, Widget modalScreen){
   Future.delayed(const Duration(milliseconds: 400), ()
   {
     showModalBottomSheet<void>(
+      backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       useSafeArea: true,
       context: context,
       isScrollControlled: true,
