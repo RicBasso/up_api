@@ -8,6 +8,6 @@ class UpApiColorsDark {
   static const primaryBrand = Color.fromRGBO(255, 129, 0, 1);
   static const secondaryBrand = Color.fromRGBO(22, 58, 95, 1);
   static const error = Colors.red;
-  static const onError = Colors.red;
+  static const onError = Color(0xFFEBEEFF);
   static const inputBorder = Color.fromRGBO(214, 214, 214, 1);
 }

@@ -2,18 +2,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:up_api/flavor.dart';
-import 'package:up_api/main.dart';
 import 'package:up_api/utils/constants.dart';
 import 'package:up_api/utils/datasource/datasource.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/utils/shared_prefs.dart';
 
 enum UpapiDatasourceBaseUrlType { apiUrl, publicUrl }
 
-
-
 class UpapiDatasource extends Datasource {
-
-  UpapiDatasource(){
+  UpapiDatasource() {
     _dio = Dio(
       BaseOptions(
         baseUrl: apiUrl,
@@ -40,21 +37,13 @@ class UpapiDatasource extends Datasource {
   late final Dio _dio;
   late final Dio _publicDio;
 
-
   /// Token
-  Map<String,String> tokenAuth() { //giusto map?
-    return {'Authorization': accessToken};
+  Map<String, String> tokenAuth() {
+    return {'Authorization': upapiSessionManager.token ?? '',};
   }
-
-  late String accessToken;
 
   void logout() {
-    accessToken = '';
-  }
-
-  void setToken(String token) {
-    accessToken = token;
-    sharedPrefs.set(Constants.TOKEN_KEY, token);
+    upapiSessionManager.token = '';
   }
 
   String? getRefreshToken() {
@@ -65,29 +54,29 @@ class UpapiDatasource extends Datasource {
     return null;
   }
 
-  Map<String,String> publicToken() { //giusto MAP?
+  Map<String, String> publicToken() {
+    //giusto MAP?
     return {'Authorization': Constants.PUBLIC_API};
   }
 
   /// Version of the app
   String? appVersion;
 
-  Dio correctDio (UpapiDatasourceBaseUrlType baseUrlType){
+  Dio correctDio(UpapiDatasourceBaseUrlType baseUrlType) {
     return baseUrlType == UpapiDatasourceBaseUrlType.apiUrl ? _dio : _publicDio;
   }
 
   @override
   Future<Response?> get(
-      String path, {
-        Map<String, dynamic>? queryParameters,
-        Map<String, dynamic> headers = const {},
-        UpapiDatasourceBaseUrlType baseUrlType =
-            UpapiDatasourceBaseUrlType.apiUrl,
-      }) async {
+    String path, {
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic> headers = const {},
+    UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
+  }) async {
     debugPrint('GET /$path');
     try {
       final dio = correctDio(baseUrlType);
-      final response = await dio.get<Map<String,dynamic>>(
+      final response = await dio.get<Map<String, dynamic>>(
         path,
         queryParameters: queryParameters,
         options: Options(headers: headers),
@@ -98,6 +87,7 @@ class UpapiDatasource extends Datasource {
         return get(
           path,
           queryParameters: queryParameters,
+
           ///baseUrlType: UpapiDatasourceBaseUrlType.apiUrl,
         );
       }
@@ -114,17 +104,16 @@ class UpapiDatasource extends Datasource {
 
   @override
   Future<Response?> post(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        UpapiDatasourceBaseUrlType baseUrlType =
-            UpapiDatasourceBaseUrlType.apiUrl,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
+  }) async {
     debugPrint('POST $path');
     try {
       final dio = correctDio(baseUrlType);
-      final response = await dio.get<Map<String,dynamic>>(
+      final response = await dio.post<Map<String, dynamic>>(
         path,
         queryParameters: queryParameters,
         data: data,
@@ -138,21 +127,24 @@ class UpapiDatasource extends Datasource {
           queryParameters: queryParameters,
           data: data,
           options: options,
+
           ///baseUrlType: UpapiDatasourceBaseUrlType.apiUrl,
         );
       }
       return response;
     } on DioError catch (e) {
+      debugPrint('Dio error: $e');
       if (e.type == DioErrorType.unknown) {
         throw e.error!;
       }
-      if (e.response!.statusCode == 401 || e.response!.statusCode == 403) {
+      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
         ///AuthenticationRepositoryImpl().refreshToken();
-        await post(path,
-            queryParameters: queryParameters,
-            data: data,
-            options: options,
-            baseUrlType: baseUrlType,
+        await post(
+          path,
+          queryParameters: queryParameters,
+          data: data,
+          options: options,
+          baseUrlType: baseUrlType,
         );
         throw UnauthorizedException();
       }
@@ -164,18 +156,17 @@ class UpapiDatasource extends Datasource {
 
   @override
   Future<Response?> put(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        UpapiDatasourceBaseUrlType baseUrlType =
-            UpapiDatasourceBaseUrlType.apiUrl,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
+  }) async {
     debugPrint('PUT $path');
     debugPrint('data: $data');
     try {
       final dio = correctDio(baseUrlType);
-      final response = await dio.put<Map<String,dynamic>>(
+      final response = await dio.put<Map<String, dynamic>>(
         path,
         queryParameters: queryParameters,
         data: data,
@@ -198,11 +189,12 @@ class UpapiDatasource extends Datasource {
       }
       if (e.response!.statusCode == 401 || e.response!.statusCode == 403) {
         ///AuthenticationRepositoryImpl().refreshToken();
-        await post(path,
-            queryParameters: queryParameters,
-            data: data,
-            options: options,
-            baseUrlType: baseUrlType,
+        await post(
+          path,
+          queryParameters: queryParameters,
+          data: data,
+          options: options,
+          baseUrlType: baseUrlType,
         );
         throw UnauthorizedException();
       }
@@ -214,17 +206,16 @@ class UpapiDatasource extends Datasource {
 
   @override
   Future<Response?> delete(
-      String path, {
-        dynamic data,
-        Map<String, dynamic>? queryParameters,
-        Options? options,
-        UpapiDatasourceBaseUrlType baseUrlType =
-            UpapiDatasourceBaseUrlType.apiUrl,
-      }) async {
+    String path, {
+    dynamic data,
+    Map<String, dynamic>? queryParameters,
+    Options? options,
+    UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
+  }) async {
     debugPrint('DELETE $path');
     try {
       final dio = correctDio(baseUrlType);
-      final response = await dio.delete<Map<String,dynamic>>(
+      final response = await dio.delete<Map<String, dynamic>>(
         path,
         queryParameters: queryParameters,
         data: data,
@@ -238,11 +229,12 @@ class UpapiDatasource extends Datasource {
       }
       if (e.response!.statusCode == 401 || e.response!.statusCode == 403) {
         ///AuthenticationRepositoryImpl().refreshToken();
-        await delete(path,
-            baseUrlType: baseUrlType,
-            queryParameters: queryParameters,
-            data: data,
-            options: options,
+        await delete(
+          path,
+          baseUrlType: baseUrlType,
+          queryParameters: queryParameters,
+          data: data,
+          options: options,
         );
 
         throw UnauthorizedException();

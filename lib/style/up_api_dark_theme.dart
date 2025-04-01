@@ -9,8 +9,12 @@ class UpApiDarkTheme {
           TextStyle(fontSize: 15, fontWeight: FontWeight.w500),
         ),
         minimumSize: const WidgetStatePropertyAll(Size(double.infinity, 52)),
-        backgroundColor: const WidgetStatePropertyAll(UpApiColorsDark.primaryBrand),
-        foregroundColor: const WidgetStatePropertyAll(UpApiColorsDark.secondaryText),
+        backgroundColor: const WidgetStatePropertyAll(
+          UpApiColorsDark.primaryBrand,
+        ),
+        foregroundColor: const WidgetStatePropertyAll(
+          UpApiColorsDark.secondaryText,
+        ),
         shape: WidgetStatePropertyAll(
           RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
@@ -18,8 +22,6 @@ class UpApiDarkTheme {
         ),
       ),
     ),
-
-
 
     textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
@@ -35,7 +37,6 @@ class UpApiDarkTheme {
       ),
     ),
 
-
     colorScheme: const ColorScheme(
       onPrimary: UpApiColorsDark.primaryBrand,
       onSecondary: UpApiColorsDark.secondaryBrand,
@@ -49,23 +50,16 @@ class UpApiDarkTheme {
       onSurface: UpApiColorsDark.primaryText,
     ),
 
-
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
-        borderSide: const BorderSide(
-          color: Color.fromRGBO(214, 214, 214, 1),
-        ),
+        borderSide: const BorderSide(color: Color.fromRGBO(214, 214, 214, 1)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(5),
-        borderSide: const BorderSide(
-          color: Color.fromRGBO(214, 214, 214, 1),
-        ),
+        borderSide: const BorderSide(color: Color.fromRGBO(214, 214, 214, 1)),
       ),
     ),
-
-
 
     textTheme: const TextTheme(
       headlineLarge: TextStyle(

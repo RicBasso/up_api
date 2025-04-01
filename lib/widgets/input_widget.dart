@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class InputWidget extends StatefulWidget {
-
-  const InputWidget({super.key,
+  const InputWidget({
+    super.key,
     this.onChange,
     this.onSubmitted,
     this.password = false,
@@ -25,7 +25,6 @@ class InputWidget extends StatefulWidget {
 }
 
 class _InputWidgetState extends State<InputWidget> {
-
   bool _obscureText = false;
   late TextEditingController _controller;
 
@@ -35,6 +34,7 @@ class _InputWidgetState extends State<InputWidget> {
     _obscureText = widget.password;
     _controller = TextEditingController();
   }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,20 +50,19 @@ class _InputWidgetState extends State<InputWidget> {
           fillColor: widget.fillColor,
           filled: true,
           hintText: widget.hintText,
-          hintStyle: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
-          ),
-          suffixIcon: widget.password == true
-              ? IconButton(
-            splashRadius: 1,
-            icon: Icon(
-              _obscureText ? Icons.visibility : Icons.visibility_off,
-              size: 16,
-            ),
-            onPressed: () => setState(() => _obscureText = !_obscureText),
-          )
-              : null,
+          hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+          suffixIcon:
+              widget.password == true
+                  ? IconButton(
+                    splashRadius: 1,
+                    icon: Icon(
+                      _obscureText ? Icons.visibility : Icons.visibility_off,
+                      size: 16,
+                    ),
+                    onPressed:
+                        () => setState(() => _obscureText = !_obscureText),
+                  )
+                  : null,
           //isDense: true,
         ),
       ),

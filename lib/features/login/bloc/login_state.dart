@@ -11,16 +11,17 @@ class LoginState extends BaseState {
   LoginState copyWith({
     bool nullPass = false,
     bool nullEmail = false,
+    bool nullError = false,
     bool? isLoading,
     String? error,
     String? emailError,
     String? passError,
   }) {
     return LoginState(
-        isLoading: isLoading ?? this.isLoading,
-        error: error ?? this.error,
-        emailError: nullEmail ? null : emailError ?? this.emailError,
-        passError: nullPass ? null : passError ?? this.passError,
+      isLoading: isLoading ?? this.isLoading,
+      error: nullError ? null : error ?? this.error,
+      emailError: nullEmail ? null : emailError ?? this.emailError,
+      passError: nullPass ? null : passError ?? this.passError,
     );
   }
 

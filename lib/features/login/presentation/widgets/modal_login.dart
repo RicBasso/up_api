@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:go_router/go_router.dart';
 import 'package:up_api/features/login/bloc/login_cubit.dart';
 import 'package:up_api/features/login/bloc/login_state.dart';
-import 'package:up_api/features/login/presentation/widgets/modal_register.dart';
+import 'package:up_api/features/register/presentation/widgets/modal_register.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
@@ -19,34 +19,34 @@ class ModalLogin extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => LoginCubit(LoginState()),
-        child: const LoginScreen(),
+      create: (context) => LoginCubit(LoginState()),
+      child: const LoginScreen(),
     );
   }
 }
 
 class LoginScreen extends StatelessWidget {
-
   const LoginScreen({super.key});
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
       ),
       child: Container(
         alignment: Alignment.center,
-        height: (
-            MediaQuery.sizeOf(context).height -
-            MediaQuery.of(context).padding.vertical
-        ) * 0.65,
+        height:
+            (MediaQuery.sizeOf(context).height -
+                MediaQuery.of(context).padding.vertical) *
+            0.80,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                AppLocalizations.of(context)?.login_page_title ?? 'login_page_title',
+                AppLocalizations.of(context)?.login_page_title ??
+                    'login_page_title',
                 style: Theme.of(context).textTheme.headlineLarge,
               ),
               UpApiSpacing.large,
@@ -60,7 +60,8 @@ class LoginScreen extends StatelessWidget {
                     showModalHandler(context, const ModalRegister());
                   },
                   child: Text(
-                    AppLocalizations.of(context)?.sign_up_now_label ?? 'sign_up_now_label',
+                    AppLocalizations.of(context)?.register_now_label ??
+                        'sign_up_now_label',
                   ),
                 ),
               ),
@@ -70,11 +71,9 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
 }
 
 Widget _buildFormSection(BuildContext context) {
-
   return Padding(
     padding: UpApiPadding.mediumHorizontalPadding,
     child: Column(
@@ -85,7 +84,7 @@ Widget _buildFormSection(BuildContext context) {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         UpApiSpacing.spacingLabelField,
-        BlocBuilder<LoginCubit,LoginState>(
+        BlocBuilder<LoginCubit, LoginState>(
           builder: (context, state) {
             return InputWidget(
               onChange: (p0) => context.read<LoginCubit>().cleanEmailError(),
@@ -100,7 +99,7 @@ Widget _buildFormSection(BuildContext context) {
           style: Theme.of(context).textTheme.labelMedium,
         ),
         UpApiSpacing.spacingLabelField,
-        BlocBuilder<LoginCubit,LoginState>(
+        BlocBuilder<LoginCubit, LoginState>(
           builder: (context, state) {
             return InputWidget(
               onChange: (p0) => context.read<LoginCubit>().cleanPassError(),
@@ -119,23 +118,82 @@ Widget _buildFormSection(BuildContext context) {
               showModalHandler(context, const ModalRegister());
             },
             child: Text(
-              AppLocalizations.of(context)?.lost_password_label ?? 'lost_password_label',
+              AppLocalizations.of(context)?.lost_password_label ??
+                  'lost_password_label',
             ),
           ),
         ),
         UpApiSpacing.extraLarge,
-        ElevatedButton(
-          onPressed: () {
-            context.read<LoginCubit>().login(
-                emailController.text,
-                passController.text,
-                AppLocalizations.of(context)?.error_empty_email ?? 'error_empty_email',
-                AppLocalizations.of(context)?.error_empty_pass ?? 'error_empty_pass',
+        BlocBuilder<LoginCubit, LoginState>(
+          buildWhen: (p, c) => p.isLoading != c.isLoading,
+          builder: (context, state) {
+            return ElevatedButton(
+              onPressed:
+                  state.isLoading
+                      ? null
+                      : () {
+                        context.read<LoginCubit>().login(
+                          emailController.text,
+                          passController.text,
+                          AppLocalizations.of(context)?.error_empty_email ??
+                              'error_empty_email',
+                          AppLocalizations.of(context)?.error_empty_pass ??
+                              'error_empty_pass',
+                          AppLocalizations.of(context)?.error_generic ??
+                              'error_generic',
+                        );
+                      },
+              child:
+                  state.isLoading
+                      ? CircularProgressIndicator(
+                        color: Theme.of(context).colorScheme.onSecondary,
+                      )
+                      : Text(
+                        AppLocalizations.of(
+                              context,
+                            )?.login_page_submit_button ??
+                            'login_page_submit_button',
+                      ),
             );
           },
-          child: Text(
-            AppLocalizations.of(context)?.login_page_submit_button ?? 'login_page_submit_button',
-          ),
+        ),
+        BlocBuilder<LoginCubit, LoginState>(
+          builder: (context, state) {
+            if (state.error != null) {
+              return Container(
+                margin: const EdgeInsets.symmetric(vertical: 16),
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).colorScheme.onError,
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.error,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      Icons.error_outline,
+                      color: Theme.of(context).colorScheme.error,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        'Le credenziali inserite non sono corrette. Riprova controllando email e password.',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Theme.of(context).colorScheme.error,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return const SizedBox();
+            }
+          },
         ),
       ],
     ),

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
-
-
-void showModalHandler( BuildContext context, Widget modalScreen){
-  Future.delayed(const Duration(milliseconds: 400), ()
-  {
+void showModalHandler(BuildContext context, Widget modalScreen) {
+  Future.delayed(const Duration(milliseconds: 400), () {
     showModalBottomSheet<void>(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       useSafeArea: true,

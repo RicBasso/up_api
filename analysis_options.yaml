@@ -26,6 +26,7 @@ analyzer:
     must_be_immutable: ignore
     comment_references: ignore
     use_build_context_synchronously: ignore
+    non_constant_identifier_names: ignore
 
 
 linter:
