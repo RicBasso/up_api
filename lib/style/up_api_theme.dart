@@ -36,15 +36,15 @@ class UpApiTheme {
     ),
 
     colorScheme: const ColorScheme(
-      onPrimary: UpApiColorsLight.primaryBrand,
-      onSecondary: UpApiColorsLight.secondaryBrand,
-      primary: UpApiColorsLight.primaryText,
+      onPrimary: UpApiColorsLight.primaryText,
+      onSecondary: UpApiColorsLight.secondaryText,
+      primary: UpApiColorsLight.primaryBrand,
       secondary: UpApiColorsLight.secondaryBrand,
       brightness: Brightness.light,
       error: UpApiColorsLight.error,
       onError: UpApiColorsLight.onError,
-      surfaceContainer: UpApiColorsLight.primaryBackground,
-      surface: UpApiColorsLight.secondaryBackground,
+      surfaceContainer: UpApiColorsLight.secondaryBackground,
+      surface: UpApiColorsLight.primaryBackground,
       onSurface: UpApiColorsLight.primaryText,
     ),
 

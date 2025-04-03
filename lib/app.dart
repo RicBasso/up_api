@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         theme: UpApiTheme.myTheme,
         darkTheme: UpApiDarkTheme.myTheme,
+        themeMode: ThemeMode.light,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
         routerConfig: upapiGoRouter,

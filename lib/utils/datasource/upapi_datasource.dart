@@ -73,7 +73,7 @@ class UpapiDatasource extends Datasource {
     Map<String, dynamic> headers = const {},
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    debugPrint('GET /$path');
+    debugPrint('GET $baseUrlType/$path');
     try {
       final dio = correctDio(baseUrlType);
       final response = await dio.get<Map<String, dynamic>>(
@@ -81,9 +81,12 @@ class UpapiDatasource extends Datasource {
         queryParameters: queryParameters,
         options: Options(headers: headers),
       );
-      debugPrint('status code: ${response.statusCode}');
-      if (response.data?['status'] == 401 || response.statusCode == 403) {
+
+      debugPrint('COMPLETE URL: ${response.realUri}');
+      if (response.statusCode == 401 || response.statusCode == 403) {
+        debugPrint('status code: ${response.statusCode}');
         ///await AuthenticationRepositoryImpl().refreshToken();
+        return null;
         return get(
           path,
           queryParameters: queryParameters,
@@ -91,6 +94,7 @@ class UpapiDatasource extends Datasource {
           ///baseUrlType: UpapiDatasourceBaseUrlType.apiUrl,
         );
       }
+
       return response;
     } on DioError catch (e) {
       if (e.type == DioErrorType.unknown) {

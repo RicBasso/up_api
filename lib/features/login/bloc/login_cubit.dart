@@ -8,9 +8,6 @@ import 'package:up_api/utils/shared_prefs.dart';
 class LoginCubit extends BaseCubit<LoginState> {
   LoginCubit(super.initialState);
 
-  //LoginCubit(super.initialState);
-  //prendermi email e pass creare funzione login(), sviluppare errore
-
   Future<void> login(
     String email,
     String password,
@@ -35,6 +32,7 @@ class LoginCubit extends BaseCubit<LoginState> {
     if (res?.success ?? false) {
       emit(state.copyWith(isLoading: false));
       final token = res?.loginBody?.accessToken;
+
       final refToken = res?.loginBody?.refreshToken;
       upapiSessionManager.token = token;
       sharedPrefs.set(Constants.REFRESH_KEY, refToken ?? '');
