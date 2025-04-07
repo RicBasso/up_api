@@ -6,23 +6,25 @@ class LoadingButtonWidget extends StatelessWidget {
     super.key,
     this.isLoading = false,
     this.onPressed,
+    this.overrideStyle,
   });
 
   late final bool isLoading;
   late void Function()? onPressed;
   late Widget child;
+  final ButtonStyle? overrideStyle;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed:
-      isLoading ? null : onPressed,
+      onPressed: isLoading ? null : onPressed,
+      style: overrideStyle ?? Theme.of(context).elevatedButtonTheme.style,
       child:
-      isLoading
-          ? CircularProgressIndicator(
-        color: Theme.of(context).colorScheme.onSecondary,
-      )
-          : child,
+          isLoading
+              ? CircularProgressIndicator(
+                color: Theme.of(context).colorScheme.onSecondary,
+              )
+              : child,
     );
   }
 }

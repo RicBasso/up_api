@@ -14,4 +14,3 @@ class HomeCubit extends BaseCubit<HomeState> {
     //state.projects = response?.projectsBody;
   }
 }
-

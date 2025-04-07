@@ -39,7 +39,7 @@ class UpapiDatasource extends Datasource {
 
   /// Token
   Map<String, String> tokenAuth() {
-    return {'Authorization': upapiSessionManager.token ?? '',};
+    return {'Authorization': upapiSessionManager.token ?? ''};
   }
 
   void logout() {
@@ -85,6 +85,7 @@ class UpapiDatasource extends Datasource {
       debugPrint('COMPLETE URL: ${response.realUri}');
       if (response.statusCode == 401 || response.statusCode == 403) {
         debugPrint('status code: ${response.statusCode}');
+
         ///await AuthenticationRepositoryImpl().refreshToken();
         return null;
         return get(

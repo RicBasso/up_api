@@ -1,5 +1,4 @@
 class Project {
-
   Project({
     this.id,
     this.name,
@@ -9,7 +8,7 @@ class Project {
     this.companyId,
   });
 
-  Project.fromJson(Map<String, dynamic> json){
+  Project.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String?;
     name = json['name'] as String?;
     json['status'] == 'active' ? status = true : status = false;
@@ -24,5 +23,4 @@ class Project {
   String? createdAt;
   String? updatedAt;
   String? companyId;
-
 }

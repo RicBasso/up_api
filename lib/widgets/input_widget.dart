@@ -43,9 +43,9 @@ class _InputWidgetState extends State<InputWidget> {
         obscureText: _obscureText,
         onChanged: widget.onChange,
         onSubmitted: widget.onSubmitted,
-
         //textInputAction: TextInputAction.continueAction,
         decoration: InputDecoration(
+          //isDense: true,
           errorText: widget.errorText,
           fillColor: widget.fillColor,
           filled: true,

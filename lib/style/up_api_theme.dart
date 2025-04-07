@@ -21,6 +21,27 @@ class UpApiTheme {
       ),
     ),
 
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: UpApiColorsLight.primaryBrand, // colore testo & icone
+        side: const BorderSide(color: UpApiColorsLight.primaryBrand), // bordo
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+    ),
+
+
+    cardTheme: CardTheme(
+      margin: EdgeInsets.zero,
+      color: UpApiColorsLight.secondaryBackground,
+      elevation: 4,
+      shadowColor: Colors.black.withOpacity(0.1),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(12),
+      ),
+    ),
+
     textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
         padding: WidgetStatePropertyAll(EdgeInsets.zero),

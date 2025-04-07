@@ -133,8 +133,8 @@ Widget _buildFormSection(BuildContext context) {
                       ? null
                       : () {
                         context.read<LoginCubit>().login(
-                          'gianluca+6@igsolutions.it',//emailController.text,
-                          '00661944',//passController.text,
+                          'gianluca+6@igsolutions.it', //emailController.text,
+                          '00661944', //passController.text,
                           AppLocalizations.of(context)?.error_empty_email ??
                               'error_empty_email',
                           AppLocalizations.of(context)?.error_empty_pass ??

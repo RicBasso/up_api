@@ -12,18 +12,17 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
-
   @override
   void initState() {
-   /// WidgetsBinding.instance.addPostFrameCallback((_) {
-      showModalHandler(context, const ModalRegister());
-   /// });
+    /// WidgetsBinding.instance.addPostFrameCallback((_) {
+    showModalHandler(context, const ModalRegister());
+
+    /// });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: Container(
         width: double.infinity,

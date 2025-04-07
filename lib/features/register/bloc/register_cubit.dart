@@ -11,13 +11,12 @@ class RegisterCubit extends BaseCubit<RegisterState> {
   RegisterCubit(super.initialState);
 
   Future<void> register(
-      String email,
-      String password,
-      String name,
-      String surname,
-      String business,
-      ) async {
-
+    String email,
+    String password,
+    String name,
+    String surname,
+    String business,
+  ) async {
     final emailError = validateEmail(email);
     final passError = validatePassword(password);
     final nameError = validateName(name);
@@ -25,22 +24,30 @@ class RegisterCubit extends BaseCubit<RegisterState> {
     final surnameError = validateName(surname);
     final businessError = validateBusiness(business);
 
-    final hasErrors = emailError + passError + nameError + surnameError + businessError > 0;
-    emit(state.copyWith(
-      emailError: emailError,
-      passError: passError,
-      nameError: nameError,
-      surnameError: surnameError,
-      businessError: businessError,
-    ),
+    final hasErrors =
+        emailError + passError + nameError + surnameError + businessError > 0;
+    emit(
+      state.copyWith(
+        emailError: emailError,
+        passError: passError,
+        nameError: nameError,
+        surnameError: surnameError,
+        businessError: businessError,
+      ),
     );
-    if(hasErrors){
+    if (hasErrors) {
       return;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.register(email, password, name, surname, business);
+    final res = await upapiAuthentication.register(
+      email,
+      password,
+      name,
+      surname,
+      business,
+    );
     if (res == null) {
-       emit(RegisterState(error: 404));
+      emit(RegisterState(error: 404));
     }
     if (res?.success ?? false) {
       emit(state.copyWith(isLoading: false));
@@ -52,32 +59,30 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       upapiSessionManager.user = res?.loginBody?.user;
       upapiGoRouter.go(Routes.homepage);
       return;
-    }else{
+    } else {
       emit(RegisterState(error: 1));
     }
-
 
     return;
   }
 
   void cleanEmailError() {
-    emit(state.copyWith( emailError: 0 , error: 0));
+    emit(state.copyWith(emailError: 0, error: 0));
   }
 
   void cleanPassError() {
-    emit(state.copyWith( passError: 0 , error: 0));
+    emit(state.copyWith(passError: 0, error: 0));
   }
 
   void cleanNameError() {
-    emit(state.copyWith( nameError: 0 , error: 0));
+    emit(state.copyWith(nameError: 0, error: 0));
   }
 
   void cleanSurnameError() {
-    emit(state.copyWith( surnameError: 0 , error: 0));
+    emit(state.copyWith(surnameError: 0, error: 0));
   }
 
   void cleanBusinessError() {
-    emit(state.copyWith( businessError: 0 , error: 0));
+    emit(state.copyWith(businessError: 0, error: 0));
   }
-
 }

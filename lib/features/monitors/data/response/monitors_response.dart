@@ -1,7 +1,7 @@
 import 'package:up_api/features/home/data/model/project.dart';
 
-class MonitorsResponse{
-  MonitorsResponse({required this.success,this.monitorsBody, this.code});
+class MonitorsResponse {
+  MonitorsResponse({required this.success, this.monitorsBody, this.code});
 
   MonitorsResponse.fromJson(Map<String, dynamic> json) {
     if (json['success'] is bool) {
@@ -9,9 +9,9 @@ class MonitorsResponse{
     }
     if (success == true) {
       if (json['data'] is List<Map<String, dynamic>>) {
-          for (final element in (json['data'] as List<Map<String, dynamic>>)) {
-              monitorsBody?.add(Project.fromJson(element));
-          }
+        for (final element in (json['data'] as List<Map<String, dynamic>>)) {
+          monitorsBody?.add(Project.fromJson(element));
+        }
       }
     } else {
       if (json['success'] is bool) {

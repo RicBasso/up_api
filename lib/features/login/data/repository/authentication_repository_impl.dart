@@ -43,7 +43,13 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   ) async {
     final response = await upapiDatasource.post(
       'signup',
-      data: {'email': email, 'password': psw, 'firstName': name, 'lastName': surname, 'businessName': business},
+      data: {
+        'email': email,
+        'password': psw,
+        'firstName': name,
+        'lastName': surname,
+        'businessName': business,
+      },
       baseUrlType: UpapiDatasourceBaseUrlType.publicUrl,
     );
     if (response != null &&
@@ -51,7 +57,9 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         (response.statusCode ?? 400) < 300) {
       LoginResponse? register;
       if (response.data is Map<String, dynamic>) {
-        register = LoginResponse.fromJson(response.data as Map<String, dynamic>);
+        register = LoginResponse.fromJson(
+          response.data as Map<String, dynamic>,
+        );
       }
       return register;
     }

@@ -1,22 +1,24 @@
 import 'package:up_api/features/home/data/model/project.dart';
 
-class ProjectsResponse{
+class ProjectsResponse {
   ProjectsResponse({
     required this.success,
     this.projectsBody,
-    this.code});
+    this.code,
+    this.count,
+  });
 
   ProjectsResponse.fromJson(Map<String, dynamic> json) {
     if (json['success'] is bool) {
       success = json['success'] as bool;
     }
     if (success == true) {
+      count = json['count'] as int;
       if (json['data'] is List) {
-          projectsBody = [];
-            (json['data'] as List<dynamic>).forEach((element) {
-              projectsBody?.add(Project.fromJson(element as Map<String,dynamic>));
-            },
-          );
+        projectsBody = [];
+        (json['data'] as List<dynamic>).forEach((element) {
+          projectsBody?.add(Project.fromJson(element as Map<String, dynamic>));
+        });
       }
     } else {
       if (json['success'] is bool) {
@@ -27,4 +29,5 @@ class ProjectsResponse{
   late bool success;
   List<Project?>? projectsBody;
   String? code;
+  int? count;
 }

@@ -119,7 +119,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           _buildRegisterFieldText(
-              AppLocalizations.of(context)?.email_label ?? 'email_label',
+            AppLocalizations.of(context)?.email_label ?? 'email_label',
           ),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
@@ -195,17 +195,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   context.read<RegisterCubit>().register(
                     emailController.text,
                     passController.text,
-                    'test',//nameController.text,
-                    'test',//surnameController.text,
-                    'test',//businessController.text,
+                    'test', //nameController.text,
+                    'test', //surnameController.text,
+                    'test', //businessController.text,
                   );
                 },
                 child: Text(
-                          AppLocalizations.of(
-                                context,
-                              )?.register_page_submit_button ??
-                              'register_page_submit_button',
-                        ),
+                  AppLocalizations.of(context)?.register_page_submit_button ??
+                      'register_page_submit_button',
+                ),
               );
             },
           ),
@@ -216,7 +214,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildRegisterInput({
     required TextEditingController controller,
-    required String? Function(BuildContext context, RegisterState state) errorGetter,
+    required String? Function(BuildContext context, RegisterState state)
+    errorGetter,
     required void Function() onChange,
     bool isPassword = false,
   }) {
@@ -233,13 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     );
   }
 
-
-
-  Widget _buildRegisterFieldText(String text){
-    return Text(
-      text,
-      style: Theme.of(context).textTheme.labelMedium,
-    );
+  Widget _buildRegisterFieldText(String text) {
+    return Text(text, style: Theme.of(context).textTheme.labelMedium);
   }
-
 }

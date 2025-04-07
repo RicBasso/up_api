@@ -13,6 +13,16 @@
   "login_now_label" : "Accedi ora",
   "register_page_submit_button" : "Registrati",
 
+  "home_page_title" : "Dashboard",
+  "search_project_title" : "Cerca per progetto",
+  "last_check_label" : "Ultimo check:",
+  "positive_result_label" : "Regolare",
+  "negative_result_label" : "Errore",
+
+  "load_more_button" : "Carica altro...",
+  "load_more_button_finished" : "Sei arrivato alla fine :)",
+  "no_result_fount" : "Nessun risultato trovato.",
+
   "error_empty_email" : "Il campo Email non puo' essere vuoto",
   "error_empty_pass" : "Il campo Password non puo' essere vuoto",
   "error_generic" : "Si è verificato un errore, riprova piu tardi",

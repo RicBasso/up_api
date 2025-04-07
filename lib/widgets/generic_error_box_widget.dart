@@ -23,9 +23,7 @@ class GenericErrorBoxWidget<B extends BlocBase<S>, S> extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
               color: Theme.of(context).colorScheme.onError,
-              border: Border.all(
-                color: Theme.of(context).colorScheme.error,
-              ),
+              border: Border.all(color: Theme.of(context).colorScheme.error),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Row(

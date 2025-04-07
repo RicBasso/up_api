@@ -1,5 +1,4 @@
 class Monitor {
-
   Monitor({
     this.id,
     this.name,
@@ -9,7 +8,7 @@ class Monitor {
     this.companyId,
   });
 
-  Monitor.fromJson(Map<String, dynamic> json){
+  Monitor.fromJson(Map<String, dynamic> json) {
     id = json['id'] as String?;
     name = json['name'] as String?;
     status = json['status'] as bool?;
@@ -24,5 +23,4 @@ class Monitor {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? companyId;
-
 }

@@ -9,9 +9,9 @@ int validateEmail(String email) {
   if (trimmed.isEmpty || trimmed.length > 254) return 1;
 
   final emailRegex = RegExp(
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+"
-      r"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
-      r"(?:\.[a-zA-Z]{2,})+$"
+    r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+"
+    r"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
+    r"(?:\.[a-zA-Z]{2,})+$",
   );
 
   if (!emailRegex.hasMatch(trimmed)) return 2;
@@ -40,7 +40,8 @@ int validatePassword(String password) {
   if (!RegExp(r'[A-Z]').hasMatch(trimmed)) return 2;
   if (!RegExp(r'[a-z]').hasMatch(trimmed)) return 3;
   if (!RegExp(r'\d').hasMatch(trimmed)) return 4;
-  if (!RegExp(r'[!@#\$&*~%^()\-_=+{}\[\]:;,.<>?/\\|]').hasMatch(trimmed)) return 5;
+  if (!RegExp(r'[!@#\$&*~%^()\-_=+{}\[\]:;,.<>?/\\|]').hasMatch(trimmed))
+    return 5;
 
   return 0;
 }
@@ -74,5 +75,3 @@ int validateBusiness(String business) {
 
   return 0;
 }
-
-

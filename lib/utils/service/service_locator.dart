@@ -11,10 +11,13 @@ import 'package:up_api/utils/session_manager.dart';
 void registerDependencies(GoRouter router) {
   getIt.registerSingleton<SessionManager>(SessionManager());
   getIt.registerSingleton<Datasource>(UpapiDatasource());
-  getIt.registerSingleton<AuthenticationRepository>(AuthenticationRepositoryImpl());
+  getIt.registerSingleton<AuthenticationRepository>(
+    AuthenticationRepositoryImpl(),
+  );
   getIt.registerSingleton<GoRouter>(router);
   getIt.registerFactory<ProjectsRepository>(() => ProjectsRepositoryImpl());
 }
+
 final GetIt getIt = GetIt.instance;
 
 Datasource get upapiDatasource => getIt.get<Datasource>();
@@ -22,4 +25,5 @@ AuthenticationRepository get upapiAuthentication =>
     getIt.get<AuthenticationRepository>();
 GoRouter get upapiGoRouter => getIt.get<GoRouter>();
 SessionManager get upapiSessionManager => getIt.get<SessionManager>();
-ProjectsRepository get upapiProjectsRepository => getIt.get<ProjectsRepository>();
+ProjectsRepository get upapiProjectsRepository =>
+    getIt.get<ProjectsRepository>();
