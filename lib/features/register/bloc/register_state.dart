@@ -25,9 +25,9 @@ class RegisterState extends BaseState {
       error: error ?? this.error,
       emailError: emailError ?? this.emailError,
       passError: passError ?? this.passError,
-      nameError: nameError ?? this.passError,
-      surnameError: surnameError ?? this.passError,
-      businessError: businessError ?? this.passError,
+      nameError: nameError ?? this.nameError,
+      surnameError: surnameError ?? this.surnameError,
+      businessError: businessError ?? this.businessError,
     );
   }
 
