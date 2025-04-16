@@ -1,0 +1,77 @@
+{
+  "login_page_title" : "Accedi",
+  "login_page_submit_button" : "Login",
+  "lost_password_label" : "Hai dimenticato la password?",
+  "register_now_label" : "Registrati ora",
+  "email_label" : "Email",
+  "password_label" : "Password",
+
+  "sing_up_page_title" : "Registrati",
+  "name_label" : "Nome",
+  "surname_label" : "Cognome",
+  "business_label" : "Nome azienda",
+  "login_now_label" : "Accedi ora",
+  "register_page_submit_button" : "Registrati",
+
+  "lost_password_page_title" : "Password dimenticata",
+  "lost_password_submit_button" : "Recupera",
+  "lost_password_confirm_label" : "La richiesta è stata inviata correttamente alla tua email!",
+
+  "waiting_response_label" : "In attesa",
+  "unknown_response_label" : "Sconosciuto",
+
+
+  "home_page_title" : "Dashboard",
+  "search_project_title" : "Cerca per progetto",
+  "last_check_label" : "Ultimo check:",
+  "positive_result_label" : "Regolare",
+  "negative_result_label" : "Errore",
+  "empty_monitor" : "Nessun monitor presente",
+
+  "day_label" : "{count, plural, one {{count} giorno} other {{count} giorni}}",
+  "hour_label" : "{count, plural, one {{count} ora} other {{count} ore}}",
+  "minute_label" : "{count, plural, one {{count} minuto} other {{count} minuti}}",
+  "second_label" : "{count, plural, one {{count} secondi} other {{count} secondo}}",
+  "less_one_minute" : "Meno di un minuto fa",
+  "ago_label" : "fa",
+
+  "monitors_page_title" : "Monitors",
+  "search_monitor_title" : "Cerca per URL",
+
+  "webhooks_requested_at" : "Richiesto alle:",
+  "unknown_date_label" : "Errore: data sconosciuta",
+
+  "load_more_button" : "Carica altro...",
+  "load_more_button_finished" : "Sei arrivato alla fine :)",
+  "no_result_found" : "Nessun risultato trovato.",
+
+  "error_empty_email" : "Il campo Email non puo' essere vuoto",
+  "error_empty_pass" : "Il campo Password non puo' essere vuoto",
+  "error_generic" : "Si è verificato un errore, riprova piu tardi",
+
+  "error_email_1" : "L'email è obbligatoria",
+  "error_email_2" : "L'email non ha un formatto corretto",
+  "error_email_3" : "L'email non ha un formatto corretto",
+
+  "error_password_1" : "La password deve contenere almeno 8 caratteri",
+  "error_password_2" : "La password deve contenere almeno una lettera maiuscola",
+  "error_password_3" : "La password deve contenere almeno una lettera minuscola",
+  "error_password_4" : "La password deve contenere almeno un numero",
+  "error_password_5" : "La password deve contenere almeno un carattere speciale",
+
+  "error_name_1" : "Il nome è obbligatorio",
+  "error_name_2" : "Il nome deve avere almeno 2 caratteri",
+  "error_name_3" : "Il nome contiene caratteri non validi",
+
+  "error_surname_1" : "Il cognome è obbligatorio",
+  "error_surname_2" : "Il cognome deve avere almeno 2 caratteri",
+  "error_surname_3" : "Il cognome contiene caratteri non validi",
+
+  "error_business_1" : "Il nome dell'attività è obbligatorio",
+  "error_business_2" : "Il nome dell'attività è troppo corto",
+  "error_business_3" : "Il nome dell'attività è troppo lungo",
+
+  "error_register_1": "Esiste già un account associato a questa email",
+
+  "error_lost_password_1": "Non esiste un account associato a questa email"
+}
