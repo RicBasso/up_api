@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:up_api/features/login/presentation/widgets/modal_login.dart';
+import 'package:up_api/features/lost_password/presentation/widgets/modal_lost_password.dart';
 import 'package:up_api/features/register/presentation/widgets/modal_register.dart';
+import 'package:up_api/utils/service/service_locator.dart';
+import 'package:up_api/utils/session_manager.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -14,8 +17,9 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   @override
   void initState() {
+    upapiSessionManager.keyWelcome = GlobalKey();
     /// WidgetsBinding.instance.addPostFrameCallback((_) {
-    showModalHandler(context, const ModalRegister());
+    showModalHandler(context, const ModalLostPassword());
 
     /// });
     super.initState();
@@ -23,7 +27,9 @@ class _WelcomePageState extends State<WelcomePage> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
+      key: upapiSessionManager.keyWelcome,
       body: Container(
         width: double.infinity,
         height: double.infinity,

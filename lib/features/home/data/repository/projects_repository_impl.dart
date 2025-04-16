@@ -8,7 +8,7 @@ class ProjectsRepositoryImpl implements ProjectsRepository {
     final response = await upapiDatasource.get(
       'projects',
       queryParameters: {r'$skip': skip, r'$top': top, 'text' : query},
-      headers: {'Authorization': upapiSessionManager.token ?? ''},
+      headers: {'Authorization': upapiTokenManager.getToken() ?? ''},
     );
 
     if (response != null &&

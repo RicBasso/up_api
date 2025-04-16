@@ -87,4 +87,14 @@ class ErrorMessages {
     }
     return AppLocalizations.of(context)?.error_generic;
   }
+
+  static String? getSubmitLostPasswordError(BuildContext context, int err) {
+    switch (err) {
+      case 0:
+        return null;
+      case 1:
+        return AppLocalizations.of(context)?.error_lost_password_1;
+    }
+    return AppLocalizations.of(context)?.error_generic;
+  }
 }

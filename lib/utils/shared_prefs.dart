@@ -26,4 +26,4 @@ class SharedPrefs {
   void clear() => _sharedPrefs.clear();
 }
 
-final sharedPrefs = SharedPrefs();
+//final sharedPrefs = SharedPrefs();

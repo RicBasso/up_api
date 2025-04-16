@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'package:up_api/features/home/bloc/home_cubit.dart';
 import 'package:up_api/features/home/bloc/home_state.dart';
@@ -10,7 +11,6 @@ import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/widgets/app_bar_widget.dart';
 import 'package:up_api/widgets/card_widget.dart';
 import 'package:up_api/widgets/load_more_button_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/widgets/search_bar_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -55,6 +55,10 @@ class HomeScreen extends StatelessWidget {
                     ),
                     UpApiSpacing.extraLarge,
                     SearchBarWidget(
+                      title: AppLocalizations
+                          .of(context)
+                          ?.search_project_title ??
+                          'search_project_title',
                       resetHandler: context.read<HomeCubit>().resetTextHandler,
                       onSearch: (query) async {
                         context.read<HomeCubit>().reset();
@@ -62,7 +66,7 @@ class HomeScreen extends StatelessWidget {
                       },
                     ),
                     UpApiSpacing.large,
-                    _buildListCardContent(),
+                    _buildListCardContent(context),
                     _buildLoadMore(),
                     UpApiSpacing.large,
                   ],
@@ -75,7 +79,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildListCardContent() {
+  Widget _buildListCardContent(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         final loading = state.isLoading
@@ -86,7 +90,7 @@ class HomeScreen extends StatelessWidget {
             child: CardWidget(
               title: '**********',
               description: '****',
-              result: true,
+              //result: true,
             ),
           ),
         )
@@ -95,17 +99,24 @@ class HomeScreen extends StatelessWidget {
         final projects = (state.projects ?? []).map((project) {
           return CardWidget(
             title: project?.name,
-            description: '3 min fa',
-            result: project?.status,
-            onTap: () => upapiGoRouter.push('/home/${project?.id}/monitors'),
+            description: (project?.monitor != null) ? _calculateTime(project?.monitor?.lastCheckDate, context) : AppLocalizations.of(context)?.empty_monitor ?? 'empty_monitor',
+            result: project?.monitor?.lastCheckStatus,
+            subTitle: project?.monitor != null ? (AppLocalizations.of(context)?.last_check_label ??
+                'last_check_label') : '',
+            onTap: () => upapiGoRouter.push('/home/monitors',
+            extra: {
+              'projectId':project?.id,
+              'projectName':project?.name,
+            },
+            ),
           );
         }).toList();
 
         if(state.isLoading == false && projects.isEmpty){
           return Center(child: Text(AppLocalizations
               .of(context)
-              ?.no_result_fount ??
-              'no_result_fount',),
+              ?.no_result_found ??
+              'no_result_found',),
           );
         }else{
           return Column(
@@ -143,4 +154,36 @@ class HomeScreen extends StatelessWidget {
     context.read<HomeCubit>().cleanSearchText();
     await context.read<HomeCubit>().getProjects(top: 5);
   }
+}
+
+String _calculateTime(DateTime? date, BuildContext context) {
+  if(date == null){
+    return 'Error';
+  }
+  final now = DateTime.now().toUtc();
+  final difference = now.difference(date.toUtc());
+
+  final days = difference.inDays;
+  final hours = difference.inHours % 24;
+  final minutes = difference.inMinutes % 60;
+
+  final parts = <String>[];
+
+  if (days > 0) {
+    parts.add(AppLocalizations.of(context)?.day_label(days) ?? 'hour_label');
+  }
+
+  if (hours > 0) {
+    parts.add(AppLocalizations.of(context)?.hour_label(hours) ?? 'hour_label');
+  }
+
+  if (minutes > 0 /*&& days == 0*/) {
+    parts.add(AppLocalizations.of(context)?.minute_label(minutes) ?? 'minute_label');
+  }
+
+  if (parts.isEmpty) {
+    return AppLocalizations.of(context)?.less_one_minute ?? 'less_one_minute';
+  }
+
+  return '${parts.join(' ')} ${AppLocalizations.of(context)?.ago_label ?? 'ago_label'}';
 }

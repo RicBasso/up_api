@@ -10,6 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     return FlavorBanner(
       child: MaterialApp.router(
         theme: UpApiTheme.myTheme,
@@ -17,6 +18,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.light,
         localizationsDelegates: AppLocalizations.localizationsDelegates,
         supportedLocales: AppLocalizations.supportedLocales,
+        //locale: const Locale('it'),
         routerConfig: upapiGoRouter,
       ),
     );

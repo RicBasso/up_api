@@ -7,11 +7,12 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class SearchBarWidget extends StatefulWidget {
   const SearchBarWidget({
     required this.resetHandler, super.key,
-    this.onSearch,
+    this.onSearch, this.title,
   });
 
   final void Function(String? query)? onSearch;
   final ValueNotifier<int> resetHandler;
+  final String? title;
 
   @override
   State<SearchBarWidget> createState() => _SearchBarWidgetState();
@@ -44,11 +45,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(AppLocalizations
-                .of(context)
-                ?.search_project_title ??
-                'search_project_title',
-            ),
+            Text(widget.title ?? '',),
             UpApiSpacing.medium,
             Row(
               children: [

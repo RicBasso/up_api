@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 
 void showModalHandler(BuildContext context, Widget modalScreen) {
-  Future.delayed(const Duration(milliseconds: 400), () {
+  Future.delayed(const Duration(milliseconds: 100), () {
     showModalBottomSheet<void>(
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       useSafeArea: true,
-      context: context,
+      context: upapiSessionManager.keyWelcome?.currentState?.context ?? context,
       isScrollControlled: true,
-      // Permette al contenuto di andare oltre la metà dello schermo
       barrierColor: Colors.transparent,
       enableDrag: false,
       transitionAnimationController: AnimationController(

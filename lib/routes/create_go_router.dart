@@ -1,12 +1,15 @@
 import 'package:go_router/go_router.dart';
 import 'package:up_api/features/home/presentation/screen/home_page.dart';
 import 'package:up_api/features/monitors/presentation/screen/monitors_page.dart';
+import 'package:up_api/features/webhooks/presentation/screen/webhooks_page.dart';
 import 'package:up_api/features/welcome/presentation/screen/welcome_page.dart';
 import 'package:up_api/routes/routes.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 
-GoRouter createGoRouter() {
+GoRouter createGoRouter(String initialPage) {
+
   return GoRouter(
-    initialLocation: Routes.welcome,
+    initialLocation: initialPage,
     routes: [
       GoRoute(
         path: Routes.welcome,
@@ -19,10 +22,22 @@ GoRouter createGoRouter() {
           GoRoute(
             path: Routes.monitors,
             //redirect: (context, state) => const HomePage(),/// TODO() redirect
-            builder: (context, state) {
-              final projectId = state.pathParameters['projectId'];
-              return MonitorsPage(projectId: projectId);
+            builder: (context, state)
+            {
+              final projectId = ((state.extra as Map<String,dynamic>)['projectId'] ?? '') as String;
+              final projectName = ((state.extra as Map<String,dynamic>)['projectName'] ?? '') as String;
+              return MonitorsPage(projectId: projectId, projectName: projectName,);
             },
+            routes: [
+              GoRoute(
+                path: Routes.webhooks,
+                builder: (context, state) {
+                  final monitorId = state.pathParameters['monitorId'] ?? '';
+                  final monitorName = ((state.extra as Map<String,dynamic>)['monitorName'] ?? '') as String;
+                  return WebhooksPage(monitorId: monitorId, monitorName: monitorName,);
+                },
+              ),
+            ]
           ),
         ],
       ),

@@ -13,15 +13,32 @@
   "login_now_label" : "Accedi ora",
   "register_page_submit_button" : "Registrati",
 
+  "lost_password_page_title" : "Password dimenticata",
+  "lost_password_submit_button" : "Recupera",
+  "lost_password_confirm_label" : "La richiesta è stata inviata correttamente alla tua email!",
+
+
   "home_page_title" : "Dashboard",
   "search_project_title" : "Cerca per progetto",
   "last_check_label" : "Ultimo check:",
   "positive_result_label" : "Regolare",
   "negative_result_label" : "Errore",
+  "empty_monitor" : "Nessun monitor presente",
+
+  "day_label" : "{count, plural, one {{count} giorno} other {{count} giorni}}",
+  "hour_label" : "{count, plural, one {{count} ora} other {{count} ore}}",
+  "minute_label" : "{count, plural, one {{count} minuto} other {{count} minuti}}",
+  "second_label" : "{count, plural, one {{count} secondi} other {{count} secondo}}",
+  "less_one_minute" : "Meno di un minuto fa",
+  "ago_label" : "fa",
+
+  "monitors_page_title" : "Monitors",
+  "search_monitor_title" : "Cerca per URL",
+
 
   "load_more_button" : "Carica altro...",
   "load_more_button_finished" : "Sei arrivato alla fine :)",
-  "no_result_fount" : "Nessun risultato trovato.",
+  "no_result_found" : "Nessun risultato trovato.",
 
   "error_empty_email" : "Il campo Email non puo' essere vuoto",
   "error_empty_pass" : "Il campo Password non puo' essere vuoto",
@@ -49,5 +66,7 @@
   "error_business_2" : "Il nome dell'attività è troppo corto",
   "error_business_3" : "Il nome dell'attività è troppo lungo",
 
-  "error_register_1": "Esiste già un account associato a questa email"
+  "error_register_1": "Esiste già un account associato a questa email",
+
+  "error_lost_password_1": "Non esiste un account associato a questa email"
 }

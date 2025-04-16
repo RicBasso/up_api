@@ -2,62 +2,55 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:up_api/flavor.dart';
-import 'package:up_api/utils/constants.dart';
 import 'package:up_api/utils/datasource/datasource.dart';
-import 'package:up_api/utils/service/service_locator.dart';
-import 'package:up_api/utils/shared_prefs.dart';
+import 'package:up_api/utils/interceptor/dio_interceptor.dart';
 
 enum UpapiDatasourceBaseUrlType { apiUrl, publicUrl }
 
 class UpapiDatasource extends Datasource {
+
+
   UpapiDatasource() {
     _dio = Dio(
       BaseOptions(
         baseUrl: apiUrl,
         connectTimeout: const Duration(seconds: 10000),
         receiveTimeout: const Duration(seconds: 30000),
-        headers: tokenAuth(),
         contentType: Headers.jsonContentType,
         //responseType: ResponseType.json,
       ),
     );
-
+    _dio.interceptors.add(DioInterceptor(retry));
     _publicDio = Dio(
       BaseOptions(
         baseUrl: publicUrl,
         connectTimeout: const Duration(seconds: 10000),
         receiveTimeout: const Duration(seconds: 30000),
-        headers: publicToken(),
         contentType: Headers.jsonContentType,
         //responseType: ResponseType.json,
       ),
     );
+    _publicDio.interceptors.add(DioInterceptor(retry));
+  }
+
+
+  Future<Response<dynamic>> retry(RequestOptions requestOptions)
+  async{
+    return _dio.fetch(requestOptions);
   }
 
   late final Dio _dio;
   late final Dio _publicDio;
 
-  /// Token
-  Map<String, String> tokenAuth() {
-    return {'Authorization': upapiSessionManager.token ?? ''};
-  }
-
-  void logout() {
-    upapiSessionManager.token = '';
-  }
-
-  String? getRefreshToken() {
-    if (sharedPrefs.has(Constants.REFRESH_KEY)) {
-      final refreshToken = sharedPrefs.get(Constants.REFRESH_KEY);
-      return refreshToken;
-    }
-    return null;
-  }
-
-  Map<String, String> publicToken() {
-    //giusto MAP?
+/*
+  Map<String, String> publicTokenHeader() {
     return {'Authorization': Constants.PUBLIC_API};
   }
+
+  Map<String, String> privateTokenHeader() {
+    return {'Authorization': upapiTokenManager.token ?? ''};
+  }
+*/
 
   /// Version of the app
   String? appVersion;
@@ -73,8 +66,8 @@ class UpapiDatasource extends Datasource {
     Map<String, dynamic> headers = const {},
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    debugPrint('GET $baseUrlType/$path');
     try {
+      debugPrint('GET $baseUrlType/$path');
       final dio = correctDio(baseUrlType);
       final response = await dio.get<Map<String, dynamic>>(
         path,
@@ -83,27 +76,13 @@ class UpapiDatasource extends Datasource {
       );
 
       debugPrint('COMPLETE URL: ${response.realUri}');
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        debugPrint('status code: ${response.statusCode}');
-
-        ///await AuthenticationRepositoryImpl().refreshToken();
-        return null;
-        return get(
-          path,
-          queryParameters: queryParameters,
-
-          ///baseUrlType: UpapiDatasourceBaseUrlType.apiUrl,
-        );
-      }
-
       return response;
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.unknown) {
-        rethrow;
-      } else if (e.type == DioErrorType.badResponse && e.response != null) {}
-      return null;
-    } catch (e) {
+    } on DioException catch (e) {
+      debugPrint('Dio error: $e');
       rethrow;
+    } catch (e) {
+      debugPrint('GENERIC API ERROR: $e');
+      return null;
     }
   }
 
@@ -125,37 +104,13 @@ class UpapiDatasource extends Datasource {
         options: options,
       );
       debugPrint('COMPLETE URL: ${response.realUri}');
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        ///await AuthenticationRepositoryImpl().refreshToken();
-        return post(
-          path,
-          queryParameters: queryParameters,
-          data: data,
-          options: options,
-
-          ///baseUrlType: UpapiDatasourceBaseUrlType.apiUrl,
-        );
-      }
       return response;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       debugPrint('Dio error: $e');
-      if (e.type == DioErrorType.unknown) {
-        throw e.error!;
-      }
-      if (e.response?.statusCode == 401 || e.response?.statusCode == 403) {
-        ///AuthenticationRepositoryImpl().refreshToken();
-        await post(
-          path,
-          queryParameters: queryParameters,
-          data: data,
-          options: options,
-          baseUrlType: baseUrlType,
-        );
-        throw UnauthorizedException();
-      }
-      return null;
-    } catch (e) {
       rethrow;
+    } catch (e) {
+      debugPrint('GENERIC API ERROR: $e');
+      return null;
     }
   }
 
@@ -178,34 +133,13 @@ class UpapiDatasource extends Datasource {
         options: options,
       );
       debugPrint('COMPLETE URL: ${response.realUri}');
-      if (response.statusCode == 401 || response.statusCode == 403) {
-        ///await AuthenticationRepositoryImpl().refreshToken();
-        return post(
-          path,
-          queryParameters: queryParameters,
-          data: data,
-          options: options,
-        );
-      }
       return response;
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.unknown) {
-        throw e.error!;
-      }
-      if (e.response!.statusCode == 401 || e.response!.statusCode == 403) {
-        ///AuthenticationRepositoryImpl().refreshToken();
-        await post(
-          path,
-          queryParameters: queryParameters,
-          data: data,
-          options: options,
-          baseUrlType: baseUrlType,
-        );
-        throw UnauthorizedException();
-      }
-      return null;
-    } catch (e) {
+    } on DioException catch (e) {
+      debugPrint('Dio error: $e');
       rethrow;
+    } catch (e) {
+      debugPrint('GENERIC API ERROR: $e');
+      return null;
     }
   }
 
@@ -228,25 +162,12 @@ class UpapiDatasource extends Datasource {
       );
       debugPrint('COMPLETE URL: ${response.realUri}');
       return response;
-    } on DioError catch (e) {
-      if (e.type == DioErrorType.unknown) {
-        throw e.error!;
-      }
-      if (e.response!.statusCode == 401 || e.response!.statusCode == 403) {
-        ///AuthenticationRepositoryImpl().refreshToken();
-        await delete(
-          path,
-          baseUrlType: baseUrlType,
-          queryParameters: queryParameters,
-          data: data,
-          options: options,
-        );
-
-        throw UnauthorizedException();
-      }
-      return null;
-    } catch (e) {
+    } on DioException catch (e) {
+      debugPrint('Dio error: $e');
       rethrow;
+    } catch (e) {
+      debugPrint('GENERIC API ERROR: $e');
+      return null;
     }
   }
 
@@ -262,21 +183,10 @@ class UpapiDatasource extends Datasource {
   String get apiPath => FlavorConfig.instance.apiPath;
 
   ///
+  @override
   String get apiUrl => scheme + domain + apiPath;
 
   ///
   String get publicUrl => scheme + domain + publicPath;
 }
 
-class UnauthorizedException implements Exception {
-  UnauthorizedException([this.message]);
-
-  final dynamic message;
-
-  @override
-  String toString() {
-    final Object? message = this.message;
-    if (message == null) return 'Unauthorized';
-    return 'Unauthorized: $message';
-  }
-}

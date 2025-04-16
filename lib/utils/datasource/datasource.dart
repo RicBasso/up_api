@@ -32,4 +32,8 @@ abstract class Datasource {
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   });
+
+
+  String get publicUrl;
+
 }

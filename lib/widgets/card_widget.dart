@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-///TODO () INSERIRE CONSTANTI DELLO STYLE NEL TEMA E RICHIARE QUELLE
+/**
+ *TODO () INSERIRE CONSTANTI DELLO STYLE NEL TEMA E RICHIARE QUELLE
+ */
 
 class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key,
     this.logoUrl,
     this.title,
-    //this.subTitle,
+    this.subTitle,
     this.description,
     this.result,
     this.onTap,
@@ -17,9 +19,9 @@ class CardWidget extends StatelessWidget {
 
   final String? logoUrl;
   final String? title;
-  //final String? subTitle;
+  final String? subTitle;
   final String? description;
-  final bool? result;
+  final String? result;
   final void Function()? onTap;
 
   @override
@@ -34,7 +36,8 @@ class CardWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              if (onTap != null || title != null) ...[
+                Row(
                 children: [
                   if (logoUrl != null)
                     Row(
@@ -51,29 +54,34 @@ class CardWidget extends StatelessWidget {
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
                   ),
-                  Icon(
+                  if (onTap != null) Icon(
                     Icons.chevron_right,
                     color: Theme.of(context).colorScheme.primary,
-                  ),
+                  ) else const SizedBox(),
                 ],
               ),
-              UpApiSpacing.large,
+                UpApiSpacing.large,
+              ] else const SizedBox(),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(AppLocalizations.of(context)?.last_check_label ??
-                          'last_check_label',),
-                      const SizedBox(height: 4),
-                      Text(
-                        description ?? '',
-                        style: const TextStyle(fontSize: 14),
-                      ),
-                    ],
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (subTitle != null) ...[
+                          Text(subTitle!),
+                          const SizedBox(height: 4),
+                        ] else ...[
+                          const SizedBox(),
+                        ],
+                        Text(
+                          description ?? '',
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ],
+                    ),
                   ),
-                  _resultMessage(result ?? false, context),
+                  /*if (result != null)*/ _resultMessage(result, context) /*else const SizedBox()*/,
                 ],
               ),
             ],
@@ -83,29 +91,23 @@ class CardWidget extends StatelessWidget {
     );
   }
 
-  Widget _resultMessage(bool result, BuildContext context) {
+  Widget _resultMessage(String? result, BuildContext context) {
+    final values = _ResultMessageValues(result,context);
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color:
-            result
-                ? const Color(0xB0D3FFCC)
-                : const Color(0xFFFFEBEB), // rosa chiaro
+        color: Color(values.colorBack),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          if (result)
-            const Icon(Icons.check, color: Colors.green, size: 18)
-          else
-            const Icon(Icons.close, color: Colors.red, size: 18),
+          Icon(values.icon, color: Color(values.colorFront), size: 18),
           const SizedBox(width: 4),
           Text(
-            result ?  AppLocalizations.of(context)?.positive_result_label ??
-                'positive_result_label' : AppLocalizations.of(context)?.negative_result_label ??
-                'negative_result_label',
+            values.text,
             style: TextStyle(
-              color: result ? Colors.green : Colors.red,
+              color: Color(values.colorFront),
               fontWeight: FontWeight.bold,
               fontSize: 14,
             ),
@@ -114,4 +116,89 @@ class CardWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+
+class _ResultMessageValues{
+
+
+  _ResultMessageValues(String? message, BuildContext context){
+    switch (message){
+      case 'success':
+        colorFront = 0xFF4CAF50;
+        colorBack = 0xB0D3FFCC;
+        text = AppLocalizations.of(context)?.positive_result_label ??
+            'positive_result_label';
+        icon = Icons.check;
+
+      case 'waiting_response':
+        colorFront = 0xFF000000;
+        colorBack = 0xFFFFF9C4;
+        text = 'In attesa';
+        icon = Icons.warning_amber_outlined;
+
+      case 'exception':
+        colorFront = 0xFFFF0000;
+        colorBack = 0xFFFFEBEB;
+        text = AppLocalizations.of(context)?.negative_result_label ??
+            'negative_result_label';
+        icon = Icons.close;
+
+      case 'no_match':
+        colorFront = 0xFFFF0000;
+        colorBack = 0xFFFFEBEB;
+        text = AppLocalizations.of(context)?.negative_result_label ??
+            'negative_result_label';
+        icon = Icons.close;
+
+      case 'error':
+        colorFront = 0xFFFF0000;
+        colorBack = 0xFFFFEBEB;
+        text = AppLocalizations.of(context)?.negative_result_label ??
+            'negative_result_label';
+        icon = Icons.close;
+
+      case 'networkError':
+        colorFront = 0xFFFF0000;
+        colorBack = 0xFFFFEBEB;
+        text = AppLocalizations.of(context)?.negative_result_label ??
+            'negative_result_label';
+        icon = Icons.close;
+
+      case 'generic_error':
+        colorFront = 0xFFFF0000;
+        colorBack = 0xFFFFEBEB;
+        text = AppLocalizations.of(context)?.negative_result_label ??
+            'negative_result_label';
+        icon = Icons.close;
+
+      case null:
+        colorFront = 0xFF000000;
+        colorBack = 0xFFFFF9C4;
+        text = 'Sconosciuto';
+        icon = Icons.warning_amber_outlined;
+
+      default:
+        print(message.length);
+        if (message.length >= 10){
+          colorFront = 0xFF4CAF50;
+          colorBack = 0xB0D3FFCC;
+          text = AppLocalizations.of(context)?.positive_result_label ??
+              'positive_result_label';
+          icon = Icons.check;
+        }else{
+          colorFront = 0xFF000000;
+          colorBack = 0xFFFFF9C4;
+          text = 'xxxxxxxxx';
+          icon = Icons.warning_amber_outlined;
+        }
+
+    }
+
+
+  }
+  late int colorFront = 0xFF000000;
+  late int colorBack = 0xFFFFF9C4;
+  late String text = 'Sconosciuto';
+  late IconData icon = Icons.warning_amber_outlined;
 }

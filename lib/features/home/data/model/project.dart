@@ -1,3 +1,5 @@
+import 'package:up_api/features/monitors/data/model/monitor.dart';
+
 class Project {
   Project({
     this.id,
@@ -6,6 +8,7 @@ class Project {
     this.createdAt,
     this.updatedAt,
     this.companyId,
+    this.monitor,
   });
 
   Project.fromJson(Map<String, dynamic> json) {
@@ -15,6 +18,9 @@ class Project {
     createdAt = json['createdAt'] as String?;
     updatedAt = json['updatedAt'] as String?;
     companyId = json['companyId'] as String?;
+    (json['monitors'] as List<dynamic>).forEach((element) {
+      monitor = Monitor.fromJson(element as Map<String,dynamic>);
+    });
   }
 
   String? id;
@@ -23,4 +29,5 @@ class Project {
   String? createdAt;
   String? updatedAt;
   String? companyId;
+  Monitor? monitor;
 }
