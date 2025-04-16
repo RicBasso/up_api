@@ -75,7 +75,3 @@ int validateBusiness(String business) {
 
   return 0;
 }
-
-int validatePhone(String phone){
-  return 0;
-}
