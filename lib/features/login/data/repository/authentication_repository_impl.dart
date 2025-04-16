@@ -4,6 +4,7 @@ import 'package:up_api/features/login/data/repository/authentication_repository.
 import 'package:up_api/features/login/data/response/login_response.dart';
 import 'package:up_api/features/login/data/response/refresh_token_response.dart';
 import 'package:up_api/features/lost_password/data/lost_password_response.dart';
+import 'package:up_api/features/user/data/response/update_user_response.dart';
 import 'package:up_api/routes/routes.dart';
 import 'package:up_api/utils/datasource/upapi_datasource.dart';
 import 'package:up_api/utils/service/service_locator.dart';
@@ -122,6 +123,33 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
         (response.statusCode ?? 400) < 300){
       if (response.data is Map<String, dynamic>) {
         return LostPasswordResponse.fromJson(response.data as Map<String, dynamic>);
+      }
+    }
+    return null;
+  }
+
+  @override
+  Future<UpdateUserResponse?> userUpdate(
+      String name,
+      String surname,
+      String email,
+      String mobile,
+      )async{
+    final response = await upapiDatasource.put(
+      'user/${upapiSessionManager.userID}',
+      data: {
+        'name' : name,
+        'surname' : surname,
+        'email' : email,
+        'mobile' : mobile,
+      },
+      baseUrlType: UpapiDatasourceBaseUrlType.publicUrl,
+    );
+    if (response != null &&
+        (response.statusCode ?? 100) >= 200 &&
+        (response.statusCode ?? 400) < 300){
+      if (response.data is Map<String, dynamic>) {
+        return UpdateUserResponse.fromJson(response.data as Map<String, dynamic>);
       }
     }
     return null;
