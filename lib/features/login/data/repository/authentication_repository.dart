@@ -4,7 +4,7 @@ import 'package:up_api/features/lost_password/data/lost_password_response.dart';
 
 abstract class AuthenticationRepository {
   Future<bool> refreshToken();
-  Future<LoginResponse?> login(String email, String psw, bool rememberMe);
+  Future<LoginResponse?> login(String email, String psw);
   Future<LoginResponse?> register(
     String email,
     String psw,

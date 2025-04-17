@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenericErrorBoxWidget<B extends BlocBase<S>, S> extends StatelessWidget {
-  final int Function(S state) errorCodeSelector;
-  final String? Function(BuildContext context, int code) errorMessageGetter;
+  final String? Function(S state) errorCodeSelector;
+  final String? Function(BuildContext context, String code) errorMessageGetter;
 
   const GenericErrorBoxWidget({
     Key? key,
@@ -16,7 +16,7 @@ class GenericErrorBoxWidget<B extends BlocBase<S>, S> extends StatelessWidget {
     return BlocBuilder<B, S>(
       builder: (context, state) {
         final errorCode = errorCodeSelector(state);
-        if (errorCode != 0) {
+        if (errorCode != null) {
           final errorText = errorMessageGetter(context, errorCode);
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 16),

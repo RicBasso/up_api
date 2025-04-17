@@ -33,23 +33,19 @@ class LostPasswordCubit extends BaseCubit<LostPasswordState> {
       email,
     );
     if (res == null) {
-      emit(LostPasswordState(error: 404));
+      emit(LostPasswordState(error: 'GENERIC_ERROR'));
     }
     if (res?.success ?? false) {
       return true;
     } else {
-      if(res?.code == 'USER_NOT_FOUND'){
-        emit(LostPasswordState(error: 1));
-        return false;
-      }
-      emit(LostPasswordState(error: 404));
+        emit(LostPasswordState(error: res?.code));
     }
 
     return false;
   }
 
   void cleanEmailError() {
-    emit(state.copyWith(emailError: 0, error: 0));
+    emit(state.copyWith(emailError: 0, nullError: true));
   }
 
 }

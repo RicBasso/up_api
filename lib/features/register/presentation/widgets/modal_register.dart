@@ -184,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           UpApiSpacing.extraLarge,
           GenericErrorBoxWidget<RegisterCubit, RegisterState>(
             errorCodeSelector: (state) => state.error,
-            errorMessageGetter: ErrorMessages.getSubmitRegisterError,
+            errorMessageGetter: ErrorMessages.getServerError,
           ),
           BlocBuilder<RegisterCubit, RegisterState>(
             buildWhen: (p, c) => p.isLoading != c.isLoading,
@@ -223,7 +223,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       builder: (context, state) {
         final errorText = errorGetter(context, state);
         return InputWidget(
-          onChange: (p0) => onChange(),
+          onChange: (_) => onChange(),
           controller: controller,
           password: isPassword,
           errorText: errorText,

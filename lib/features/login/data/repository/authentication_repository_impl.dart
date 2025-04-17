@@ -13,7 +13,6 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<LoginResponse?> login(
     String email,
     String psw,
-    bool rememberMe,
   ) async {
     final response = await upapiDatasource.post(
       'login',

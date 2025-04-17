@@ -46,6 +46,17 @@ int validatePassword(String password) {
   return 0;
 }
 
+// PASSWORD ERROR CODES (valido per nome e cognome)
+// 0 = valido
+// 1 = Inserisci la password
+
+int validatePasswordLogin(String password) {
+  final trimmed = password.trim();
+  if (trimmed.isEmpty) return 1;
+
+  return 0;
+}
+
 // NAME ERROR CODES
 // 0 = valido
 // 1 = vuoto
@@ -72,6 +83,22 @@ int validateBusiness(String business) {
   if (trimmed.isEmpty) return 1;
   if (trimmed.length < 2) return 2;
   if (trimmed.length > 100) return 3;
+
+  return 0;
+}
+
+//MOBILE ERROR CODES
+// 0 = valido
+// 1 = vuoto
+// 2 = formato non valido
+
+int validateMobile(String mobile){ ///TODO() CHANGE ERRORS MANAGMENT TO INTERNATIONAL STANDARDS
+  final trimmed = mobile.trim();
+
+  if (trimmed.isEmpty) return 1;
+
+  final regex = RegExp(r'^(?:[+0]9)?[0-9]{10}$');
+  if (!regex.hasMatch(trimmed)) return 2;
 
   return 0;
 }
