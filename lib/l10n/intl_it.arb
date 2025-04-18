@@ -90,6 +90,11 @@
 
   "modify_complete_label" : "modifica completata correttamente",
 
+  "no_internet_connection" : "Nessuna connessione a internet",
+  "check_internet_connection" : "Controlla la connessione a internet",
+
+  "retry_label" : "Riprova",
+
   "length_not_setted": "Parametro length mancante",
   "offset_not_setted": "Parametro offset mancante",
   "user_disabled": "Account disabilitato",

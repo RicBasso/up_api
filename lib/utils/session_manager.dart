@@ -6,6 +6,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 class SessionManager {
   User? user;
   GlobalKey? keyWelcome;
+  GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
   void setUserSession(User? user){
     this.user = user;

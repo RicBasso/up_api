@@ -10,6 +10,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 GoRouter createGoRouter(String initialPage) {
 
   return GoRouter(
+    navigatorKey: upapiSessionManager.navigatorKey,
     initialLocation: Routes.user,//initialPage,
     routes: [
       GoRoute(

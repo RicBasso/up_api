@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
+import 'package:up_api/features/connection/cubit/connection_cubit.dart';
 import 'package:up_api/flavor.dart';
 import 'package:up_api/utils/datasource/datasource.dart';
 import 'package:up_api/utils/interceptor/dio_interceptor.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 
 enum UpapiDatasourceBaseUrlType { apiUrl, publicUrl }
 
@@ -66,6 +69,7 @@ class UpapiDatasource extends Datasource {
     Map<String, dynamic> headers = const {},
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
+    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     try {
       debugPrint('GET $baseUrlType/$path');
       final dio = correctDio(baseUrlType);
@@ -94,6 +98,7 @@ class UpapiDatasource extends Datasource {
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
+    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('POST $path');
     try {
       final dio = correctDio(baseUrlType);
@@ -122,6 +127,7 @@ class UpapiDatasource extends Datasource {
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
+    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('PUT $path');
     debugPrint('data: $data');
     try {
@@ -151,6 +157,7 @@ class UpapiDatasource extends Datasource {
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
+    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('DELETE $path');
     try {
       final dio = correctDio(baseUrlType);
@@ -170,6 +177,8 @@ class UpapiDatasource extends Datasource {
       return null;
     }
   }
+
+
 
   ///
   String get scheme => FlavorConfig.instance.scheme;
