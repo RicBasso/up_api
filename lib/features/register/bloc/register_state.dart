@@ -3,7 +3,7 @@ import 'package:up_api/utils/base_bloc/base_state/base_state.dart';
 class RegisterState extends BaseState {
   RegisterState({
     this.isLoading = false,
-    this.error = 0,
+    this.error,
     this.emailError = 0,
     this.passError = 0,
     this.nameError = 0,
@@ -12,8 +12,9 @@ class RegisterState extends BaseState {
   });
 
   RegisterState copyWith({
+    bool nullError = false,
     bool? isLoading,
-    int? error,
+    String? error,
     int? emailError,
     int? passError,
     int? nameError,
@@ -22,7 +23,7 @@ class RegisterState extends BaseState {
   }) {
     return RegisterState(
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: nullError ? null : error ?? this.error,
       emailError: emailError ?? this.emailError,
       passError: passError ?? this.passError,
       nameError: nameError ?? this.nameError,
@@ -32,7 +33,7 @@ class RegisterState extends BaseState {
   }
 
   final bool isLoading;
-  final int error;
+  final String? error;
   final int emailError;
   final int passError;
   final int nameError;

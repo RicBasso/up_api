@@ -1,17 +1,23 @@
 {
-  "login_page_title" : "Accedi",
-  "login_page_submit_button" : "Login",
+
+
   "lost_password_label" : "Hai dimenticato la password?",
   "register_now_label" : "Registrati ora",
-  "email_label" : "Email",
-  "password_label" : "Password",
+  "login_now_label" : "Accedi ora",
 
-  "sing_up_page_title" : "Registrati",
   "name_label" : "Nome",
   "surname_label" : "Cognome",
+  "email_label" : "Email",
   "business_label" : "Nome azienda",
-  "login_now_label" : "Accedi ora",
+  "mobile_label" : "Cellulare",
+  "password_label" : "Password",
+
+  "login_page_title" : "Accedi",
+  "login_page_submit_button" : "Login",
+
+  "sing_up_page_title" : "Registrati",
   "register_page_submit_button" : "Registrati",
+  "save_label" : "Salva",
 
   "lost_password_page_title" : "Password dimenticata",
   "lost_password_submit_button" : "Recupera",
@@ -41,6 +47,8 @@
   "webhooks_requested_at" : "Richiesto alle:",
   "unknown_date_label" : "Errore: data sconosciuta",
 
+  "welcome_label" : "Benvenuto",
+
   "load_more_button" : "Carica altro...",
   "load_more_button_finished" : "Sei arrivato alla fine :)",
   "no_result_found" : "Nessun risultato trovato.",
@@ -58,6 +66,7 @@
   "error_password_3" : "La password deve contenere almeno una lettera minuscola",
   "error_password_4" : "La password deve contenere almeno un numero",
   "error_password_5" : "La password deve contenere almeno un carattere speciale",
+  "error_password_empty" : "Inserisci una password",
 
   "error_name_1" : "Il nome è obbligatorio",
   "error_name_2" : "Il nome deve avere almeno 2 caratteri",
@@ -71,7 +80,48 @@
   "error_business_2" : "Il nome dell'attività è troppo corto",
   "error_business_3" : "Il nome dell'attività è troppo lungo",
 
+  "error_mobile_1" : "il numero è obbligatorio",
+  "error_mobile_2" : "Il numero non è corretto",
+
+
   "error_register_1": "Esiste già un account associato a questa email",
 
-  "error_lost_password_1": "Non esiste un account associato a questa email"
+  "error_user_update_1": "Si è verificato un errore",
+
+  "error_lost_password_1": "Non esiste un account associato a questa email",
+
+  "length_not_setted": "Parametro length mancante",
+  "offset_not_setted": "Parametro offset mancante",
+  "user_disabled": "Account disabilitato",
+  "user_not_confirmed": "Account non confermato",
+  "incorrect_password": "Password errata",
+  "user_not_found": "Utente non trovato",
+  "user_already_exist": "Utente già esistente",
+  "reset_token_not_valid": "Token di reset non valido",
+  "reset_token_expired": "Token di reset scaduto",
+  "invalid_refresh_token": "Refresh token non valido",
+  "user_level_not_found": "Livello utente non trovato",
+  "user_email_already_use": "Email già in uso",
+  "company_name_exists": "Nome azienda già esistente",
+  "product_types_name_exists": "Tipo di prodotto già esistente",
+  "product_name_exists": "Nome prodotto già esistente",
+  "customer_name_exists": "Nome cliente già esistente",
+  "order_already_exists": "Ordine già esistente",
+  "site_already_exists": "Sito già esistente",
+  "campaign_already_exists": "Campagna già esistente",
+  "invoice_already_exists": "Fattura già esistente",
+  "payout_higher_than_payable": "Il payout supera l'importo pagabile",
+  "conversation_already_exists": "Conversazione già esistente",
+  "messages_already_exists": "Messaggi già esistenti",
+  "credit_card_name_exists": "Nome carta di credito già esistente",
+  "stripe_customer_id_not_found": "ID cliente Stripe non trovato",
+  "stripe_payment_method_missing": "Metodo di pagamento Stripe mancante",
+  "stripe_payment_intent_error": "Errore intent di pagamento Stripe",
+  "stripe_payment_charge_error": "Errore di addebito Stripe",
+  "stripe_no_methods_error": "Nessun metodo di pagamento Stripe disponibile",
+  "credit_card_not_found": "Carta di credito non trovata",
+  "stripe_setup_intent_error": "Errore setup intent Stripe",
+  "conversation_order_exists": "Esiste già un ordine per questa conversazione",
+  "product_not_approved_yet": "Prodotto non ancora approvato"
+
 }

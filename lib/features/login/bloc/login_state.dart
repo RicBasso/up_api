@@ -4,31 +4,29 @@ class LoginState extends BaseState {
   LoginState({
     this.isLoading = false,
     this.error,
-    this.emailError,
-    this.passError,
+    this.emailError = 0,
+    this.passError = 0,
   });
 
   LoginState copyWith({
-    bool nullPass = false,
-    bool nullEmail = false,
     bool nullError = false,
     bool? isLoading,
     String? error,
-    String? emailError,
-    String? passError,
+    int? emailError,
+    int? passError,
   }) {
     return LoginState(
       isLoading: isLoading ?? this.isLoading,
       error: nullError ? null : error ?? this.error,
-      emailError: nullEmail ? null : emailError ?? this.emailError,
-      passError: nullPass ? null : passError ?? this.passError,
+      emailError: emailError ?? this.emailError,
+      passError: passError ?? this.passError,
     );
   }
 
   final bool isLoading;
   final String? error;
-  final String? emailError;
-  final String? passError;
+  final int emailError;
+  final int passError;
 
   @override
   List<Object?> get props => [isLoading, error, emailError, passError];

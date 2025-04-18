@@ -20,7 +20,6 @@ class RegisterCubit extends BaseCubit<RegisterState> {
     final emailError = validateEmail(email);
     final passError = validatePassword(password);
     final nameError = validateName(name);
-
     final surnameError = validateName(surname);
     final businessError = validateBusiness(business);
 
@@ -47,7 +46,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       business,
     );
     if (res == null) {
-      emit(RegisterState(error: 404));
+      emit(RegisterState(error: 'GENERIC_ERROR'));
     }
     if (res?.success ?? false) {
       emit(state.copyWith(isLoading: false));
@@ -58,29 +57,29 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       upapiGoRouter.go(Routes.homepage);
       return;
     } else {
-      emit(RegisterState(error: 1));
+      emit(RegisterState(error: res?.code));
     }
 
     return;
   }
 
   void cleanEmailError() {
-    emit(state.copyWith(emailError: 0, error: 0));
+    emit(state.copyWith(emailError: 0, nullError: true,));
   }
 
   void cleanPassError() {
-    emit(state.copyWith(passError: 0, error: 0));
+    emit(state.copyWith(passError: 0, nullError: true,));
   }
 
   void cleanNameError() {
-    emit(state.copyWith(nameError: 0, error: 0));
+    emit(state.copyWith(nameError: 0, nullError: true,));
   }
 
   void cleanSurnameError() {
-    emit(state.copyWith(surnameError: 0, error: 0));
+    emit(state.copyWith(surnameError: 0, nullError: true,));
   }
 
   void cleanBusinessError() {
-    emit(state.copyWith(businessError: 0, error: 0));
+    emit(state.copyWith(businessError: 0, nullError: true,));
   }
 }

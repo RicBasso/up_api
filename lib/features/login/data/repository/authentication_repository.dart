@@ -5,7 +5,7 @@ import 'package:up_api/features/user/data/response/update_user_response.dart';
 
 abstract class AuthenticationRepository {
   Future<bool> refreshToken();
-  Future<LoginResponse?> login(String email, String psw, bool rememberMe);
+  Future<LoginResponse?> login(String email, String psw);
   Future<LoginResponse?> register(
     String email,
     String psw,

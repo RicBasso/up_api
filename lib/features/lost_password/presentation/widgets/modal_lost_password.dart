@@ -120,7 +120,7 @@ class _LostPasswordState extends State<LostPassword> {
           ),
           GenericErrorBoxWidget<LostPasswordCubit, LostPasswordState>(
             errorCodeSelector: (state) => state.error,
-            errorMessageGetter: ErrorMessages.getSubmitLostPasswordError,
+            errorMessageGetter: ErrorMessages.getServerError,
           ),
           UpApiSpacing.extraLarge,
           BlocBuilder<LostPasswordCubit, LostPasswordState>(
