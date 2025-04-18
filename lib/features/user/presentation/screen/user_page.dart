@@ -1,17 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:go_router/go_router.dart';
-import 'package:up_api/features/login/presentation/widgets/modal_login.dart';
 import 'package:up_api/features/menu/presentation/screen/menu.dart';
-import 'package:up_api/features/register/bloc/register_cubit.dart';
-import 'package:up_api/features/register/bloc/register_state.dart';
 import 'package:up_api/features/user/bloc/user_page_cubit.dart';
 import 'package:up_api/features/user/bloc/user_page_state.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/error_messages/error_messages.dart';
-import 'package:up_api/utils/show_modal_handler.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/widgets/app_bar_widget.dart';
 import 'package:up_api/widgets/generic_error_box_widget.dart';
 import 'package:up_api/widgets/input_widget.dart';
@@ -48,6 +44,9 @@ class _UserScreenState extends State<UserScreen> {
     nameController = TextEditingController();
     surnameController = TextEditingController();
     mobileController = TextEditingController();
+    emailController.text = upapiSessionManager.user?.email ?? '';
+    nameController.text = upapiSessionManager.user?.firstName ?? '';
+    surnameController.text = upapiSessionManager.user?.lastName ?? '';
     super.initState();
   }
 
@@ -71,7 +70,7 @@ class _UserScreenState extends State<UserScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               UpApiSpacing.large,
-              _buildFormHeader(context),
+              _buildHeader(context),
               UpApiSpacing.medium,
               _buildFormSection(context),
               UpApiSpacing.medium,
@@ -82,26 +81,23 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  Widget _buildFormHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
-        Text(
-          AppLocalizations.of(context)?.sing_up_page_title ??
-              'sing_up_page_title',
-          style: Theme.of(context).textTheme.headlineLarge,
-        ),
-        Container(
-          alignment: Alignment.center,
-          child: TextButton(
-            onPressed: () {
-              GoRouter.of(context).pop();
-              showModalHandler(context, const ModalLogin());
-            },
-            child: Text(
-              AppLocalizations.of(context)?.login_now_label ??
-                  'login_now_label',
-            ),
+        CircleAvatar(
+          backgroundImage: const AssetImage('assets/images/signup_background.png'),
+          maxRadius: 40,
+          minRadius: 40,
+          child: Icon(
+            size: 50,
+            Icons.person,
+            color: Theme.of(context).colorScheme.onSecondary,
           ),
+        ),
+        UpApiSpacing.large,
+        Text(
+          '${AppLocalizations.of(context)?.welcome_label ?? 'welcome_label'} ${upapiSessionManager.user?.firstName}',
+          style: Theme.of(context).textTheme.headlineLarge,
         ),
       ],
     );
@@ -109,112 +105,103 @@ class _UserScreenState extends State<UserScreen> {
 
   Widget _buildFormSection(BuildContext context) {
     return Padding(
-      padding: UpApiPadding.mediumHorizontalPadding,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.email_label ?? 'email_label',
-          ),
-          UpApiSpacing.spacingLabelField,
-          _buildRegisterInput(
-            onChange: () => context.read<RegisterCubit>().cleanEmailError(),
-            controller: emailController,
-            errorGetter:
-                (BuildContext context, RegisterState state) =>
-                ErrorMessages.getEmailError(context, state.emailError),
-          ),
-          UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.password_label ?? 'password_label',
-          ),
-          UpApiSpacing.spacingLabelField,
-          _buildRegisterInput(
-            onChange: () => context.read<RegisterCubit>().cleanPassError(),
-            isPassword: true,
-            controller: passController,
-            errorGetter:
-                (BuildContext context, RegisterState state) =>
-                ErrorMessages.getPasswordError(context, state.passError),
-          ),
-          UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.name_label ?? 'name_label',
-          ),
-          UpApiSpacing.spacingLabelField,
-          _buildRegisterInput(
-            onChange: () => context.read<RegisterCubit>().cleanNameError(),
-            controller: nameController,
-            errorGetter:
-                (BuildContext context, RegisterState state) =>
-                ErrorMessages.getNameError(context, state.nameError),
-          ),
-          UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.surname_label ?? 'surname_label',
-          ),
-          UpApiSpacing.spacingLabelField,
-          _buildRegisterInput(
-            onChange: () => context.read<RegisterCubit>().cleanSurnameError(),
-            controller: surnameController,
-            errorGetter:
-                (BuildContext context, RegisterState state) =>
-                ErrorMessages.getSurnameError(context, state.surnameError),
-          ),
-          UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.business_label ?? 'business_label',
-          ),
-          UpApiSpacing.spacingLabelField,
-          _buildRegisterInput(
-            onChange: () => context.read<RegisterCubit>().cleanBusinessError(),
-            controller: businessController,
-            errorGetter:
-                (BuildContext context, RegisterState state) =>
-                ErrorMessages.getBusinessError(
-                  context,
-                  state.businessError,
-                ),
-          ),
-          UpApiSpacing.extraLarge,
-          GenericErrorBoxWidget<RegisterCubit, RegisterState>(
-            errorCodeSelector: (state) => state.error,
-            errorMessageGetter: ErrorMessages.getSubmitRegisterError,
-          ),
-          BlocBuilder<RegisterCubit, RegisterState>(
-            buildWhen: (p, c) => p.isLoading != c.isLoading,
-            builder: (context, state) {
-              return LoadingButtonWidget(
-                isLoading: state.isLoading,
-                onPressed: () {
-                  context.read<RegisterCubit>().register(
-                    emailController.text,
-                    passController.text,
-                    'test', //nameController.text,
-                    'test', //surnameController.text,
-                    'test', //businessController.text,
+      padding: UpApiPadding.smallWiderPadding,
+      child: Card(
+        child: Padding(
+          padding: UpApiPadding.mediumSymmetricPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildFieldText(
+                AppLocalizations.of(context)?.name_label ?? 'name_label',
+              ),
+              UpApiSpacing.spacingLabelField,
+              _buildInput(
+                onChange: () => context.read<UserPageCubit>().cleanNameError(),
+                controller: nameController,
+                errorGetter:
+                    (BuildContext context, UserPageState state) =>
+                    ErrorMessages.getNameError(context, state.nameError),
+              ),
+              UpApiSpacing.spacingFormFields,
+              _buildFieldText(
+                AppLocalizations.of(context)?.surname_label ?? 'surname_label',
+              ),
+              UpApiSpacing.spacingLabelField,
+              _buildInput(
+                onChange: () => context.read<UserPageCubit>().cleanSurnameError(),
+                controller: surnameController,
+                errorGetter:
+                    (BuildContext context, UserPageState state) =>
+                    ErrorMessages.getSurnameError(context, state.surnameError),
+              ),
+              UpApiSpacing.spacingFormFields,
+              _buildFieldText(
+                AppLocalizations.of(context)?.email_label ?? 'email_label',
+              ),
+              UpApiSpacing.spacingLabelField,
+              _buildInput(
+                onChange: () => context.read<UserPageCubit>().cleanEmailError(),
+                controller: emailController,
+                errorGetter:
+                    (BuildContext context, UserPageState state) =>
+                    ErrorMessages.getEmailError(context, state.emailError),
+              ),
+              UpApiSpacing.spacingFormFields,
+              _buildFieldText(
+                AppLocalizations.of(context)?.mobile_label ?? 'mobile_label',
+              ),
+              UpApiSpacing.spacingLabelField,
+              _buildInput(
+                onChange: () => context.read<UserPageCubit>().cleanMobileError(),
+                controller: mobileController,
+                errorGetter:
+                    (BuildContext context, UserPageState state) =>
+                    ErrorMessages.getMobileError(
+                      context,
+                      state.mobileError,
+                    ),
+              ),
+              UpApiSpacing.extraLarge,
+              GenericErrorBoxWidget<UserPageCubit, UserPageState>(
+                errorCodeSelector: (state) => state.error,
+                errorMessageGetter: ErrorMessages.getServerError,
+              ),
+              BlocBuilder<UserPageCubit, UserPageState>(
+                buildWhen: (p, c) => p.isLoading != c.isLoading,
+                builder: (context, state) {
+                  return LoadingButtonWidget(
+                    isLoading: state.isLoading,
+                    onPressed: () {
+                      context.read<UserPageCubit>().saveChanges(
+                        nameController.text,
+                        surnameController.text,
+                        emailController.text,
+                        mobileController.text,
+                      );
+                    },
+                    child: Text(
+                      AppLocalizations.of(context)?.save_label ??
+                          'save_label',
+                    ),
                   );
                 },
-                child: Text(
-                  AppLocalizations.of(context)?.register_page_submit_button ??
-                      'register_page_submit_button',
-                ),
-              );
-            },
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _buildRegisterInput({
+  Widget _buildInput({
     required TextEditingController controller,
-    required String? Function(BuildContext context, RegisterState state)
+    required String? Function(BuildContext context, UserPageState state)
     errorGetter,
     required void Function() onChange,
     bool isPassword = false,
   }) {
-    return BlocBuilder<RegisterCubit, RegisterState>(
+    return BlocBuilder<UserPageCubit, UserPageState>(
       builder: (context, state) {
         final errorText = errorGetter(context, state);
         return InputWidget(
@@ -227,7 +214,7 @@ class _UserScreenState extends State<UserScreen> {
     );
   }
 
-  Widget _buildRegisterFieldText(String text) {
+  Widget _buildFieldText(String text) {
     return Text(text, style: Theme.of(context).textTheme.labelMedium);
   }
 }

@@ -20,7 +20,7 @@ class UserPageCubit extends BaseCubit<UserPageState> {
     final emailError = validateEmail(email);
     final nameError = validateName(name);
     final surnameError = validateName(surname);
-    final mobileError = validatePhone(mobile);
+    final mobileError = validateMobile(mobile);
     final hasErrors =
         emailError  + nameError + surnameError + mobileError > 0;
     emit(
@@ -42,13 +42,13 @@ class UserPageCubit extends BaseCubit<UserPageState> {
       mobile,
     );
     if (res == null) {
-      emit(UserPageState(error: 404));
+      emit(UserPageState(error: 'GENERIC_ERROR'));
     }
     if (res?.success ?? false) {
       emit(UserPageState(completed: true));
       return;
     } else {
-      emit(UserPageState(error: 1));
+      emit(UserPageState(error: res?.code));
     }
 
     return;
@@ -56,18 +56,18 @@ class UserPageCubit extends BaseCubit<UserPageState> {
 
 
   void cleanNameError() {
-    emit(state.copyWith(nameError: 0, error: 0));
+    emit(state.copyWith(nameError: 0, nullError: true));
   }
 
   void cleanSurnameError() {
-    emit(state.copyWith(surnameError: 0, error: 0));
+    emit(state.copyWith(surnameError: 0, nullError: true));
   }
 
   void cleanEmailError() {
-    emit(state.copyWith(emailError: 0, error: 0));
+    emit(state.copyWith(emailError: 0, nullError: true));
   }
 
-  void cleanPhoneError() {
-    emit(state.copyWith(mobileError: 0, error: 0));
+  void cleanMobileError() {
+    emit(state.copyWith(mobileError: 0, nullError: true));
   }
 }

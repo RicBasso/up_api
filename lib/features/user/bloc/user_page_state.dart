@@ -4,7 +4,7 @@ class UserPageState extends BaseState {
   UserPageState({
     this.completed = false,
     this.isLoading = false,
-    this.error = 0,
+    this.error,
     this.nameError = 0,
     this.surnameError = 0,
     this.emailError = 0,
@@ -12,9 +12,10 @@ class UserPageState extends BaseState {
   });
 
   UserPageState copyWith({
+    bool nullError = false,
     bool? completed,
     bool? isLoading,
-    int? error,
+    String? error,
     int? nameError,
     int? surnameError,
     int? emailError,
@@ -23,7 +24,7 @@ class UserPageState extends BaseState {
     return UserPageState(
       completed: completed ?? this.completed,
       isLoading: isLoading ?? this.isLoading,
-      error: error ?? this.error,
+      error: nullError ? null : error ?? this.error,
       emailError: emailError ?? this.emailError,
       nameError: nameError ?? this.nameError,
       surnameError: surnameError ?? this.surnameError,
@@ -33,7 +34,7 @@ class UserPageState extends BaseState {
 
   final bool completed;
   final bool isLoading;
-  final int error;
+  final String? error;
   final int nameError;
   final int surnameError;
   final int emailError;
