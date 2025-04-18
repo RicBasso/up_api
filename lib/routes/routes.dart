@@ -3,4 +3,5 @@ class Routes {
   static const homepage = '/home';
   static const monitors = '/monitors';
   static const webhooks = '/:monitorId';
+  static const user = '/user';
 }

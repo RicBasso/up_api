@@ -10,4 +10,6 @@ class UpApiColorsLight {
   static const error = Colors.red;
   static const onError = Color(0xFFEBEEFF);
   static const inputBorder = Color.fromRGBO(214, 214, 214, 1);
+  static const success = Color(0xFF4CAF50);
+  static const onSuccess = Color(0xB0D3FFCC);
 }

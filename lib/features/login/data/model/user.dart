@@ -4,10 +4,9 @@ class User {
     this.firstName,
     this.lastName,
     this.email,
-    this.password,
+    this.phone,
     this.recoveryNumber,
     this.recoveryNumberDate,
-    this.refreshToken,
     this.lastAccess,
     this.status,
     this.createdAt,
@@ -21,10 +20,9 @@ class User {
     firstName = json['firstName'] as String?;
     lastName = json['lastName'] as String?;
     email = json['email'] as String?;
-    password = json['password'] as String?;
+    phone = json['phone'] as String?;
     recoveryNumber = json['recoveryNumber'] as String?;
     recoveryNumberDate = json['recoveryNumberDate'] as String?;
-    refreshToken = json['refreshToken'] as String?;
     lastAccess = json['lastAccess'] as String?;
     status = json['status'] as String?;
     createdAt = json['createdAt'] as String?;
@@ -36,10 +34,9 @@ class User {
   String? firstName;
   String? lastName;
   String? email;
-  String? password;
+  String? phone;
   String? recoveryNumber;
   String? recoveryNumberDate;
-  String? refreshToken;
   String? lastAccess;
   String? status;
   String? createdAt;
@@ -53,10 +50,9 @@ class User {
     data['firstName'] = firstName;
     data['lastName'] = lastName;
     data['email'] = email;
-    data['password'] = password;
+    data['phone'] = phone;
     data['recoveryNumber'] = recoveryNumber;
     data['recoveryNumberDate'] = recoveryNumberDate;
-    data['refreshToken'] = refreshToken;
     data['lastAccess'] = lastAccess;
     data['status'] = status;
     data['createdAt'] = createdAt;

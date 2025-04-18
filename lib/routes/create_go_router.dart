@@ -10,7 +10,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 GoRouter createGoRouter(String initialPage) {
 
   return GoRouter(
-    initialLocation: Routes.welcome,//initialPage,
+    initialLocation: Routes.user,//initialPage,
     routes: [
       GoRoute(
         path: Routes.welcome,

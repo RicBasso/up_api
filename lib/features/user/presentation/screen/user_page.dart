@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/features/menu/presentation/screen/menu.dart';
 import 'package:up_api/features/user/bloc/user_page_cubit.dart';
 import 'package:up_api/features/user/bloc/user_page_state.dart';
+import 'package:up_api/style/colors/up_api_colors_light.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/error_messages/error_messages.dart';
@@ -36,17 +37,18 @@ class _UserScreenState extends State<UserScreen> {
   late final TextEditingController surnameController;
   late final TextEditingController emailController;
   late final TextEditingController nameController;
-  late final TextEditingController mobileController;
+  late final TextEditingController phoneController;
 
   @override
   void initState() {
     emailController = TextEditingController();
     nameController = TextEditingController();
     surnameController = TextEditingController();
-    mobileController = TextEditingController();
+    phoneController = TextEditingController();
     emailController.text = upapiSessionManager.user?.email ?? '';
     nameController.text = upapiSessionManager.user?.firstName ?? '';
     surnameController.text = upapiSessionManager.user?.lastName ?? '';
+    phoneController.text = upapiSessionManager.user?.phone ?? '';
     super.initState();
   }
 
@@ -55,7 +57,7 @@ class _UserScreenState extends State<UserScreen> {
     nameController.dispose();
     surnameController.dispose();
     emailController.dispose();
-    mobileController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
@@ -149,17 +151,17 @@ class _UserScreenState extends State<UserScreen> {
               ),
               UpApiSpacing.spacingFormFields,
               _buildFieldText(
-                AppLocalizations.of(context)?.mobile_label ?? 'mobile_label',
+                AppLocalizations.of(context)?.phone_label ?? 'phone_label',
               ),
               UpApiSpacing.spacingLabelField,
               _buildInput(
-                onChange: () => context.read<UserPageCubit>().cleanMobileError(),
-                controller: mobileController,
+                onChange: () => context.read<UserPageCubit>().cleanPhoneError(),
+                controller: phoneController,
                 errorGetter:
                     (BuildContext context, UserPageState state) =>
-                    ErrorMessages.getMobileError(
+                    ErrorMessages.getPhoneError(
                       context,
-                      state.mobileError,
+                      state.phoneError,
                     ),
               ),
               UpApiSpacing.extraLarge,
@@ -168,22 +170,27 @@ class _UserScreenState extends State<UserScreen> {
                 errorMessageGetter: ErrorMessages.getServerError,
               ),
               BlocBuilder<UserPageCubit, UserPageState>(
-                buildWhen: (p, c) => p.isLoading != c.isLoading,
+                buildWhen: (p, c) => (p.isLoading != c.isLoading) || (p.completed != c.completed),
                 builder: (context, state) {
-                  return LoadingButtonWidget(
-                    isLoading: state.isLoading,
-                    onPressed: () {
-                      context.read<UserPageCubit>().saveChanges(
-                        nameController.text,
-                        surnameController.text,
-                        emailController.text,
-                        mobileController.text,
-                      );
-                    },
-                    child: Text(
-                      AppLocalizations.of(context)?.save_label ??
-                          'save_label',
-                    ),
+                  return Column(
+                    children: [
+                      if (state.completed) _successMessage(context) else SizedBox(),
+                      LoadingButtonWidget(
+                        isLoading: state.isLoading,
+                        onPressed: () {
+                          context.read<UserPageCubit>().saveChanges(
+                            nameController.text,
+                            surnameController.text,
+                            emailController.text,
+                            phoneController.text,
+                          );
+                        },
+                        child: Text(
+                          AppLocalizations.of(context)?.save_label ??
+                              'save_label',
+                        ),
+                      ),
+                    ],
                   );
                 },
               ),
@@ -217,4 +224,35 @@ class _UserScreenState extends State<UserScreen> {
   Widget _buildFieldText(String text) {
     return Text(text, style: Theme.of(context).textTheme.labelMedium);
   }
+}
+
+Widget _successMessage(BuildContext context){
+  return Container(
+    margin: const EdgeInsets.symmetric(vertical: 16),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(
+      color: Theme.of(context).colorScheme.onTertiary,
+      border: Border.all(color: Theme.of(context).colorScheme.tertiary),
+      borderRadius: BorderRadius.circular(12),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Icon(
+          Icons.error_outline,
+          color: UpApiColorsLight.success,
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Text(
+          AppLocalizations.of(context)?.modify_complete_label ?? 'modify_complete_label',
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Theme.of(context).colorScheme.tertiary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
 }

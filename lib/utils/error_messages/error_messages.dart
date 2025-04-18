@@ -92,14 +92,14 @@ class ErrorMessages {
     return AppLocalizations.of(context)?.error_generic;
   }
 
-  static String? getMobileError(BuildContext context, int err) {
+  static String? getPhoneError(BuildContext context, int err) {
     switch (err) {
       case 0:
         return null;
       case 1:
-        return AppLocalizations.of(context)?.error_mobile_1;
+        return AppLocalizations.of(context)?.error_phone_1;
       case 2:
-        return AppLocalizations.of(context)?.error_mobile_2;
+        return AppLocalizations.of(context)?.error_phone_2;
     }
     return AppLocalizations.of(context)?.error_generic;
   }

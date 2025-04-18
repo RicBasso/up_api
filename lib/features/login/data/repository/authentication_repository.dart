@@ -15,6 +15,6 @@ abstract class AuthenticationRepository {
   );
   Future<LostPasswordResponse?> lostPassword(String email);
   Future<GetUserResponse?> getUserInfo(String? id);
-  Future<UpdateUserResponse?> userUpdate(String name, String surname, String email, String mobile);
+  Future<UpdateUserResponse?> userUpdate(String name, String surname, String email, String phone);
   void logout();
 }

@@ -132,17 +132,16 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       String name,
       String surname,
       String email,
-      String mobile,
+      String phone,
       )async{
     final response = await upapiDatasource.put(
-      'user/${upapiSessionManager.userID}',
+      'users/${upapiSessionManager.userID}',
       data: {
-        'name' : name,
-        'surname' : surname,
+        'firstName' : name,
+        'lastName' : surname,
         'email' : email,
-        'mobile' : mobile,
+        'phone' : phone,
       },
-      baseUrlType: UpapiDatasourceBaseUrlType.publicUrl,
     );
     if (response != null &&
         (response.statusCode ?? 100) >= 200 &&

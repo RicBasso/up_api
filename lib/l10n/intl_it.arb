@@ -1,6 +1,4 @@
 {
-
-
   "lost_password_label" : "Hai dimenticato la password?",
   "register_now_label" : "Registrati ora",
   "login_now_label" : "Accedi ora",
@@ -9,7 +7,7 @@
   "surname_label" : "Cognome",
   "email_label" : "Email",
   "business_label" : "Nome azienda",
-  "mobile_label" : "Cellulare",
+  "phone_label" : "Cellulare",
   "password_label" : "Password",
 
   "login_page_title" : "Accedi",
@@ -80,8 +78,8 @@
   "error_business_2" : "Il nome dell'attività è troppo corto",
   "error_business_3" : "Il nome dell'attività è troppo lungo",
 
-  "error_mobile_1" : "il numero è obbligatorio",
-  "error_mobile_2" : "Il numero non è corretto",
+  "error_phone_1" : "il numero è obbligatorio",
+  "error_phone_2" : "Il numero non è corretto",
 
 
   "error_register_1": "Esiste già un account associato a questa email",
@@ -89,6 +87,8 @@
   "error_user_update_1": "Si è verificato un errore",
 
   "error_lost_password_1": "Non esiste un account associato a questa email",
+
+  "modify_complete_label" : "modifica completata correttamente",
 
   "length_not_setted": "Parametro length mancante",
   "offset_not_setted": "Parametro offset mancante",

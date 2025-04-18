@@ -8,7 +8,7 @@ class UserPageState extends BaseState {
     this.nameError = 0,
     this.surnameError = 0,
     this.emailError = 0,
-    this.mobileError = 0,
+    this.phoneError = 0,
   });
 
   UserPageState copyWith({
@@ -19,7 +19,7 @@ class UserPageState extends BaseState {
     int? nameError,
     int? surnameError,
     int? emailError,
-    int? mobileError,
+    int? phoneError,
   }) {
     return UserPageState(
       completed: completed ?? this.completed,
@@ -28,7 +28,7 @@ class UserPageState extends BaseState {
       emailError: emailError ?? this.emailError,
       nameError: nameError ?? this.nameError,
       surnameError: surnameError ?? this.surnameError,
-      mobileError: mobileError ?? this.mobileError,
+      phoneError: phoneError ?? this.phoneError,
     );
   }
 
@@ -38,7 +38,7 @@ class UserPageState extends BaseState {
   final int nameError;
   final int surnameError;
   final int emailError;
-  final int mobileError;
+  final int phoneError;
 
   @override
   List<Object?> get props => [
@@ -48,6 +48,6 @@ class UserPageState extends BaseState {
     nameError,
     surnameError,
     emailError,
-    mobileError,
+    phoneError,
   ];
 }

@@ -67,6 +67,8 @@ class UpApiTheme {
       surfaceContainer: UpApiColorsLight.secondaryBackground,
       surface: UpApiColorsLight.primaryBackground,
       onSurface: UpApiColorsLight.primaryText,
+      tertiary: UpApiColorsLight.success,
+      onTertiary: UpApiColorsLight.onSuccess,
     ),
 
     inputDecorationTheme: InputDecorationTheme(
