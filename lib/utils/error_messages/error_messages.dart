@@ -249,6 +249,9 @@ class ErrorMessages {
       case 'PRODUCT_NOT_APPROVED_YET':
         return loc?.product_not_approved_yet ?? 'product_not_approved_yet';
 
+      case 'CONNECTION_ERROR':
+        return loc?.no_internet_connection ?? 'no_internet_connection';
+
       default:
       // errore non gestito: puoi loggare o restituire un default generico
         return loc?.error_generic ?? 'error_generic';
