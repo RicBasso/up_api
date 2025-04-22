@@ -9,6 +9,7 @@ import 'package:up_api/features/register/presentation/widgets/modal_register.dar
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/error_messages/error_messages.dart';
+import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
 import 'package:up_api/widgets/input_widget.dart';
 import 'package:up_api/widgets/loading_button_widget.dart';

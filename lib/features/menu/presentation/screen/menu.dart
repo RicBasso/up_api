@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -26,43 +28,35 @@ class Menu extends StatelessWidget {
                       color: Theme.of(context).colorScheme.secondary,
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Nome Utente',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary,
+                  GestureDetector(
+                    onTap: () => upapiGoRouter..pop()..go('/user'),//GoRouter.of(context).go('/user'),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          '${upapiSessionManager.user?.firstName ?? ''} ${upapiSessionManager.user?.lastName ?? ''}',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
                         ),
-                      ),
-                      Text(
-                        'Vai al tuo profilo',
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.onSecondary,
+                        Text(
+                          AppLocalizations.of(context)?.go_to_profile_label ?? '',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.onSecondary,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
               UpApiSpacing.large,
-              const ListTile(
+              ListTile(
+                onTap: () => upapiGoRouter..pop()..go('/home'),
                 contentPadding: EdgeInsets.zero,
                 title: Text('Dashboard', style: TextStyle(color: Colors.white)),
               ),
               UpApiSpacing.horizontalDivider,
-              const ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text('Progetti', style: TextStyle(color: Colors.white)),
-              ),
-              UpApiSpacing.horizontalDivider,
-              const ListTile(
-                contentPadding: EdgeInsets.zero,
-                title: Text(
-                  'La mia azienda',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
               const Spacer(),
               ListTile(
                 onTap: () => upapiAuthentication.logout(),
