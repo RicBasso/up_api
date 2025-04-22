@@ -4,6 +4,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 void showModalHandler(BuildContext context, Widget modalScreen) {
   Future.delayed(const Duration(milliseconds: 400), () {
     showModalBottomSheet<void>(
+      isDismissible: false,
       backgroundColor: Theme.of(context).colorScheme.surfaceContainer,
       useSafeArea: true,
       context: upapiSessionManager.keyWelcome?.currentState?.context ?? context,
