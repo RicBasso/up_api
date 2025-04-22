@@ -11,7 +11,7 @@ GoRouter createGoRouter(String initialPage) {
 
   return GoRouter(
     navigatorKey: upapiSessionManager.navigatorKey,
-    initialLocation: Routes.user,//initialPage,
+    initialLocation: initialPage,
     routes: [
       GoRoute(
         path: Routes.welcome,

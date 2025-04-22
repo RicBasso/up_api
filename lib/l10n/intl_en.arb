@@ -84,6 +84,8 @@
 
   "error_register_1": "Esiste già un account associato a questa email",
 
+  "go_to_profile_label" : "Vai al tuo profilo",
+
   "error_user_update_1": "Si è verificato un errore",
 
   "error_lost_password_1": "Non esiste un account associato a questa email",
