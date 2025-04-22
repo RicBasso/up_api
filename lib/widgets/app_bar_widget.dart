@@ -6,20 +6,15 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      leadingWidth: 75,
       leading: Builder(
         builder: (context) {
-          return Padding(
-            padding: const EdgeInsets.only(left: 20),
-            child: Transform.translate(
-              offset: const Offset(-10, 0),
-              child: IconButton(
-                icon: const Icon(Icons.menu, size: 40),
-                color: Theme.of(context).colorScheme.onSecondary,
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
-              ),
-            ),
+          return IconButton(
+            icon: const Icon(Icons.menu, size: 40),
+            color: Theme.of(context).colorScheme.onSecondary,
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
           );
         },
       ),
