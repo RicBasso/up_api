@@ -35,9 +35,7 @@ class UserPageCubit extends BaseCubit<UserPageState> {
   }
 
   void cleanNameError() {
-    print(state.completed);
     emit(state.copyWith(nameError: 0, nullError: true, completed: false));
-    print(state.completed);
   }
 
   void cleanSurnameError() {

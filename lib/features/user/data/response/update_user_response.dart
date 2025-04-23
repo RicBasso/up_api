@@ -8,10 +8,8 @@ class UpdateUserResponse {
       success = json['success'] as bool;
     }
     if (success == true) {
-      if (json['data'] is List<User>) {
-        for (final element in (json['data'] as List<dynamic>)) {
-          user = User.fromJson(element as Map<String, dynamic>);
-        }
+      if (json['data'] is Map<String, dynamic>) {
+        user = User.fromJson(json['data'] as Map<String, dynamic>);
       }
     } else {
       if (json['success'] is bool) {
