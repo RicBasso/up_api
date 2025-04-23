@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:up_api/features/monitors/bloc/monitors_state.dart';
-
 import 'package:up_api/utils/base_bloc/base_state/base_bloc.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 
@@ -8,6 +7,7 @@ class MonitorsCubit extends BaseCubit<MonitorsState> {
   MonitorsCubit(super.initialState, this.projectId);
   final ValueNotifier<int> resetTextHandler = ValueNotifier(0);
   final String projectId;
+  DateTime searchedAt = DateTime.now();
 
   Future<void> getMonitors({int top = 3, String? query}) async {
     emit(state.copyWith(isLoading: true));
@@ -16,6 +16,7 @@ class MonitorsCubit extends BaseCubit<MonitorsState> {
       top: top,
       query: query ?? state.savedQuery,
       projectId: projectId,
+      searchedAt: searchedAt,
     );
 
     int? skip;
@@ -36,6 +37,7 @@ class MonitorsCubit extends BaseCubit<MonitorsState> {
   }
 
   void reset() {
+    searchedAt = DateTime.now();
     emit(MonitorsState());
   }
 

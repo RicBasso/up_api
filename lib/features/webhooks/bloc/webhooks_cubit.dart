@@ -5,6 +5,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 class WebhooksCubit extends BaseCubit<WebhooksState> {
   WebhooksCubit(super.initialState, this.monitorId);
   final String monitorId;
+  DateTime searchedAt = DateTime.now();
 
   Future<void> getWebhooks({int top = 3}) async {
     emit(state.copyWith(isLoading: true));
@@ -12,6 +13,7 @@ class WebhooksCubit extends BaseCubit<WebhooksState> {
       skip: state.skip,
       top: top,
       monitorId: monitorId,
+      searchedAt: searchedAt,
     );
 
     int? skip;
@@ -31,6 +33,7 @@ class WebhooksCubit extends BaseCubit<WebhooksState> {
   }
 
   void reset() {
+    searchedAt = DateTime.now();
     emit(WebhooksState());
   }
 }

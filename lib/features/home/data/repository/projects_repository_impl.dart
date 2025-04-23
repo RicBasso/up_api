@@ -4,10 +4,10 @@ import 'package:up_api/utils/service/service_locator.dart';
 
 class ProjectsRepositoryImpl implements ProjectsRepository {
   @override
-  Future<ProjectsResponse?> getProjectsResponse({int? skip, int? top, String? query}) async {
+  Future<ProjectsResponse?> getProjectsResponse({int? skip, int? top, String? query, DateTime? searchedAt}) async {
     final response = await upapiDatasource.get(
       'projects',
-      queryParameters: {r'$skip': skip, r'$top': top, 'text': query},
+      queryParameters: {r'$skip': skip, r'$top': top, 'text': query, 'createdAt': searchedAt},
       headers: {'Authorization': upapiTokenManager.getToken() ?? ''},
     );
 

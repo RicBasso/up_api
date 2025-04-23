@@ -6,6 +6,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 class HomeCubit extends BaseCubit<HomeState> {
   HomeCubit(super.initialState);
   final ValueNotifier<int> resetTextHandler = ValueNotifier(0);
+  DateTime searchedAt = DateTime.now();
 
   Future<void> getProjects({int top = 3, String? query}) async {
     emit(state.copyWith(isLoading: true));
@@ -13,6 +14,7 @@ class HomeCubit extends BaseCubit<HomeState> {
       skip: state.skip,
       top: top,
       query: query ?? state.savedQuery,
+      searchedAt: searchedAt,
     );
     int? skip;
     if ((response?.count ?? 0) < state.skip + top) {
@@ -32,6 +34,7 @@ class HomeCubit extends BaseCubit<HomeState> {
   }
 
   void reset() {
+    searchedAt = DateTime.now();
     emit(HomeState());
   }
 
