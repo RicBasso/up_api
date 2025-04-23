@@ -91,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           child: TextButton(
             onPressed: () {
               GoRouter.of(context).pop();
-              showModalHandler(context, const ModalLogin());
+              showModalHandler(context, const ModalLogin(), 0.35);
             },
             child: Text(AppLocalizations.of(context)?.login_now_label ?? 'login_now_label'),
           ),

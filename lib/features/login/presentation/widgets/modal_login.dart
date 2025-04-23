@@ -56,7 +56,7 @@ class _LoginScreenState extends State<_LoginScreen> {
       padding: EdgeInsets.only(bottom: media.viewInsets.bottom),
       child: Container(
         alignment: Alignment.center,
-        height: (media.size.height - media.padding.vertical) * 0.8,
+        height: (media.size.height - media.padding.vertical) * 0.6,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<_LoginScreen> {
         TextButton(
           onPressed: () {
             GoRouter.of(context).pop();
-            showModalHandler(context, const ModalRegister());
+            showModalHandler(context, const ModalRegister(), 0.15);
           },
           child: Text(AppLocalizations.of(context)?.register_now_label ?? 'register_now_label'),
         ),
@@ -119,7 +119,7 @@ class _LoginScreenState extends State<_LoginScreen> {
             child: TextButton(
               onPressed: () {
                 GoRouter.of(context).pop();
-                showModalHandler(context, const ModalLostPassword());
+                showModalHandler(context, const ModalLostPassword(),0.5);
               },
               child: Text(AppLocalizations.of(context)?.lost_password_label ?? 'lost_password_label'),
             ),

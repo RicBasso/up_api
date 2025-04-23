@@ -80,7 +80,7 @@ class _LostPasswordState extends State<LostPassword> {
           child: TextButton(
             onPressed: () {
               GoRouter.of(context).pop();
-              showModalHandler(context, const ModalLogin());
+              showModalHandler(context, const ModalLogin(), 0.35);
             },
             child: Text(AppLocalizations.of(context)?.login_now_label ?? 'login_now_label'),
           ),
@@ -119,7 +119,7 @@ class _LostPasswordState extends State<LostPassword> {
                   result = await context.read<LostPasswordCubit>().lostPassword(emailController.text);
                   if (result) {
                     GoRouter.of(context).pop();
-                    showModalHandler(context, const LostPasswordConfirm());
+                    showModalHandler(context, const LostPasswordConfirm(), 0.5);
                   }
                 },
                 child: Text(AppLocalizations.of(context)?.lost_password_submit_button ?? 'lost_password_submit_button'),
