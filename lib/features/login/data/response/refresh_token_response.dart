@@ -1,17 +1,12 @@
 class RefreshTokenResponse {
-
-  RefreshTokenResponse({
-    required this.success,
-    this.token,
-    this.code
-  });
+  RefreshTokenResponse({required this.success, this.token, this.code});
 
   RefreshTokenResponse.fromJson(Map<String, dynamic> json) {
     //log(json.toString());
     success = json['success'] as bool;
-    if(success == true) {
+    if (success == true) {
       token = json['data'] as String?;
-    }else {
+    } else {
       code = json['code'] as String?;
     }
   }
@@ -19,6 +14,4 @@ class RefreshTokenResponse {
   late bool success;
   String? token;
   String? code;
-
-
 }

@@ -6,36 +6,20 @@ import 'package:up_api/utils/service/service_locator.dart';
 class UserPageCubit extends BaseCubit<UserPageState> {
   UserPageCubit(super.initialState);
 
-  Future<void> saveChanges(
-    String name,
-    String surname,
-    String email,
-    String phone,
-  ) async {
+  Future<void> saveChanges(String name, String surname, String email, String phone) async {
     final emailError = validateEmail(email);
     final nameError = validateName(name);
     final surnameError = validateName(surname);
     final phoneError = validatePhone(phone);
-    final hasErrors =
-        emailError  + nameError + surnameError + phoneError > 0;
+    final hasErrors = emailError + nameError + surnameError + phoneError > 0;
     emit(
-      state.copyWith(
-        emailError: emailError,
-        nameError: nameError,
-        surnameError: surnameError,
-        phoneError: phoneError,
-      ),
+      state.copyWith(emailError: emailError, nameError: nameError, surnameError: surnameError, phoneError: phoneError),
     );
     if (hasErrors) {
       return;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.userUpdate(
-      name,
-      surname,
-      email,
-      phone,
-    );
+    final res = await upapiAuthentication.userUpdate(name, surname, email, phone);
     if (res == null) {
       emit(UserPageState(error: 'GENERIC_ERROR'));
     }
@@ -49,7 +33,6 @@ class UserPageCubit extends BaseCubit<UserPageState> {
 
     return;
   }
-
 
   void cleanNameError() {
     print(state.completed);

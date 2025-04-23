@@ -36,7 +36,6 @@ class ErrorMessages {
     return AppLocalizations.of(context)?.error_generic;
   }
 
-
   static String? getPasswordErrorLogin(BuildContext context, int err) {
     switch (err) {
       case 0:
@@ -46,9 +45,6 @@ class ErrorMessages {
     }
     return AppLocalizations.of(context)?.error_generic;
   }
-
-
-
 
   static String? getNameError(BuildContext context, int err) {
     switch (err) {
@@ -253,9 +249,8 @@ class ErrorMessages {
         return loc?.no_internet_connection ?? 'no_internet_connection';
 
       default:
-      // errore non gestito: puoi loggare o restituire un default generico
+        // errore non gestito: puoi loggare o restituire un default generico
         return loc?.error_generic ?? 'error_generic';
     }
   }
-
 }

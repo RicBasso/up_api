@@ -2,13 +2,7 @@ import 'package:up_api/features/home/data/model/project.dart';
 import 'package:up_api/utils/base_bloc/base_state/base_state.dart';
 
 class HomeState extends BaseState {
-  HomeState({
-    this.isLoading = false,
-    this.projects,
-    this.skip = 0,
-    this.countProjects,
-    this.savedQuery,
-  });
+  HomeState({this.isLoading = false, this.projects, this.skip = 0, this.countProjects, this.savedQuery});
 
   final bool isLoading;
   List<Project?>? projects;
@@ -16,13 +10,7 @@ class HomeState extends BaseState {
   final int? countProjects;
   final String? savedQuery;
 
-  HomeState copyWith({
-    bool? isLoading,
-    List<Project?>? projects,
-    int? skip,
-    int? countProjects,
-    String? savedQuery,
-  }) {
+  HomeState copyWith({bool? isLoading, List<Project?>? projects, int? skip, int? countProjects, String? savedQuery}) {
     return HomeState(
       isLoading: isLoading ?? this.isLoading,
       projects: projects ?? this.projects,
@@ -33,5 +21,5 @@ class HomeState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [isLoading, projects,];
+  List<Object?> get props => [isLoading, projects];
 }

@@ -20,13 +20,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      title: const Image(
-        image: AssetImage('assets/images/up_api_logo_white.png'),
-      ),
-      bottom: const PreferredSize(
-        preferredSize: Size.fromHeight(10),
-        child: SizedBox(),
-      ),
+      title: const Image(image: AssetImage('assets/images/up_api_logo_white.png')),
+      bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
     );
   }
 

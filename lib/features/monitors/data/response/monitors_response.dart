@@ -1,14 +1,7 @@
-
-
 import 'package:up_api/features/monitors/data/model/monitor.dart';
 
 class MonitorsResponse {
-  MonitorsResponse({
-    required this.success,
-    this.monitorsBody,
-    this.code,
-    this.count,
-  });
+  MonitorsResponse({required this.success, this.monitorsBody, this.code, this.count});
 
   MonitorsResponse.fromJson(Map<String, dynamic> json) {
     if (json['success'] is bool) {
@@ -18,9 +11,9 @@ class MonitorsResponse {
       count = json['count'] as int;
       if (json['data'] is List) {
         monitorsBody = [];
-        (json['data'] as List<dynamic>).forEach((element) {
+        for (final element in (json['data'] as List<dynamic>)) {
           monitorsBody?.add(Monitor.fromJson(element as Map<String, dynamic>));
-        });
+        }
       }
     } else {
       if (json['success'] is bool) {

@@ -10,16 +10,13 @@ int validateEmail(String email) {
 
   final emailRegex = RegExp(
     r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+"
-    r"@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?"
-    r"(?:\.[a-zA-Z]{2,})+$",
+    '@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?'
+    r'(?:\.[a-zA-Z]{2,})+$',
   );
 
   if (!emailRegex.hasMatch(trimmed)) return 2;
 
-  if (trimmed.startsWith('.') ||
-      trimmed.startsWith('@') ||
-      trimmed.endsWith('.') ||
-      trimmed.endsWith('@')) {
+  if (trimmed.startsWith('.') || trimmed.startsWith('@') || trimmed.endsWith('.') || trimmed.endsWith('@')) {
     return 3;
   }
 
@@ -37,11 +34,12 @@ int validatePassword(String password) {
   final trimmed = password.trim();
 
   if (trimmed.isEmpty || trimmed.length < 8) return 1;
-  if (!RegExp(r'[A-Z]').hasMatch(trimmed)) return 2;
-  if (!RegExp(r'[a-z]').hasMatch(trimmed)) return 3;
+  if (!RegExp('[A-Z]').hasMatch(trimmed)) return 2;
+  if (!RegExp('[a-z]').hasMatch(trimmed)) return 3;
   if (!RegExp(r'\d').hasMatch(trimmed)) return 4;
-  if (!RegExp(r'[!@#\$&*~%^()\-_=+{}\[\]:;,.<>?/\\|]').hasMatch(trimmed))
+  if (!RegExp(r'[!@#\$&*~%^()\-_=+{}\[\]:;,.<>?/\\|]').hasMatch(trimmed)) {
     return 5;
+  }
 
   return 0;
 }
@@ -92,7 +90,8 @@ int validateBusiness(String business) {
 // 1 = vuoto
 // 2 = formato non valido
 
-int validatePhone(String phone){ ///TODO() CHANGE ERRORS MANAGMENT TO INTERNATIONAL STANDARDS
+int validatePhone(String phone) {
+  ///TODO() CHANGE ERRORS MANAGMENT TO INTERNATIONAL STANDARDS
   final trimmed = phone.trim();
 
   if (trimmed.isEmpty) return 1;

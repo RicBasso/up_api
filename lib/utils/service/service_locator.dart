@@ -23,17 +23,13 @@ Future<void> registerDependencies() async {
     ..registerLazySingleton<TokenManager>(TokenManager.new)
     ..registerSingleton<SessionManager>(SessionManager())
     ..registerSingleton<Datasource>(UpapiDatasource())
-    ..registerSingleton<AuthenticationRepository>(
-      AuthenticationRepositoryImpl(),
-    )
+    ..registerSingleton<AuthenticationRepository>(AuthenticationRepositoryImpl())
     ..registerFactory<ProjectsRepository>(ProjectsRepositoryImpl.new)
     ..registerFactory<MonitorsRepository>(MonitorsRepositoryImpl.new)
     ..registerFactory<WebhooksRepository>(WebhooksRepositoryImpl.new);
-
-
 }
 
-void registerRouter(GoRouter router){
+void registerRouter(GoRouter router) {
   getIt.registerSingleton<GoRouter>(router);
 }
 
@@ -44,12 +40,7 @@ SharedPrefs get sharedPrefs => getIt.get<SharedPrefs>();
 TokenManager get upapiTokenManager => getIt.get<TokenManager>();
 SessionManager get upapiSessionManager => getIt.get<SessionManager>();
 Datasource get upapiDatasource => getIt.get<Datasource>();
-AuthenticationRepository get upapiAuthentication =>
-    getIt.get<AuthenticationRepository>();
-ProjectsRepository get upapiProjectsRepository =>
-    getIt.get<ProjectsRepository>();
-MonitorsRepository get upapiMonitorsRepository =>
-    getIt.get<MonitorsRepository>();
-WebhooksRepository get upapiWebhooksRepository =>
-    getIt.get<WebhooksRepository>();
-
+AuthenticationRepository get upapiAuthentication => getIt.get<AuthenticationRepository>();
+ProjectsRepository get upapiProjectsRepository => getIt.get<ProjectsRepository>();
+MonitorsRepository get upapiMonitorsRepository => getIt.get<MonitorsRepository>();
+WebhooksRepository get upapiWebhooksRepository => getIt.get<WebhooksRepository>();

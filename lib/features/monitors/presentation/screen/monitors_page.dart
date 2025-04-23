@@ -19,8 +19,8 @@ class MonitorsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<MonitorsCubit>(
-      create: (context) => MonitorsCubit(MonitorsState(),projectId)..getMonitors(top: 5),
-      child: MonitorsScreen(projectName: projectName,),
+      create: (context) => MonitorsCubit(MonitorsState(), projectId)..getMonitors(top: 5),
+      child: MonitorsScreen(projectName: projectName),
     );
   }
 }
@@ -33,24 +33,14 @@ class MonitorsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-          size: 40,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 40),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondary,
-        title:
-          Text(
-            projectName,
-            style: TextStyle(
-              color: Theme.of(context).colorScheme.onSecondary,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(10),
-          child: SizedBox(),
+        title: Text(
+          projectName,
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontWeight: FontWeight.w700),
         ),
+        bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -63,21 +53,12 @@ class MonitorsScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations
-                          .of(context)
-                          ?.monitors_page_title ??
-                          'monitors_page_title',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineLarge,
+                      AppLocalizations.of(context)?.monitors_page_title ?? 'monitors_page_title',
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     UpApiSpacing.extraLarge,
                     SearchBarWidget(
-                      title: AppLocalizations
-                          .of(context)
-                          ?.search_monitor_title ??
-                          'search_monitors_title',
+                      title: AppLocalizations.of(context)?.search_monitor_title ?? 'search_monitors_title',
                       resetHandler: context.read<MonitorsCubit>().resetTextHandler,
                       onSearch: (query) async {
                         context.read<MonitorsCubit>().reset();
@@ -101,46 +82,35 @@ class MonitorsScreen extends StatelessWidget {
   Widget _buildListCardContent() {
     return BlocBuilder<MonitorsCubit, MonitorsState>(
       builder: (context, state) {
-        final loading = state.isLoading
-            ? List.generate(
-          3,
-              (_) =>
-          const Skeletonizer(
-            child: CardWidget(
-              title: '**********',
-              description: '****',
-              //result: true,
-            ),
-          ),
-        )
-            : <Skeletonizer>[];
+        final loading =
+            state.isLoading
+                ? List.generate(
+                  3,
+                  (_) => const Skeletonizer(
+                    child: CardWidget(
+                      title: '**********',
+                      description: '****',
+                      //result: true,
+                    ),
+                  ),
+                )
+                : <Skeletonizer>[];
 
-        final monitors = (state.monitors ?? []).map((monitor) {
-          return CardWidget(
-            title: monitor?.name,
-            description: '${monitor?.type}://${monitor?.url}',
-            result: monitor?.lastCheckStatus,
-            onTap: () => upapiGoRouter.push('/home/monitors/${monitor?.id}',
-            extra: {
-                'monitorName': monitor?.name,
-            },
-            ),
-          );
-        }).toList();
+        final monitors =
+            (state.monitors ?? []).map((monitor) {
+              return CardWidget(
+                title: monitor?.name,
+                description: '${monitor?.type}://${monitor?.url}',
+                result: monitor?.lastCheckStatus,
+                onTap: () => upapiGoRouter.push('/home/monitors/${monitor?.id}', extra: {'monitorName': monitor?.name}),
+              );
+            }).toList();
 
-        if(state.isLoading == false && monitors.isEmpty){
-          return Center(child: Text(AppLocalizations
-              .of(context)
-              ?.no_result_found ??
-              'no_result_found',),
-          );
-        }else{
-          return Column(
-            children: [...monitors, ...loading],
-          );
+        if (state.isLoading == false && monitors.isEmpty) {
+          return Center(child: Text(AppLocalizations.of(context)?.no_result_found ?? 'no_result_found'));
+        } else {
+          return Column(children: [...monitors, ...loading]);
         }
-
-
       },
     );
   }
@@ -150,12 +120,8 @@ class MonitorsScreen extends StatelessWidget {
       child: BlocBuilder<MonitorsCubit, MonitorsState>(
         builder: (context, state) {
           return LoadMoreButtonWidget(
-            buttonText: AppLocalizations
-                .of(context)
-                ?.load_more_button ?? 'load_more_button',
-            finishedText: AppLocalizations
-                .of(context)
-                ?.load_more_button_finished ?? 'load_more_button_finished',
+            buttonText: AppLocalizations.of(context)?.load_more_button ?? 'load_more_button',
+            finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countMonitors ?? 0,
             onPressed: () => context.read<MonitorsCubit>().getMonitors(top: 5),
@@ -170,10 +136,4 @@ class MonitorsScreen extends StatelessWidget {
     context.read<MonitorsCubit>().cleanSearchText();
     await context.read<MonitorsCubit>().getMonitors(top: 5);
   }
-
-
-
 }
-
-
-

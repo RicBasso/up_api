@@ -55,12 +55,8 @@ class _InputWidgetState extends State<InputWidget> {
               widget.password == true
                   ? IconButton(
                     splashRadius: 1,
-                    icon: Icon(
-                      _obscureText ? Icons.visibility : Icons.visibility_off,
-                      size: 16,
-                    ),
-                    onPressed:
-                        () => setState(() => _obscureText = !_obscureText),
+                    icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off, size: 16),
+                    onPressed: () => setState(() => _obscureText = !_obscureText),
                   )
                   : null,
           //isDense: true,

@@ -41,13 +41,5 @@ class RegisterState extends BaseState {
   final int businessError;
 
   @override
-  List<Object?> get props => [
-    isLoading,
-    error,
-    emailError,
-    passError,
-    nameError,
-    surnameError,
-    businessError,
-  ];
+  List<Object?> get props => [isLoading, error, emailError, passError, nameError, surnameError, businessError];
 }

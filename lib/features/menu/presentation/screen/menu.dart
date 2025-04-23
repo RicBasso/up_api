@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -23,27 +22,24 @@ class Menu extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person,
-                      color: Theme.of(context).colorScheme.secondary,
-                    ),
+                    child: Icon(Icons.person, color: Theme.of(context).colorScheme.secondary),
                   ),
                   GestureDetector(
-                    onTap: () => upapiGoRouter..pop()..go('/user'),//GoRouter.of(context).go('/user'),
+                    onTap:
+                        () =>
+                            upapiGoRouter
+                              ..pop()
+                              ..go('/user'), //GoRouter.of(context).go('/user'),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           '${upapiSessionManager.user?.firstName ?? ''} ${upapiSessionManager.user?.lastName ?? ''}',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
                         ),
                         Text(
                           AppLocalizations.of(context)?.go_to_profile_label ?? '',
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.onSecondary,
-                          ),
+                          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary),
                         ),
                       ],
                     ),
@@ -52,9 +48,13 @@ class Menu extends StatelessWidget {
               ),
               UpApiSpacing.large,
               ListTile(
-                onTap: () => upapiGoRouter..pop()..go('/home'),
+                onTap:
+                    () =>
+                        upapiGoRouter
+                          ..pop()
+                          ..go('/home'),
                 contentPadding: EdgeInsets.zero,
-                title: Text('Dashboard', style: TextStyle(color: Colors.white)),
+                title: const Text('Dashboard', style: TextStyle(color: Colors.white)),
               ),
               UpApiSpacing.horizontalDivider,
               const Spacer(),

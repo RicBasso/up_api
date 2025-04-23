@@ -1,18 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_flavor/flutter_flavor.dart';
-import 'package:up_api/features/connection/cubit/connection_cubit.dart';
 import 'package:up_api/flavor.dart';
 import 'package:up_api/utils/datasource/datasource.dart';
 import 'package:up_api/utils/interceptor/dio_interceptor.dart';
-import 'package:up_api/utils/service/service_locator.dart';
 
 enum UpapiDatasourceBaseUrlType { apiUrl, publicUrl }
 
 class UpapiDatasource extends Datasource {
-
-
   UpapiDatasource() {
     _dio = Dio(
       BaseOptions(
@@ -36,16 +31,14 @@ class UpapiDatasource extends Datasource {
     _publicDio.interceptors.add(DioInterceptor(retry));
   }
 
-
-  Future<Response<dynamic>> retry(RequestOptions requestOptions)
-  async{
+  Future<Response<dynamic>> retry(RequestOptions requestOptions) async {
     return _dio.fetch(requestOptions);
   }
 
   late final Dio _dio;
   late final Dio _publicDio;
 
-/*
+  /*
   Map<String, String> publicTokenHeader() {
     return {'Authorization': Constants.PUBLIC_API};
   }
@@ -83,19 +76,15 @@ class UpapiDatasource extends Datasource {
       return response;
     } on DioException catch (e) {
       debugPrint('Dio error: ${e.type}');
-      if(e.type == DioExceptionType.connectionError){
-          return Response(
-            requestOptions: e.requestOptions,
-            statusCode: 200,
-            data: {
-              'success': false,
-              'code': 'CONNECTION_ERROR',
-            },
-          );
-      }else{
+      if (e.type == DioExceptionType.connectionError) {
+        return Response(
+          requestOptions: e.requestOptions,
+          statusCode: 200,
+          data: {'success': false, 'code': 'CONNECTION_ERROR'},
+        );
+      } else {
         rethrow;
       }
-
     } catch (e) {
       debugPrint('GENERIC API ERROR: $e');
       return null;
@@ -124,16 +113,13 @@ class UpapiDatasource extends Datasource {
       return response;
     } on DioException catch (e) {
       debugPrint('Dio error: $e');
-      if(e.type == DioExceptionType.connectionError){
+      if (e.type == DioExceptionType.connectionError) {
         return Response(
           requestOptions: e.requestOptions,
           statusCode: 200,
-          data: {
-            'success': false,
-            'code': 'CONNECTION_ERROR',
-          },
+          data: {'success': false, 'code': 'CONNECTION_ERROR'},
         );
-      }else{
+      } else {
         rethrow;
       }
     } catch (e) {
@@ -165,16 +151,13 @@ class UpapiDatasource extends Datasource {
       return response;
     } on DioException catch (e) {
       debugPrint('Dio error: $e');
-      if(e.type == DioExceptionType.connectionError){
+      if (e.type == DioExceptionType.connectionError) {
         return Response(
           requestOptions: e.requestOptions,
           statusCode: 200,
-          data: {
-            'success': false,
-            'code': 'CONNECTION_ERROR',
-          },
+          data: {'success': false, 'code': 'CONNECTION_ERROR'},
         );
-      }else{
+      } else {
         rethrow;
       }
     } catch (e) {
@@ -205,16 +188,13 @@ class UpapiDatasource extends Datasource {
       return response;
     } on DioException catch (e) {
       debugPrint('Dio error: $e');
-      if(e.type == DioExceptionType.connectionError){
+      if (e.type == DioExceptionType.connectionError) {
         return Response(
           requestOptions: e.requestOptions,
           statusCode: 200,
-          data: {
-            'success': false,
-            'code': 'CONNECTION_ERROR',
-          },
+          data: {'success': false, 'code': 'CONNECTION_ERROR'},
         );
-      }else{
+      } else {
         rethrow;
       }
     } catch (e) {
@@ -222,8 +202,6 @@ class UpapiDatasource extends Datasource {
       return null;
     }
   }
-
-
 
   ///
   String get scheme => FlavorConfig.instance.scheme;
@@ -241,6 +219,6 @@ class UpapiDatasource extends Datasource {
   String get apiUrl => scheme + domain + apiPath;
 
   ///
+  @override
   String get publicUrl => scheme + domain + publicPath;
 }
-

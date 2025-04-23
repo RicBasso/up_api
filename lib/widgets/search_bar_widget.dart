@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/widgets/input_widget.dart';
 import 'package:up_api/widgets/loading_button_widget.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBarWidget extends StatefulWidget {
-  const SearchBarWidget({
-    required this.resetHandler, super.key,
-    this.onSearch, this.title,
-  });
+  const SearchBarWidget({required this.resetHandler, super.key, this.onSearch, this.title});
 
   final void Function(String? query)? onSearch;
   final ValueNotifier<int> resetHandler;
@@ -26,8 +22,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     _searchController = TextEditingController();
     widget.resetHandler.addListener(() {
       _searchController.clear();
-      },
-    );
+    });
     super.initState();
   }
 
@@ -45,27 +40,18 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(widget.title ?? '',),
+            Text(widget.title ?? ''),
             UpApiSpacing.medium,
             Row(
               children: [
-                Expanded(
-                  child: InputWidget(
-                    controller: _searchController,
-                  ),
-                ),
+                Expanded(child: InputWidget(controller: _searchController)),
                 UpApiSpacing.largeHorizontal,
                 SizedBox(
                   height: 55.5,
                   width: 55.5,
                   child: LoadingButtonWidget(
-                    overrideStyle: const ButtonStyle(
-                      padding: WidgetStatePropertyAll(EdgeInsets.zero),
-                    ),
-                    child: const Icon(
-                        Icons.search,
-                        size: 30,
-                    ),
+                    overrideStyle: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
+                    child: const Icon(Icons.search, size: 30),
                     onPressed: () {
                       widget.onSearch?.call(_searchController.text);
                     },
@@ -78,5 +64,4 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       ),
     );
   }
-
 }

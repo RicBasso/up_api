@@ -16,8 +16,10 @@ class Webhook {
     executionDate = DateTime.tryParse((json['executionDate'] ?? '') as String);
     result = json['result'] as String?;
     json['status'] == 'active' ? status = true : status = false;
-    createdAt = DateTime.tryParse((json['createdAt'] ?? '') as String); /// meglio cosi?
-    updatedAt = DateTime.tryParse((json['updatedAt']  ?? '') as String);
+    createdAt = DateTime.tryParse((json['createdAt'] ?? '') as String);
+
+    /// meglio cosi?
+    updatedAt = DateTime.tryParse((json['updatedAt'] ?? '') as String);
     monitorId = json['projectId'] as String?;
   }
 
@@ -29,5 +31,4 @@ class Webhook {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? monitorId;
-
 }

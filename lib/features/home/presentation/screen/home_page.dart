@@ -44,21 +44,12 @@ class HomeScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      AppLocalizations
-                          .of(context)
-                          ?.home_page_title ??
-                          'home_page_title',
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .headlineLarge,
+                      AppLocalizations.of(context)?.home_page_title ?? 'home_page_title',
+                      style: Theme.of(context).textTheme.headlineLarge,
                     ),
                     UpApiSpacing.extraLarge,
                     SearchBarWidget(
-                      title: AppLocalizations
-                          .of(context)
-                          ?.search_project_title ??
-                          'search_project_title',
+                      title: AppLocalizations.of(context)?.search_project_title ?? 'search_project_title',
                       resetHandler: context.read<HomeCubit>().resetTextHandler,
                       onSearch: (query) async {
                         context.read<HomeCubit>().reset();
@@ -82,49 +73,46 @@ class HomeScreen extends StatelessWidget {
   Widget _buildListCardContent(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        final loading = state.isLoading
-            ? List.generate(
-          3,
-              (_) =>
-          const Skeletonizer(
-            child: CardWidget(
-              title: '**********',
-              description: '****',
-              //result: true,
-            ),
-          ),
-        )
-            : <Skeletonizer>[];
+        final loading =
+            state.isLoading
+                ? List.generate(
+                  3,
+                  (_) => const Skeletonizer(
+                    child: CardWidget(
+                      title: '**********',
+                      description: '****',
+                      //result: true,
+                    ),
+                  ),
+                )
+                : <Skeletonizer>[];
 
-        final projects = (state.projects ?? []).map((project) {
-          return CardWidget(
-            title: project?.name,
-            description: (project?.monitor != null) ? _calculateTime(project?.monitor?.lastCheckDate, context) : AppLocalizations.of(context)?.empty_monitor ?? 'empty_monitor',
-            result: project?.monitor?.lastCheckStatus,
-            subTitle: project?.monitor != null ? (AppLocalizations.of(context)?.last_check_label ??
-                'last_check_label') : '',
-            onTap: () => upapiGoRouter.push('/home/monitors',
-            extra: {
-              'projectId':project?.id,
-              'projectName':project?.name,
-            },
-            ),
-          );
-        }).toList();
+        final projects =
+            (state.projects ?? []).map((project) {
+              return CardWidget(
+                title: project?.name,
+                description:
+                    (project?.monitor != null)
+                        ? _calculateTime(project?.monitor?.lastCheckDate, context)
+                        : AppLocalizations.of(context)?.empty_monitor ?? 'empty_monitor',
+                result: project?.monitor?.lastCheckStatus,
+                subTitle:
+                    project?.monitor != null
+                        ? (AppLocalizations.of(context)?.last_check_label ?? 'last_check_label')
+                        : '',
+                onTap:
+                    () => upapiGoRouter.push(
+                      '/home/monitors',
+                      extra: {'projectId': project?.id, 'projectName': project?.name},
+                    ),
+              );
+            }).toList();
 
-        if(state.isLoading == false && projects.isEmpty){
-          return Center(child: Text(AppLocalizations
-              .of(context)
-              ?.no_result_found ??
-              'no_result_found',),
-          );
-        }else{
-          return Column(
-            children: [...projects, ...loading],
-          );
+        if (state.isLoading == false && projects.isEmpty) {
+          return Center(child: Text(AppLocalizations.of(context)?.no_result_found ?? 'no_result_found'));
+        } else {
+          return Column(children: [...projects, ...loading]);
         }
-
-
       },
     );
   }
@@ -134,12 +122,8 @@ class HomeScreen extends StatelessWidget {
       child: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
           return LoadMoreButtonWidget(
-            buttonText: AppLocalizations
-                .of(context)
-                ?.load_more_button ?? 'load_more_button',
-            finishedText: AppLocalizations
-                .of(context)
-                ?.load_more_button_finished ?? 'load_more_button_finished',
+            buttonText: AppLocalizations.of(context)?.load_more_button ?? 'load_more_button',
+            finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countProjects ?? 0,
             onPressed: () => context.read<HomeCubit>().getProjects(top: 5),
@@ -157,7 +141,7 @@ class HomeScreen extends StatelessWidget {
 }
 
 String _calculateTime(DateTime? date, BuildContext context) {
-  if(date == null){
+  if (date == null) {
     return 'Error';
   }
   final now = DateTime.now().toUtc();
@@ -177,7 +161,7 @@ String _calculateTime(DateTime? date, BuildContext context) {
     parts.add(AppLocalizations.of(context)?.hour_label(hours) ?? 'hour_label');
   }
 
-  if (minutes > 0 /*&& days == 0*/) {
+  if (minutes > 0 /*&& days == 0*/ ) {
     parts.add(AppLocalizations.of(context)?.minute_label(minutes) ?? 'minute_label');
   }
 

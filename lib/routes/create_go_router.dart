@@ -8,15 +8,11 @@ import 'package:up_api/routes/routes.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 
 GoRouter createGoRouter(String initialPage) {
-
   return GoRouter(
     navigatorKey: upapiSessionManager.navigatorKey,
     initialLocation: initialPage,
     routes: [
-      GoRoute(
-        path: Routes.welcome,
-        builder: (context, state) => const WelcomePage(),
-      ),
+      GoRoute(path: Routes.welcome, builder: (context, state) => const WelcomePage()),
       GoRoute(
         path: Routes.homepage,
         builder: (context, state) => const HomePage(),
@@ -24,29 +20,25 @@ GoRouter createGoRouter(String initialPage) {
           GoRoute(
             path: Routes.monitors,
             //redirect: (context, state) => const HomePage(),/// TODO() redirect
-            builder: (context, state)
-            {
-              final projectId = ((state.extra as Map<String,dynamic>)['projectId'] ?? '') as String;
-              final projectName = ((state.extra as Map<String,dynamic>)['projectName'] ?? '') as String;
-              return MonitorsPage(projectId: projectId, projectName: projectName,);
+            builder: (context, state) {
+              final projectId = ((state.extra! as Map<String, dynamic>)['projectId'] ?? '') as String;
+              final projectName = ((state.extra! as Map<String, dynamic>)['projectName'] ?? '') as String;
+              return MonitorsPage(projectId: projectId, projectName: projectName);
             },
             routes: [
               GoRoute(
                 path: Routes.webhooks,
                 builder: (context, state) {
                   final monitorId = state.pathParameters['monitorId'] ?? '';
-                  final monitorName = ((state.extra as Map<String,dynamic>)['monitorName'] ?? '') as String;
-                  return WebhooksPage(monitorId: monitorId, monitorName: monitorName,);
+                  final monitorName = ((state.extra! as Map<String, dynamic>)['monitorName'] ?? '') as String;
+                  return WebhooksPage(monitorId: monitorId, monitorName: monitorName);
                 },
               ),
-            ]
+            ],
           ),
         ],
       ),
-      GoRoute(
-        path: Routes.user,
-        builder: (context, state) => const UserPage(),
-      ),
+      GoRoute(path: Routes.user, builder: (context, state) => const UserPage()),
     ],
   );
 }

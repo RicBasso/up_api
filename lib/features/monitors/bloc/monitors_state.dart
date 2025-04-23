@@ -2,13 +2,7 @@ import 'package:up_api/features/monitors/data/model/monitor.dart';
 import 'package:up_api/utils/base_bloc/base_state/base_state.dart';
 
 class MonitorsState extends BaseState {
-  MonitorsState({
-    this.isLoading = false,
-    this.monitors,
-    this.skip = 0,
-    this.countMonitors,
-    this.savedQuery,
-  });
+  MonitorsState({this.isLoading = false, this.monitors, this.skip = 0, this.countMonitors, this.savedQuery});
 
   final bool isLoading;
   List<Monitor?>? monitors;
@@ -33,5 +27,5 @@ class MonitorsState extends BaseState {
   }
 
   @override
-  List<Object?> get props => [isLoading, monitors,];
+  List<Object?> get props => [isLoading, monitors];
 }

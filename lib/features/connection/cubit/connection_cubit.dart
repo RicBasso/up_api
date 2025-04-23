@@ -3,13 +3,11 @@ import 'package:up_api/features/connection/cubit/connection_state.dart';
 import 'package:up_api/utils/base_bloc/base_state/base_bloc.dart';
 
 class ConnectionCubit extends BaseCubit<ConnectionInternalState> {
-
-  ConnectionCubit(super.initialState){
+  ConnectionCubit(super.initialState) {
     init();
   }
 
-
-  void init(){
+  void init() {
     Connectivity().onConnectivityChanged.listen(_checkConnection);
   }
 
@@ -18,13 +16,12 @@ class ConnectionCubit extends BaseCubit<ConnectionInternalState> {
     _checkConnection(connectivityResult);
   }
 
-  void _checkConnection(List<ConnectivityResult> result){
-    if(result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)){
+  void _checkConnection(List<ConnectivityResult> result) {
+    if (result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)) {
       emit(state.copyWith(isConnected: true));
-    }else{
+    } else {
       emit(state.copyWith(isConnected: true));
       emit(state.copyWith(isConnected: false));
     }
   }
-
 }

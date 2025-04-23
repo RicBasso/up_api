@@ -47,12 +47,8 @@ class FlavorConstants {
 }
 
 extension FlavorConfigExt on FlavorConfig {
-  String get scheme =>
-      FlavorConfig.instance.variables[FlavorConstants.scheme] as String;
-  String get domain =>
-      FlavorConfig.instance.variables[FlavorConstants.domain] as String;
-  String get apiPath =>
-      FlavorConfig.instance.variables[FlavorConstants.apiPath] as String;
-  String get publicPath =>
-      FlavorConfig.instance.variables[FlavorConstants.publicPath] as String;
+  String get scheme => FlavorConfig.instance.variables[FlavorConstants.scheme] as String;
+  String get domain => FlavorConfig.instance.variables[FlavorConstants.domain] as String;
+  String get apiPath => FlavorConfig.instance.variables[FlavorConstants.apiPath] as String;
+  String get publicPath => FlavorConfig.instance.variables[FlavorConstants.publicPath] as String;
 }

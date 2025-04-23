@@ -7,12 +7,10 @@ class WebhooksRepositoryImpl implements WebhooksRepository {
   Future<WebhooksResponse?> getWebhooksResponse({int? skip, int? top, String? monitorId}) async {
     final response = await upapiDatasource.get(
       'webhooks',
-      queryParameters: {r'$skip': skip, r'$top': top, 'monitorId' : monitorId},
+      queryParameters: {r'$skip': skip, r'$top': top, 'monitorId': monitorId},
       headers: {'Authorization': upapiTokenManager.getToken() ?? ''},
     );
-    if (response != null &&
-        (response.statusCode ?? 100) >= 200 &&
-        (response.statusCode ?? 400) < 300) {
+    if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
       if (response.data is Map<String, dynamic>) {
         return WebhooksResponse.fromJson(response.data as Map<String, dynamic>);
       }

@@ -2,14 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GenericErrorBoxWidget<B extends BlocBase<S>, S> extends StatelessWidget {
+  const GenericErrorBoxWidget({required this.errorCodeSelector, required this.errorMessageGetter, super.key});
   final String? Function(S state) errorCodeSelector;
   final String? Function(BuildContext context, String code) errorMessageGetter;
-
-  const GenericErrorBoxWidget({
-    Key? key,
-    required this.errorCodeSelector,
-    required this.errorMessageGetter,
-  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +24,7 @@ class GenericErrorBoxWidget<B extends BlocBase<S>, S> extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Icon(
-                  Icons.error_outline,
-                  color: Theme.of(context).colorScheme.error,
-                ),
+                Icon(Icons.error_outline, color: Theme.of(context).colorScheme.error),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Text(

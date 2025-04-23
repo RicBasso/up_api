@@ -7,7 +7,7 @@ class HomeCubit extends BaseCubit<HomeState> {
   HomeCubit(super.initialState);
   final ValueNotifier<int> resetTextHandler = ValueNotifier(0);
 
-  Future<void> getProjects({int top = 3,String? query}) async {
+  Future<void> getProjects({int top = 3, String? query}) async {
     emit(state.copyWith(isLoading: true));
     final response = await upapiProjectsRepository.getProjectsResponse(
       skip: state.skip,
@@ -35,7 +35,7 @@ class HomeCubit extends BaseCubit<HomeState> {
     emit(HomeState());
   }
 
-  void cleanSearchText(){
+  void cleanSearchText() {
     resetTextHandler.value++;
   }
 

@@ -9,7 +9,7 @@ class MonitorsCubit extends BaseCubit<MonitorsState> {
   final ValueNotifier<int> resetTextHandler = ValueNotifier(0);
   final String projectId;
 
-  Future<void> getMonitors({int top = 3,String? query}) async {
+  Future<void> getMonitors({int top = 3, String? query}) async {
     emit(state.copyWith(isLoading: true));
     final response = await upapiMonitorsRepository.getMonitorsResponse(
       skip: state.skip,
@@ -39,7 +39,7 @@ class MonitorsCubit extends BaseCubit<MonitorsState> {
     emit(MonitorsState());
   }
 
-  void cleanSearchText(){
+  void cleanSearchText() {
     resetTextHandler.value++;
   }
 

@@ -110,17 +110,13 @@ flutter:
 
 
 flutter_native_splash:
-  color: "#f90909"
-  image: assets/images/up_api_logo.png
+  color: "#ffffff"
+  image: assets/images/launcher_icon.png
   android: true
   ios: true
   web: false
-  android_gravity: fill
-  ios_content_mode: scaleAspectFill
-  fullscreen: true
+  ios_content_mode: center
   android_12:
-    color: "#f90909"
-    image: assets/images/up_api_logo.png
-    icon_background_color: "#eeeeee"
-    android_gravity: fill
+    color: "#ffffff"
+    image: assets/images/launcher_icon.png
     fullscreen: true

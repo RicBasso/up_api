@@ -19,10 +19,7 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => UserPageCubit(UserPageState()),
-      child: const UserScreen(),
-    );
+    return BlocProvider(create: (context) => UserPageCubit(UserPageState()), child: const UserScreen());
   }
 }
 
@@ -90,11 +87,7 @@ class _UserScreenState extends State<UserScreen> {
           backgroundImage: const AssetImage('assets/images/signup_background.png'),
           maxRadius: 40,
           minRadius: 40,
-          child: Icon(
-            size: 50,
-            Icons.person,
-            color: Theme.of(context).colorScheme.onSecondary,
-          ),
+          child: Icon(size: 50, Icons.person, color: Theme.of(context).colorScheme.onSecondary),
         ),
         UpApiSpacing.large,
         Text(
@@ -114,55 +107,43 @@ class _UserScreenState extends State<UserScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _buildFieldText(
-                AppLocalizations.of(context)?.name_label ?? 'name_label',
-              ),
+              _buildFieldText(AppLocalizations.of(context)?.name_label ?? 'name_label'),
               UpApiSpacing.spacingLabelField,
               _buildInput(
                 onChange: () => context.read<UserPageCubit>().cleanNameError(),
                 controller: nameController,
                 errorGetter:
-                    (BuildContext context, UserPageState state) =>
-                    ErrorMessages.getNameError(context, state.nameError),
+                    (BuildContext context, UserPageState state) => ErrorMessages.getNameError(context, state.nameError),
               ),
               UpApiSpacing.spacingFormFields,
-              _buildFieldText(
-                AppLocalizations.of(context)?.surname_label ?? 'surname_label',
-              ),
+              _buildFieldText(AppLocalizations.of(context)?.surname_label ?? 'surname_label'),
               UpApiSpacing.spacingLabelField,
               _buildInput(
                 onChange: () => context.read<UserPageCubit>().cleanSurnameError(),
                 controller: surnameController,
                 errorGetter:
                     (BuildContext context, UserPageState state) =>
-                    ErrorMessages.getSurnameError(context, state.surnameError),
+                        ErrorMessages.getSurnameError(context, state.surnameError),
               ),
               UpApiSpacing.spacingFormFields,
-              _buildFieldText(
-                AppLocalizations.of(context)?.email_label ?? 'email_label',
-              ),
+              _buildFieldText(AppLocalizations.of(context)?.email_label ?? 'email_label'),
               UpApiSpacing.spacingLabelField,
               _buildInput(
                 onChange: () => context.read<UserPageCubit>().cleanEmailError(),
                 controller: emailController,
                 errorGetter:
                     (BuildContext context, UserPageState state) =>
-                    ErrorMessages.getEmailError(context, state.emailError),
+                        ErrorMessages.getEmailError(context, state.emailError),
               ),
               UpApiSpacing.spacingFormFields,
-              _buildFieldText(
-                AppLocalizations.of(context)?.phone_label ?? 'phone_label',
-              ),
+              _buildFieldText(AppLocalizations.of(context)?.phone_label ?? 'phone_label'),
               UpApiSpacing.spacingLabelField,
               _buildInput(
                 onChange: () => context.read<UserPageCubit>().cleanPhoneError(),
                 controller: phoneController,
                 errorGetter:
                     (BuildContext context, UserPageState state) =>
-                    ErrorMessages.getPhoneError(
-                      context,
-                      state.phoneError,
-                    ),
+                        ErrorMessages.getPhoneError(context, state.phoneError),
               ),
               UpApiSpacing.extraLarge,
               GenericErrorBoxWidget<UserPageCubit, UserPageState>(
@@ -174,7 +155,7 @@ class _UserScreenState extends State<UserScreen> {
                 builder: (context, state) {
                   return Column(
                     children: [
-                      if (state.completed) _successMessage(context) else SizedBox(),
+                      if (state.completed) _successMessage(context) else const SizedBox(),
                       LoadingButtonWidget(
                         isLoading: state.isLoading,
                         onPressed: () {
@@ -185,10 +166,7 @@ class _UserScreenState extends State<UserScreen> {
                             phoneController.text,
                           );
                         },
-                        child: Text(
-                          AppLocalizations.of(context)?.save_label ??
-                              'save_label',
-                        ),
+                        child: Text(AppLocalizations.of(context)?.save_label ?? 'save_label'),
                       ),
                     ],
                   );
@@ -203,8 +181,7 @@ class _UserScreenState extends State<UserScreen> {
 
   Widget _buildInput({
     required TextEditingController controller,
-    required String? Function(BuildContext context, UserPageState state)
-    errorGetter,
+    required String? Function(BuildContext context, UserPageState state) errorGetter,
     required void Function() onChange,
     bool isPassword = false,
   }) {
@@ -226,7 +203,7 @@ class _UserScreenState extends State<UserScreen> {
   }
 }
 
-Widget _successMessage(BuildContext context){
+Widget _successMessage(BuildContext context) {
   return Container(
     margin: const EdgeInsets.symmetric(vertical: 16),
     padding: const EdgeInsets.all(12),
@@ -238,14 +215,11 @@ Widget _successMessage(BuildContext context){
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(
-          Icons.error_outline,
-          color: UpApiColorsLight.success,
-        ),
+        const Icon(Icons.error_outline, color: UpApiColorsLight.success),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
-          AppLocalizations.of(context)?.modify_complete_label ?? 'modify_complete_label',
+            AppLocalizations.of(context)?.modify_complete_label ?? 'modify_complete_label',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               color: Theme.of(context).colorScheme.tertiary,
               fontWeight: FontWeight.w500,

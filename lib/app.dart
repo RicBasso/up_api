@@ -39,19 +39,19 @@ class MyApp extends StatelessWidget {
   }
 }
 
-void _connectionHandler(BuildContext context ,ConnectionInternalState state){
+void _connectionHandler(BuildContext context, ConnectionInternalState state) {
   if (!state.isConnected) {
     BuildContext ctx;
-    if (upapiSessionManager.navigatorKey.currentContext !=null){
+    if (upapiSessionManager.navigatorKey.currentContext != null) {
       ctx = upapiSessionManager.navigatorKey.currentContext!;
-    }else{
+    } else {
       return;
     }
     showDialog(
-      barrierDismissible : false,
+      barrierDismissible: false,
       context: ctx,
       builder: (context) {
-        return PopScope (
+        return PopScope(
           canPop: false,
           child: AlertDialog(
             title: Text(AppLocalizations.of(context)?.no_internet_connection ?? 'no_internet_connection'),
@@ -70,5 +70,4 @@ void _connectionHandler(BuildContext context ,ConnectionInternalState state){
       },
     );
   }
-
 }

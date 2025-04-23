@@ -1,30 +1,20 @@
-import 'package:up_api/features/login/bloc/login_state.dart';
 import 'package:up_api/features/register/bloc/register_state.dart';
 import 'package:up_api/routes/routes.dart';
 import 'package:up_api/utils/base_bloc/base_state/base_bloc.dart';
-import 'package:up_api/utils/constants.dart';
 import 'package:up_api/utils/field_check.dart';
 import 'package:up_api/utils/service/service_locator.dart';
-import 'package:up_api/utils/shared_prefs.dart';
 
 class RegisterCubit extends BaseCubit<RegisterState> {
   RegisterCubit(super.initialState);
 
-  Future<void> register(
-    String email,
-    String password,
-    String name,
-    String surname,
-    String business,
-  ) async {
+  Future<void> register(String email, String password, String name, String surname, String business) async {
     final emailError = validateEmail(email);
     final passError = validatePassword(password);
     final nameError = validateName(name);
     final surnameError = validateName(surname);
     final businessError = validateBusiness(business);
 
-    final hasErrors =
-        emailError + passError + nameError + surnameError + businessError > 0;
+    final hasErrors = emailError + passError + nameError + surnameError + businessError > 0;
     emit(
       state.copyWith(
         emailError: emailError,
@@ -38,13 +28,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       return;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.register(
-      email,
-      password,
-      name,
-      surname,
-      business,
-    );
+    final res = await upapiAuthentication.register(email, password, name, surname, business);
     if (res == null) {
       emit(RegisterState(error: 'GENERIC_ERROR'));
     }
@@ -64,22 +48,22 @@ class RegisterCubit extends BaseCubit<RegisterState> {
   }
 
   void cleanEmailError() {
-    emit(state.copyWith(emailError: 0, nullError: true,));
+    emit(state.copyWith(emailError: 0, nullError: true));
   }
 
   void cleanPassError() {
-    emit(state.copyWith(passError: 0, nullError: true,));
+    emit(state.copyWith(passError: 0, nullError: true));
   }
 
   void cleanNameError() {
-    emit(state.copyWith(nameError: 0, nullError: true,));
+    emit(state.copyWith(nameError: 0, nullError: true));
   }
 
   void cleanSurnameError() {
-    emit(state.copyWith(surnameError: 0, nullError: true,));
+    emit(state.copyWith(surnameError: 0, nullError: true));
   }
 
   void cleanBusinessError() {
-    emit(state.copyWith(businessError: 0, nullError: true,));
+    emit(state.copyWith(businessError: 0, nullError: true));
   }
 }

@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:up_api/style/up_api_spacing.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:up_api/style/up_api_spacing.dart';
 
-/**
- *TODO () INSERIRE CONSTANTI DELLO STYLE NEL TEMA E RICHIARE QUELLE
- */
+///TODO () INSERIRE CONSTANTI DELLO STYLE NEL TEMA E RICHIARE QUELLE
 
 class CardWidget extends StatelessWidget {
-  const CardWidget({
-    super.key,
-    this.logoUrl,
-    this.title,
-    this.subTitle,
-    this.description,
-    this.result,
-    this.onTap,
-  });
+  const CardWidget({super.key, this.logoUrl, this.title, this.subTitle, this.description, this.result, this.onTap});
 
   final String? logoUrl;
   final String? title;
@@ -38,30 +28,21 @@ class CardWidget extends StatelessWidget {
             children: [
               if (onTap != null || title != null) ...[
                 Row(
-                children: [
-                  if (logoUrl != null)
-                    Row(
-                      children: [
-                        Image.network(logoUrl ?? '', width: 30),
-                        const SizedBox(width: 20),
-                      ],
-                    )
-                  else
-                    const SizedBox(),
-                  Expanded(
-                    child: Text(
-                      title ?? '',
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                  ),
-                  if (onTap != null) Icon(
-                    Icons.chevron_right,
-                    color: Theme.of(context).colorScheme.primary,
-                  ) else const SizedBox(),
-                ],
-              ),
+                  children: [
+                    if (logoUrl != null)
+                      Row(children: [Image.network(logoUrl ?? '', width: 30), const SizedBox(width: 20)])
+                    else
+                      const SizedBox(),
+                    Expanded(child: Text(title ?? '', style: Theme.of(context).textTheme.bodyLarge)),
+                    if (onTap != null)
+                      Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.primary)
+                    else
+                      const SizedBox(),
+                  ],
+                ),
                 UpApiSpacing.large,
-              ] else const SizedBox(),
+              ] else
+                const SizedBox(),
               Row(
                 children: [
                   Expanded(
@@ -74,10 +55,7 @@ class CardWidget extends StatelessWidget {
                         ] else ...[
                           const SizedBox(),
                         ],
-                        Text(
-                          description ?? '',
-                          style: const TextStyle(fontSize: 14),
-                        ),
+                        Text(description ?? '', style: const TextStyle(fontSize: 14)),
                       ],
                     ),
                   ),
@@ -92,25 +70,18 @@ class CardWidget extends StatelessWidget {
   }
 
   Widget _resultMessage(String? result, BuildContext context) {
-    final values = _ResultMessageValues(result,context);
+    final values = _ResultMessageValues(result, context);
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(
-        color: Color(values.colorBack),
-        borderRadius: BorderRadius.circular(12),
-      ),
+      decoration: BoxDecoration(color: Color(values.colorBack), borderRadius: BorderRadius.circular(12)),
       child: Row(
         children: [
           Icon(values.icon, color: Color(values.colorFront), size: 18),
           const SizedBox(width: 4),
           Text(
             values.text,
-            style: TextStyle(
-              color: Color(values.colorFront),
-              fontWeight: FontWeight.bold,
-              fontSize: 14,
-            ),
+            style: TextStyle(color: Color(values.colorFront), fontWeight: FontWeight.bold, fontSize: 14),
           ),
         ],
       ),
@@ -118,17 +89,13 @@ class CardWidget extends StatelessWidget {
   }
 }
 
-
-class _ResultMessageValues{
-
-
-  _ResultMessageValues(String? message, BuildContext context){
-    switch (message){
+class _ResultMessageValues {
+  _ResultMessageValues(String? message, BuildContext context) {
+    switch (message) {
       case 'success':
         colorFront = 0xFF4CAF50;
         colorBack = 0xB0D3FFCC;
-        text = AppLocalizations.of(context)?.positive_result_label ??
-            'positive_result_label';
+        text = AppLocalizations.of(context)?.positive_result_label ?? 'positive_result_label';
         icon = Icons.check;
 
       case 'waiting_response':
@@ -140,36 +107,31 @@ class _ResultMessageValues{
       case 'exception':
         colorFront = 0xFFFF0000;
         colorBack = 0xFFFFEBEB;
-        text = AppLocalizations.of(context)?.negative_result_label ??
-            'negative_result_label';
+        text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'no_match':
         colorFront = 0xFFFF0000;
         colorBack = 0xFFFFEBEB;
-        text = AppLocalizations.of(context)?.negative_result_label ??
-            'negative_result_label';
+        text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'error':
         colorFront = 0xFFFF0000;
         colorBack = 0xFFFFEBEB;
-        text = AppLocalizations.of(context)?.negative_result_label ??
-            'negative_result_label';
+        text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'networkError':
         colorFront = 0xFFFF0000;
         colorBack = 0xFFFFEBEB;
-        text = AppLocalizations.of(context)?.negative_result_label ??
-            'negative_result_label';
+        text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'generic_error':
         colorFront = 0xFFFF0000;
         colorBack = 0xFFFFEBEB;
-        text = AppLocalizations.of(context)?.negative_result_label ??
-            'negative_result_label';
+        text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case null:
@@ -179,22 +141,18 @@ class _ResultMessageValues{
         icon = Icons.warning_amber_outlined;
 
       default:
-        if (message.length >= 10){
+        if (message.length >= 10) {
           colorFront = 0xFF4CAF50;
           colorBack = 0xB0D3FFCC;
-          text = AppLocalizations.of(context)?.positive_result_label ??
-              'positive_result_label';
+          text = AppLocalizations.of(context)?.positive_result_label ?? 'positive_result_label';
           icon = Icons.check;
-        }else{
+        } else {
           colorFront = 0xFF000000;
           colorBack = 0xFFFFF9C4;
           text = 'xxxxxxxxx';
           icon = Icons.warning_amber_outlined;
         }
-
     }
-
-
   }
   late int colorFront = 0xFF000000;
   late int colorBack = 0xFFFFF9C4;

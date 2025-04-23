@@ -41,13 +41,5 @@ class UserPageState extends BaseState {
   final int phoneError;
 
   @override
-  List<Object?> get props => [
-    completed,
-    isLoading,
-    error,
-    nameError,
-    surnameError,
-    emailError,
-    phoneError,
-  ];
+  List<Object?> get props => [completed, isLoading, error, nameError, surnameError, emailError, phoneError];
 }

@@ -18,8 +18,8 @@ class WebhooksPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<WebhooksCubit>(
-      create: (context) => WebhooksCubit(WebhooksState(),monitorId)..getWebhooks(top: 5),
-      child: WebhooksScreen(monitorName: monitorName,),
+      create: (context) => WebhooksCubit(WebhooksState(), monitorId)..getWebhooks(top: 5),
+      child: WebhooksScreen(monitorName: monitorName),
     );
   }
 }
@@ -32,23 +32,14 @@ class WebhooksScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: const IconThemeData(
-          color: Colors.white,
-          size: 40,
-        ),
+        iconTheme: const IconThemeData(color: Colors.white, size: 40),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         title: Text(
-            monitorName,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.onSecondary,
-            fontWeight: FontWeight.w700,
-          ),
+          monitorName,
+          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontWeight: FontWeight.w700),
         ),
-        bottom: const PreferredSize(
-          preferredSize: Size.fromHeight(10),
-          child: SizedBox(),
-        ),
+        bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
       ),
       body: SafeArea(
         child: RefreshIndicator(
@@ -59,11 +50,7 @@ class WebhooksScreen extends StatelessWidget {
                 padding: UpApiPadding.basicPadding,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    _buildListCardContent(),
-                    _buildLoadMore(),
-                    UpApiSpacing.large,
-                  ],
+                  children: [_buildListCardContent(), _buildLoadMore(), UpApiSpacing.large],
                 ),
               ),
             ],
@@ -76,39 +63,35 @@ class WebhooksScreen extends StatelessWidget {
   Widget _buildListCardContent() {
     return BlocBuilder<WebhooksCubit, WebhooksState>(
       builder: (context, state) {
-        final loading = state.isLoading
-            ? List.generate(
-          3,
-              (_) =>
-          const Skeletonizer(
-            child: CardWidget(
-              description: '****************',
-              //result: true,
-            ),
-          ),
-        )
-            : <Skeletonizer>[];
+        final loading =
+            state.isLoading
+                ? List.generate(
+                  3,
+                  (_) => const Skeletonizer(
+                    child: CardWidget(
+                      description: '****************',
+                      //result: true,
+                    ),
+                  ),
+                )
+                : <Skeletonizer>[];
 
-        final webhooks = (state.webhooks ?? []).map((webhook) {
-          return CardWidget(
-            description: webhook?.executionDate != null ? _formatApiDate(webhook?.executionDate, context) : '${AppLocalizations.of(context)?.webhooks_requested_at ?? 'webhooks_requested_at'}\n${_formatApiDate(webhook?.requestedExecutionDate, context)}',
-            result: webhook?.result,
-          );
-        }).toList();
+        final webhooks =
+            (state.webhooks ?? []).map((webhook) {
+              return CardWidget(
+                description:
+                    webhook?.executionDate != null
+                        ? _formatApiDate(webhook?.executionDate, context)
+                        : '${AppLocalizations.of(context)?.webhooks_requested_at ?? 'webhooks_requested_at'}\n${_formatApiDate(webhook?.requestedExecutionDate, context)}',
+                result: webhook?.result,
+              );
+            }).toList();
 
-        if(state.isLoading == false && webhooks.isEmpty){
-          return Center(child: Text(AppLocalizations
-              .of(context)
-              ?.no_result_found ??
-              'no_result_found',),
-          );
-        }else{
-          return Column(
-            children: [...webhooks, ...loading],
-          );
+        if (state.isLoading == false && webhooks.isEmpty) {
+          return Center(child: Text(AppLocalizations.of(context)?.no_result_found ?? 'no_result_found'));
+        } else {
+          return Column(children: [...webhooks, ...loading]);
         }
-
-
       },
     );
   }
@@ -118,12 +101,8 @@ class WebhooksScreen extends StatelessWidget {
       child: BlocBuilder<WebhooksCubit, WebhooksState>(
         builder: (context, state) {
           return LoadMoreButtonWidget(
-            buttonText: AppLocalizations
-                .of(context)
-                ?.load_more_button ?? 'load_more_button',
-            finishedText: AppLocalizations
-                .of(context)
-                ?.load_more_button_finished ?? 'load_more_button_finished',
+            buttonText: AppLocalizations.of(context)?.load_more_button ?? 'load_more_button',
+            finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countWebhooks ?? 0,
             onPressed: () => context.read<WebhooksCubit>().getWebhooks(top: 5),
@@ -139,7 +118,7 @@ class WebhooksScreen extends StatelessWidget {
   }
 
   String _formatApiDate(DateTime? date, BuildContext context) {
-    if(date == null){
+    if (date == null) {
       return AppLocalizations.of(context)?.unknown_date_label ?? 'unknown_date_label';
     }
     final locale = AppLocalizations.of(context)?.localeName; //oppure Localizations.localeOf(context).toLanguageTag()
@@ -147,10 +126,4 @@ class WebhooksScreen extends StatelessWidget {
     final time = DateFormat.Hm(locale);
     return '${formatter.format(date)} - ${time.format(date)}';
   }
-
-
-
 }
-
-
-

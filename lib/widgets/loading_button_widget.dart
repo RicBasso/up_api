@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
 
 class LoadingButtonWidget extends StatelessWidget {
-  LoadingButtonWidget({
-    required this.child,
-    super.key,
-    this.isLoading = false,
-    this.onPressed,
-    this.overrideStyle,
-  });
+  LoadingButtonWidget({required this.child, super.key, this.isLoading = false, this.onPressed, this.overrideStyle});
 
   late final bool isLoading;
   late void Function()? onPressed;
@@ -19,12 +13,7 @@ class LoadingButtonWidget extends StatelessWidget {
     return ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: overrideStyle ?? Theme.of(context).elevatedButtonTheme.style,
-      child:
-          isLoading
-              ? CircularProgressIndicator(
-                color: Theme.of(context).colorScheme.onSecondary,
-              )
-              : child,
+      child: isLoading ? CircularProgressIndicator(color: Theme.of(context).colorScheme.onSecondary) : child,
     );
   }
 }

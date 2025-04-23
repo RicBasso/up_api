@@ -7,8 +7,8 @@ import 'package:up_api/routes/create_go_router.dart';
 import 'package:up_api/routes/routes.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 
-Future<void> main()  async {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+Future<void> main() async {
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   upApiFlavorConfig(FlavorType.develop);
   await registerDependencies();
@@ -23,10 +23,10 @@ Future<String> _init() async {
   final token = upapiTokenManager.token;
   final id = upapiSessionManager.userID;
   final result = await Connectivity().checkConnectivity();
-  if(result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)){
-    if(token != null && token != '' && id != null && id != ''){
+  if (result.contains(ConnectivityResult.mobile) || result.contains(ConnectivityResult.wifi)) {
+    if (token != null && token != '' && id != null && id != '') {
       final res = await upapiAuthentication.getUserInfo(id);
-      if(res != null && res.success){
+      if (res != null && res.success) {
         upapiSessionManager.setUserSession(res.user);
         initialPage = Routes.homepage;
       }

@@ -1,12 +1,7 @@
 import 'package:up_api/features/home/data/model/project.dart';
 
 class ProjectsResponse {
-  ProjectsResponse({
-    required this.success,
-    this.projectsBody,
-    this.code,
-    this.count,
-  });
+  ProjectsResponse({required this.success, this.projectsBody, this.code, this.count});
 
   ProjectsResponse.fromJson(Map<String, dynamic> json) {
     if (json['success'] is bool) {
@@ -16,9 +11,9 @@ class ProjectsResponse {
       count = json['count'] as int;
       if (json['data'] is List) {
         projectsBody = [];
-        (json['data'] as List<dynamic>).forEach((element) {
+        for (final element in (json['data'] as List<dynamic>)) {
           projectsBody?.add(Project.fromJson(element as Map<String, dynamic>));
-        });
+        }
       }
     } else {
       if (json['success'] is bool) {

@@ -9,26 +9,22 @@ import 'package:up_api/features/register/presentation/widgets/modal_register.dar
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/error_messages/error_messages.dart';
-import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
+import 'package:up_api/widgets/generic_error_box_widget.dart';
 import 'package:up_api/widgets/input_widget.dart';
 import 'package:up_api/widgets/loading_button_widget.dart';
-import 'package:up_api/widgets/generic_error_box_widget.dart';
 
 class ModalLogin extends StatelessWidget {
   const ModalLogin({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginCubit(LoginState()),
-      child: const _LoginScreen(),
-    );
+    return BlocProvider(create: (context) => LoginCubit(LoginState()), child: const _LoginScreen());
   }
 }
 
 class _LoginScreen extends StatefulWidget {
-  const _LoginScreen({super.key});
+  const _LoginScreen();
 
   @override
   State<_LoginScreen> createState() => _LoginScreenState();
@@ -89,10 +85,7 @@ class _LoginScreenState extends State<_LoginScreen> {
             GoRouter.of(context).pop();
             showModalHandler(context, const ModalRegister());
           },
-          child: Text(
-            AppLocalizations.of(context)?.register_now_label ??
-                'register_now_label',
-          ),
+          child: Text(AppLocalizations.of(context)?.register_now_label ?? 'register_now_label'),
         ),
       ],
     );
@@ -128,10 +121,7 @@ class _LoginScreenState extends State<_LoginScreen> {
                 GoRouter.of(context).pop();
                 showModalHandler(context, const ModalLostPassword());
               },
-              child: Text(
-                AppLocalizations.of(context)?.lost_password_label ??
-                    'lost_password_label',
-              ),
+              child: Text(AppLocalizations.of(context)?.lost_password_label ?? 'lost_password_label'),
             ),
           ),
           GenericErrorBoxWidget<LoginCubit, LoginState>(
@@ -143,19 +133,13 @@ class _LoginScreenState extends State<_LoginScreen> {
             builder: (context, state) {
               return Column(
                 children: [
-                if (state.error == null) UpApiSpacing.extraLarge else const SizedBox(),
+                  if (state.error == null) UpApiSpacing.extraLarge else const SizedBox(),
                   LoadingButtonWidget(
                     isLoading: state.isLoading,
                     onPressed: () {
-                      context.read<LoginCubit>().login(
-                        emailController.text,
-                        passController.text,
-                      );
+                      context.read<LoginCubit>().login(emailController.text, passController.text);
                     },
-                    child: Text(
-                      AppLocalizations.of(context)?.login_page_submit_button ??
-                          'login_page_submit_button',
-                    ),
+                    child: Text(AppLocalizations.of(context)?.login_page_submit_button ?? 'login_page_submit_button'),
                   ),
                 ],
               );
@@ -165,7 +149,6 @@ class _LoginScreenState extends State<_LoginScreen> {
       ),
     );
   }
-
 
   Widget _fieldLabel(BuildContext context, String text) {
     return Text(text, style: Theme.of(context).textTheme.labelMedium);

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:up_api/features/login/presentation/widgets/modal_login.dart';
 import 'package:up_api/features/lost_password/presentation/widgets/modal_lost_password.dart';
-import 'package:up_api/features/register/presentation/widgets/modal_register.dart';
 import 'package:up_api/utils/service/service_locator.dart';
-import 'package:up_api/utils/session_manager.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -18,16 +15,14 @@ class _WelcomePageState extends State<WelcomePage> {
   @override
   void initState() {
     upapiSessionManager.keyWelcome = GlobalKey();
-    /// WidgetsBinding.instance.addPostFrameCallback((_) {
-    showModalHandler(context, const ModalLostPassword());
-
-    /// });
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      showModalHandler(context, const ModalLostPassword());
+    });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: upapiSessionManager.keyWelcome,
       body: Container(
@@ -35,10 +30,7 @@ class _WelcomePageState extends State<WelcomePage> {
         height: double.infinity,
         alignment: Alignment.topCenter,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/signup_background.png'),
-            fit: BoxFit.cover,
-          ),
+          image: DecorationImage(image: AssetImage('assets/images/signup_background.png'), fit: BoxFit.cover),
         ),
         child: Hero(
           tag: 'logo_iniziale',

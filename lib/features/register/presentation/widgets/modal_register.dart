@@ -18,10 +18,7 @@ class ModalRegister extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => RegisterCubit(RegisterState()),
-      child: const RegisterScreen(),
-    );
+    return BlocProvider(create: (context) => RegisterCubit(RegisterState()), child: const RegisterScreen());
   }
 }
 
@@ -62,15 +59,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         alignment: Alignment.center,
-        height:
-            (MediaQuery.sizeOf(context).height -
-                MediaQuery.of(context).padding.vertical) *
-            0.80,
+        height: (MediaQuery.sizeOf(context).height - MediaQuery.of(context).padding.vertical) * 0.80,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -91,8 +83,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     return Column(
       children: [
         Text(
-          AppLocalizations.of(context)?.sing_up_page_title ??
-              'sing_up_page_title',
+          AppLocalizations.of(context)?.sing_up_page_title ?? 'sing_up_page_title',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         Container(
@@ -102,10 +93,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               GoRouter.of(context).pop();
               showModalHandler(context, const ModalLogin());
             },
-            child: Text(
-              AppLocalizations.of(context)?.login_now_label ??
-                  'login_now_label',
-            ),
+            child: Text(AppLocalizations.of(context)?.login_now_label ?? 'login_now_label'),
           ),
         ),
       ],
@@ -118,46 +106,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.email_label ?? 'email_label',
-          ),
+          _buildRegisterFieldText(AppLocalizations.of(context)?.email_label ?? 'email_label'),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
             onChange: () => context.read<RegisterCubit>().cleanEmailError(),
             controller: emailController,
             errorGetter:
-                (BuildContext context, RegisterState state) =>
-                    ErrorMessages.getEmailError(context, state.emailError),
+                (BuildContext context, RegisterState state) => ErrorMessages.getEmailError(context, state.emailError),
           ),
           UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.password_label ?? 'password_label',
-          ),
+          _buildRegisterFieldText(AppLocalizations.of(context)?.password_label ?? 'password_label'),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
             onChange: () => context.read<RegisterCubit>().cleanPassError(),
             isPassword: true,
             controller: passController,
             errorGetter:
-                (BuildContext context, RegisterState state) =>
-                    ErrorMessages.getPasswordError(context, state.passError),
+                (BuildContext context, RegisterState state) => ErrorMessages.getPasswordError(context, state.passError),
           ),
           UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.name_label ?? 'name_label',
-          ),
+          _buildRegisterFieldText(AppLocalizations.of(context)?.name_label ?? 'name_label'),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
             onChange: () => context.read<RegisterCubit>().cleanNameError(),
             controller: nameController,
             errorGetter:
-                (BuildContext context, RegisterState state) =>
-                    ErrorMessages.getNameError(context, state.nameError),
+                (BuildContext context, RegisterState state) => ErrorMessages.getNameError(context, state.nameError),
           ),
           UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.surname_label ?? 'surname_label',
-          ),
+          _buildRegisterFieldText(AppLocalizations.of(context)?.surname_label ?? 'surname_label'),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
             onChange: () => context.read<RegisterCubit>().cleanSurnameError(),
@@ -167,19 +144,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     ErrorMessages.getSurnameError(context, state.surnameError),
           ),
           UpApiSpacing.spacingFormFields,
-          _buildRegisterFieldText(
-            AppLocalizations.of(context)?.business_label ?? 'business_label',
-          ),
+          _buildRegisterFieldText(AppLocalizations.of(context)?.business_label ?? 'business_label'),
           UpApiSpacing.spacingLabelField,
           _buildRegisterInput(
             onChange: () => context.read<RegisterCubit>().cleanBusinessError(),
             controller: businessController,
             errorGetter:
                 (BuildContext context, RegisterState state) =>
-                    ErrorMessages.getBusinessError(
-                      context,
-                      state.businessError,
-                    ),
+                    ErrorMessages.getBusinessError(context, state.businessError),
           ),
           UpApiSpacing.extraLarge,
           GenericErrorBoxWidget<RegisterCubit, RegisterState>(
@@ -200,10 +172,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     'test', //businessController.text,
                   );
                 },
-                child: Text(
-                  AppLocalizations.of(context)?.register_page_submit_button ??
-                      'register_page_submit_button',
-                ),
+                child: Text(AppLocalizations.of(context)?.register_page_submit_button ?? 'register_page_submit_button'),
               );
             },
           ),
@@ -214,8 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   Widget _buildRegisterInput({
     required TextEditingController controller,
-    required String? Function(BuildContext context, RegisterState state)
-    errorGetter,
+    required String? Function(BuildContext context, RegisterState state) errorGetter,
     required void Function() onChange,
     bool isPassword = false,
   }) {

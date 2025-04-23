@@ -33,5 +33,4 @@ class WebhooksCubit extends BaseCubit<WebhooksState> {
   void reset() {
     emit(WebhooksState());
   }
-
 }

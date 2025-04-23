@@ -5,36 +5,23 @@ import 'package:up_api/utils/field_check.dart';
 
 import 'package:up_api/utils/service/service_locator.dart';
 
-
 class LoginCubit extends BaseCubit<LoginState> {
   LoginCubit(super.initialState);
 
-  Future<void> login(
-    String email,
-    String password,
-  ) async {
+  Future<void> login(String email, String password) async {
     final emailError = validateEmail(email);
     final passError = validatePasswordLogin(password);
 
-    final hasErrors =
-        emailError + passError > 0;
+    final hasErrors = emailError + passError > 0;
 
-    emit(
-      state.copyWith(
-        emailError: emailError,
-        passError: passError,
-      ),
-    );
+    emit(state.copyWith(emailError: emailError, passError: passError));
 
     if (hasErrors) {
       return;
     }
 
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.login(
-        email,
-        password,
-    );
+    final res = await upapiAuthentication.login(email, password);
     if (res == null) {
       emit(LoginState(error: 'GENERIC_ERROR'));
     }
@@ -45,7 +32,7 @@ class LoginCubit extends BaseCubit<LoginState> {
       upapiTokenManager.saveTokens(token: token, refreshToken: refToken);
       upapiSessionManager.setUserSession(res?.loginBody?.user);
       upapiGoRouter.go(Routes.homepage);
-    }else{
+    } else {
       emit(LoginState(error: res?.code));
     }
     return;

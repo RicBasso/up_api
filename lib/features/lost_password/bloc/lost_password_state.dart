@@ -1,12 +1,7 @@
 import 'package:up_api/utils/base_bloc/base_state/base_state.dart';
 
 class LostPasswordState extends BaseState {
-  LostPasswordState({
-    this.isLoading = false,
-    this.completed = false,
-    this.error,
-    this.emailError = 0,
-  });
+  LostPasswordState({this.isLoading = false, this.completed = false, this.error, this.emailError = 0});
 
   LostPasswordState copyWith({
     bool nullError = false,
@@ -28,12 +23,6 @@ class LostPasswordState extends BaseState {
   final String? error;
   final int emailError;
 
-
   @override
-  List<Object?> get props => [
-    isLoading,
-    error,
-    emailError,
-    completed,
-  ];
+  List<Object?> get props => [isLoading, error, emailError, completed];
 }

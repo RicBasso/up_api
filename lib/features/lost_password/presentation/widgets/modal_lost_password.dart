@@ -19,10 +19,7 @@ class ModalLostPassword extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LostPasswordCubit(LostPasswordState()),
-      child: const LostPassword(),
-    );
+    return BlocProvider(create: (context) => LostPasswordCubit(LostPasswordState()), child: const LostPassword());
   }
 }
 
@@ -51,15 +48,10 @@ class _LostPasswordState extends State<LostPassword> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-      ),
+      padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Container(
         alignment: Alignment.center,
-        height:
-            (MediaQuery.sizeOf(context).height -
-                MediaQuery.of(context).padding.vertical) *
-            0.50,
+        height: (MediaQuery.sizeOf(context).height - MediaQuery.of(context).padding.vertical) * 0.50,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -80,8 +72,7 @@ class _LostPasswordState extends State<LostPassword> {
     return Column(
       children: [
         Text(
-          AppLocalizations.of(context)?.lost_password_label ??
-              'lost_password_label',
+          AppLocalizations.of(context)?.lost_password_label ?? 'lost_password_label',
           style: Theme.of(context).textTheme.headlineLarge,
         ),
         Container(
@@ -91,10 +82,7 @@ class _LostPasswordState extends State<LostPassword> {
               GoRouter.of(context).pop();
               showModalHandler(context, const ModalLogin());
             },
-            child: Text(
-              AppLocalizations.of(context)?.login_now_label ??
-                  'login_now_label',
-            ),
+            child: Text(AppLocalizations.of(context)?.login_now_label ?? 'login_now_label'),
           ),
         ),
       ],
@@ -107,9 +95,7 @@ class _LostPasswordState extends State<LostPassword> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildLostPasswordFieldText(
-            AppLocalizations.of(context)?.email_label ?? 'email_label',
-          ),
+          _buildLostPasswordFieldText(AppLocalizations.of(context)?.email_label ?? 'email_label'),
           UpApiSpacing.spacingLabelField,
           _buildLostPasswordInput(
             onChange: () => context.read<LostPasswordCubit>().cleanEmailError(),
@@ -130,18 +116,13 @@ class _LostPasswordState extends State<LostPassword> {
                 isLoading: state.isLoading,
                 onPressed: () async {
                   bool result;
-                  result = await context.read<LostPasswordCubit>().lostPassword(
-                    emailController.text,
-                  );
+                  result = await context.read<LostPasswordCubit>().lostPassword(emailController.text);
                   if (result) {
                     GoRouter.of(context).pop();
                     showModalHandler(context, const LostPasswordConfirm());
                   }
                 },
-                child: Text(
-                  AppLocalizations.of(context)?.lost_password_submit_button ??
-                      'lost_password_submit_button',
-                ),
+                child: Text(AppLocalizations.of(context)?.lost_password_submit_button ?? 'lost_password_submit_button'),
               );
             },
           ),
@@ -152,8 +133,7 @@ class _LostPasswordState extends State<LostPassword> {
 
   Widget _buildLostPasswordInput({
     required TextEditingController controller,
-    required String? Function(BuildContext context, LostPasswordState state)
-    errorGetter,
+    required String? Function(BuildContext context, LostPasswordState state) errorGetter,
     required void Function() onChange,
     bool isPassword = false,
   }) {

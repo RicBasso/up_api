@@ -1,20 +1,9 @@
 import 'package:up_api/utils/base_bloc/base_state/base_state.dart';
 
 class LoginState extends BaseState {
-  LoginState({
-    this.isLoading = false,
-    this.error,
-    this.emailError = 0,
-    this.passError = 0,
-  });
+  LoginState({this.isLoading = false, this.error, this.emailError = 0, this.passError = 0});
 
-  LoginState copyWith({
-    bool nullError = false,
-    bool? isLoading,
-    String? error,
-    int? emailError,
-    int? passError,
-  }) {
+  LoginState copyWith({bool nullError = false, bool? isLoading, String? error, int? emailError, int? passError}) {
     return LoginState(
       isLoading: isLoading ?? this.isLoading,
       error: nullError ? null : error ?? this.error,

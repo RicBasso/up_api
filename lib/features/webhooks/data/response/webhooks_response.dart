@@ -1,12 +1,7 @@
 import 'package:up_api/features/webhooks/data/model/webhook.dart';
 
 class WebhooksResponse {
-  WebhooksResponse({
-    required this.success,
-    this.webhooksBody,
-    this.code,
-    this.count,
-  });
+  WebhooksResponse({required this.success, this.webhooksBody, this.code, this.count});
 
   WebhooksResponse.fromJson(Map<String, dynamic> json) {
     if (json['success'] is bool) {
@@ -16,9 +11,9 @@ class WebhooksResponse {
       count = json['count'] as int;
       if (json['data'] is List) {
         webhooksBody = [];
-        (json['data'] as List<dynamic>).forEach((element) {
+        for (final element in (json['data'] as List<dynamic>)) {
           webhooksBody?.add(Webhook.fromJson(element as Map<String, dynamic>));
-        });
+        }
       }
     } else {
       if (json['success'] is bool) {
