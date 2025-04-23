@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:up_api/features/lost_password/presentation/widgets/modal_lost_password.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:up_api/features/login/presentation/widgets/modal_login.dart';
+import 'package:up_api/features/welcome/bloc/welcome_cubit.dart';
+import 'package:up_api/features/welcome/bloc/welcome_state.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/utils/show_modal_handler.dart';
 
@@ -12,11 +15,10 @@ class WelcomePage extends StatefulWidget {
 
 class _WelcomePageState extends State<WelcomePage> {
   @override
-  @override
   void initState() {
     upapiSessionManager.keyWelcome = GlobalKey();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      showModalHandler(context, const ModalLostPassword());
+      showModalHandler(context, const ModalLogin(), 0.35);
     });
     super.initState();
   }
@@ -35,9 +37,13 @@ class _WelcomePageState extends State<WelcomePage> {
         child: Hero(
           tag: 'logo_iniziale',
           child: SafeArea(
-            child: SizedBox(
-              height: MediaQuery.sizeOf(context).height * 0.15,
-              child: Image.asset('assets/images/up_api_logo.png'),
+            child: BlocBuilder<WelcomeCubit, WelcomeState>(
+              builder: (context, state) {
+                return SizedBox(
+                    height: MediaQuery.sizeOf(context).height * context.read<WelcomeCubit>().state.heightPercentage,
+                    child: Image.asset('assets/images/up_api_logo.png'),
+                );
+              },
             ),
           ),
         ),
