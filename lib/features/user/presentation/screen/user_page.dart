@@ -90,9 +90,11 @@ class _UserScreenState extends State<UserScreen> {
           child: Icon(size: 50, Icons.person, color: Theme.of(context).colorScheme.onSecondary),
         ),
         UpApiSpacing.large,
-        Text(
-          '${AppLocalizations.of(context)?.welcome_label ?? 'welcome_label'} ${upapiSessionManager.user?.firstName}',
-          style: Theme.of(context).textTheme.headlineLarge,
+        BlocBuilder<UserPageCubit,UserPageState>(
+          builder: (context, state) => Text(
+              '${AppLocalizations.of(context)?.welcome_label ?? 'welcome_label'} ${upapiSessionManager.user?.firstName}',
+              style: Theme.of(context).textTheme.headlineLarge,
+            ),
         ),
       ],
     );
