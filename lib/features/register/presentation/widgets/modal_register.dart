@@ -167,9 +167,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   context.read<RegisterCubit>().register(
                     emailController.text,
                     passController.text,
-                    'test', //nameController.text,
-                    'test', //surnameController.text,
-                    'test', //businessController.text,
+                    nameController.text,
+                    surnameController.text,
+                    businessController.text,
                   );
                 },
                 child: Text(AppLocalizations.of(context)?.register_page_submit_button ?? 'register_page_submit_button'),
