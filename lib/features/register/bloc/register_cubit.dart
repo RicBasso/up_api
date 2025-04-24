@@ -8,11 +8,16 @@ class RegisterCubit extends BaseCubit<RegisterState> {
   RegisterCubit(super.initialState);
 
   Future<void> register(String email, String password, String name, String surname, String business) async {
-    final emailError = validateEmail(email);
+    final emailTrimmed = email.trim();
+    final nameTrimmed = name.trim();
+    final surnameTrimmed = surname.trim();
+    final businessTrimmed = business.trim();
+    final emailError = validateEmail(emailTrimmed);
     final passError = validatePassword(password);
-    final nameError = validateName(name);
-    final surnameError = validateName(surname);
-    final businessError = validateBusiness(business);
+    final nameError = validateName(nameTrimmed);
+    final surnameError = validateName(surnameTrimmed);
+    final businessError = validateBusiness(businessTrimmed);
+
 
     final hasErrors = emailError + passError + nameError + surnameError + businessError > 0;
     emit(
@@ -28,7 +33,7 @@ class RegisterCubit extends BaseCubit<RegisterState> {
       return;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.register(email, password, name, surname, business);
+    final res = await upapiAuthentication.register(emailTrimmed, password, nameTrimmed, surnameTrimmed, businessTrimmed);
     if (res == null) {
       emit(RegisterState(error: 'GENERIC_ERROR'));
     }

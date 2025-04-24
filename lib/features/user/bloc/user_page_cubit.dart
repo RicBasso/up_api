@@ -7,19 +7,23 @@ class UserPageCubit extends BaseCubit<UserPageState> {
   UserPageCubit(super.initialState);
 
   Future<void> saveChanges(String name, String surname, String email, String phone) async {
-    final emailError = validateEmail(email);
-    final nameError = validateName(name);
-    final surnameError = validateName(surname);
-    final phoneError = validatePhone(phone);
-    final hasErrors = emailError + nameError + surnameError + phoneError > 0;
+    final nameTrimmed = name.trim();
+    final surnameTrimmed = surname.trim();
+    final emailTrimmed = email.trim();
+    final phoneTrimmed = phone.trim();
+    final nameError = validateName(nameTrimmed);
+    final surnameError = validateName(surnameTrimmed);
+    final emailError = validateEmail(emailTrimmed);
+    final phoneError = validatePhone(phoneTrimmed);
+    final hasErrors = nameError + emailError +  surnameError + phoneError > 0;
     emit(
-      state.copyWith(emailError: emailError, nameError: nameError, surnameError: surnameError, phoneError: phoneError),
+      state.copyWith(nameError: nameError, surnameError: surnameError, emailError: emailError, phoneError: phoneError),
     );
     if (hasErrors) {
       return;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.userUpdate(name, surname, email, phone);
+    final res = await upapiAuthentication.userUpdate(nameTrimmed, surnameTrimmed, emailTrimmed, phoneTrimmed);
     if (res == null) {
       emit(UserPageState(error: 'GENERIC_ERROR'));
     }

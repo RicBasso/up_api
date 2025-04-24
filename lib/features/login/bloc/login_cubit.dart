@@ -9,7 +9,8 @@ class LoginCubit extends BaseCubit<LoginState> {
   LoginCubit(super.initialState);
 
   Future<void> login(String email, String password) async {
-    final emailError = validateEmail(email);
+    final emailTrimmed = email.trim();
+    final emailError = validateEmail(emailTrimmed);
     final passError = validatePasswordLogin(password);
 
     final hasErrors = emailError + passError > 0;
@@ -21,7 +22,7 @@ class LoginCubit extends BaseCubit<LoginState> {
     }
 
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.login(email, password);
+    final res = await upapiAuthentication.login(emailTrimmed, password);
     if (res == null) {
       emit(LoginState(error: 'GENERIC_ERROR'));
     }

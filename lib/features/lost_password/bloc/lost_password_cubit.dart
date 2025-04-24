@@ -7,7 +7,8 @@ class LostPasswordCubit extends BaseCubit<LostPasswordState> {
   LostPasswordCubit(super.initialState);
 
   Future<bool> lostPassword(String email) async {
-    final emailError = validateEmail(email);
+    final emailTrimmed = email.trim();
+    final emailError = validateEmail(emailTrimmed);
 
     final hasErrors = emailError > 0;
     emit(state.copyWith(emailError: emailError));
@@ -15,7 +16,7 @@ class LostPasswordCubit extends BaseCubit<LostPasswordState> {
       return false;
     }
     emit(state.copyWith(isLoading: true));
-    final res = await upapiAuthentication.lostPassword(email);
+    final res = await upapiAuthentication.lostPassword(emailTrimmed);
     if (res == null) {
       emit(LostPasswordState(error: 'GENERIC_ERROR'));
     }

@@ -160,13 +160,19 @@ class _UserScreenState extends State<UserScreen> {
                       if (state.completed) _successMessage(context) else const SizedBox(),
                       LoadingButtonWidget(
                         isLoading: state.isLoading,
-                        onPressed: () {
-                          context.read<UserPageCubit>().saveChanges(
+                        onPressed: () async {
+                           await context.read<UserPageCubit>().saveChanges(
                             nameController.text,
                             surnameController.text,
                             emailController.text,
                             phoneController.text,
                           );
+                          if(state.completed) {
+                            emailController.text = upapiSessionManager.user?.email ?? '';
+                            nameController.text = upapiSessionManager.user?.firstName ?? '';
+                            surnameController.text = upapiSessionManager.user?.lastName ?? '';
+                            phoneController.text = upapiSessionManager.user?.phone ?? '';
+                          }
                         },
                         child: Text(AppLocalizations.of(context)?.save_label ?? 'save_label'),
                       ),
