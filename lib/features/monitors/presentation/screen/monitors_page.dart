@@ -8,6 +8,7 @@ import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/widgets/card_widget.dart';
+import 'package:up_api/widgets/internal_app_bar_widget.dart';
 import 'package:up_api/widgets/load_more_button_widget.dart';
 import 'package:up_api/widgets/search_bar_widget.dart';
 
@@ -32,16 +33,7 @@ class MonitorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white, size: 40),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text(
-          projectName,
-          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontWeight: FontWeight.w700),
-        ),
-        bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
-      ),
+      appBar: InternalAppBarWidget(title: projectName),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => _refreshHandler(context),

@@ -8,6 +8,7 @@ import 'package:up_api/features/webhooks/bloc/webhooks_state.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/widgets/card_widget.dart';
+import 'package:up_api/widgets/internal_app_bar_widget.dart';
 import 'package:up_api/widgets/load_more_button_widget.dart';
 
 class WebhooksPage extends StatelessWidget {
@@ -31,16 +32,7 @@ class WebhooksScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: const IconThemeData(color: Colors.white, size: 40),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text(
-          monitorName,
-          style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontWeight: FontWeight.w700),
-        ),
-        bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
-      ),
+      appBar: InternalAppBarWidget(title: monitorName),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => _refreshHandler(context),
