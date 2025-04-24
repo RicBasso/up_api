@@ -91,7 +91,7 @@ int validateBusiness(String business) {
 // 2 = formato non valido
 
 int validatePhone(String phone) {
-  ///TODO() CHANGE ERRORS MANAGMENT TO INTERNATIONAL STANDARDS
+  ///TODO(): CHANGE ERRORS MANAGMENT TO INTERNATIONAL STANDARDS
   final trimmed = phone.trim();
 
   if (trimmed.isEmpty) return 1;

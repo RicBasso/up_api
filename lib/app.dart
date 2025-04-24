@@ -47,7 +47,7 @@ void _connectionHandler(BuildContext context, ConnectionInternalState state) {
     } else {
       return;
     }
-    showDialog(
+    showDialog<void>(
       barrierDismissible: false,
       context: ctx,
       builder: (context) {

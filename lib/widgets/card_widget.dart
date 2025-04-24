@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 
-///TODO () INSERIRE CONSTANTI DELLO STYLE NEL TEMA E RICHIARE QUELLE
 
 class CardWidget extends StatelessWidget {
   const CardWidget({super.key, this.logoUrl, this.title, this.subTitle, this.description, this.result, this.onTap});

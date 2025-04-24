@@ -56,13 +56,12 @@ class UpapiDatasource extends Datasource {
   }
 
   @override
-  Future<Response?> get(
+  Future<Response<Map<String, dynamic>>?> get(
     String path, {
     Map<String, dynamic>? queryParameters,
     Map<String, dynamic> headers = const {},
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     try {
       debugPrint('GET $baseUrlType/$path');
       final dio = correctDio(baseUrlType);
@@ -85,21 +84,20 @@ class UpapiDatasource extends Datasource {
       } else {
         rethrow;
       }
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint('GENERIC API ERROR: $e');
       return null;
     }
   }
 
   @override
-  Future<Response?> post(
+  Future<Response<Map<String, dynamic>>?> post(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('POST $path');
     try {
       final dio = correctDio(baseUrlType);
@@ -122,21 +120,20 @@ class UpapiDatasource extends Datasource {
       } else {
         rethrow;
       }
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint('GENERIC API ERROR: $e');
       return null;
     }
   }
 
   @override
-  Future<Response?> put(
+  Future<Response<Map<String, dynamic>>?> put(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('PUT $path');
     debugPrint('data: $data');
     try {
@@ -160,21 +157,20 @@ class UpapiDatasource extends Datasource {
       } else {
         rethrow;
       }
-    } catch (e) {
+    } on Exception catch (e) {
       debugPrint('GENERIC API ERROR: $e');
       return null;
     }
   }
 
   @override
-  Future<Response?> delete(
+  Future<Response<Map<String, dynamic>>?> delete(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
     Options? options,
     UpapiDatasourceBaseUrlType baseUrlType = UpapiDatasourceBaseUrlType.apiUrl,
   }) async {
-    //await upapiSessionManager.navigatorKey.currentContext!.read<ConnectionCubit>().refreshConnection();
     debugPrint('DELETE $path');
     try {
       final dio = correctDio(baseUrlType);
@@ -197,7 +193,7 @@ class UpapiDatasource extends Datasource {
       } else {
         rethrow;
       }
-    } catch (e) {
+    } on Exception catch(e) {
       debugPrint('GENERIC API ERROR: $e');
       return null;
     }
@@ -215,7 +211,6 @@ class UpapiDatasource extends Datasource {
   String get apiPath => FlavorConfig.instance.apiPath;
 
   ///
-  @override
   String get apiUrl => scheme + domain + apiPath;
 
   ///

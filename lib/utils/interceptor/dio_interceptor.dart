@@ -5,7 +5,7 @@ import 'package:up_api/utils/service/service_locator.dart';
 class DioInterceptor extends InterceptorsWrapper {
   DioInterceptor(this.retry);
 
-  final Function retry;
+  final Future<Response<dynamic>> Function(RequestOptions option) retry;
 
   @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
@@ -16,7 +16,7 @@ class DioInterceptor extends InterceptorsWrapper {
         if (newToken != null) {
           try {
             err.requestOptions.headers['Authorization'] = newToken;
-            handler.resolve(await retry(err.requestOptions) as Response);
+            handler.resolve(await retry(err.requestOptions));
           } on DioException catch (e) {
             handler.next(e);
           }

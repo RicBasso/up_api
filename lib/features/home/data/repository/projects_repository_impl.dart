@@ -12,8 +12,8 @@ class ProjectsRepositoryImpl implements ProjectsRepository {
     );
 
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
-      if (response.data is Map<String, dynamic>) {
-        return ProjectsResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        return ProjectsResponse.fromJson(response.data!);
       }
     }
     return null;

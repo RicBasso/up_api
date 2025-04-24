@@ -11,8 +11,8 @@ class MonitorsRepositoryImpl implements MonitorsRepository {
       headers: {'Authorization': upapiTokenManager.getToken() ?? ''},
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
-      if (response.data is Map<String, dynamic>) {
-        return MonitorsResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        return MonitorsResponse.fromJson(response.data!);
       }
     }
     return null;

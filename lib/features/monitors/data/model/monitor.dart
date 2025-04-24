@@ -30,8 +30,6 @@ class Monitor {
     url = json['url'] as String?;
     httpMethod = json['httpMethod'] as String?;
     minutesInterval = double.tryParse(json['minutesInterval'] as String);
-
-    ///TODO() FARE CONTROLLI SU QUESTO PARSE
     secondsTimeout = double.tryParse(json['secondsTimeout'] as String);
     checkSsl = json['checkSsl']?.toString();
     customHeaders = json['customHeaders'] as String?;

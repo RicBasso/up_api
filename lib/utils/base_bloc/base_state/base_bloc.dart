@@ -13,7 +13,7 @@ abstract class BaseCubit<S extends BaseState> extends Cubit<S> {
     debugPrint('fine loading');
   }
 
-  Future<T?> showAlert<T>(Widget child, bool barrierDismissible) async {
+  Future<T?> showAlert<T>(Widget child, {required bool barrierDismissible}) async {
     return null;
   }
 }

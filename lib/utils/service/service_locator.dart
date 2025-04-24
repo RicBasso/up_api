@@ -1,5 +1,5 @@
 import 'package:get_it/get_it.dart';
-import 'package:go_router/src/router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:up_api/features/home/data/repository/projects_repository.dart';
 import 'package:up_api/features/home/data/repository/projects_repository_impl.dart';
 import 'package:up_api/features/login/data/repository/authentication_repository.dart';
@@ -21,7 +21,7 @@ Future<void> registerDependencies() async {
   getIt
     ..registerSingleton<SharedPrefs>(pref)
     ..registerLazySingleton<TokenManager>(TokenManager.new)
-    ..registerSingleton<SessionManager>(SessionManager())
+    ..registerSingleton<SessionManager<dynamic>>(SessionManager())
     ..registerSingleton<Datasource>(UpapiDatasource())
     ..registerSingleton<AuthenticationRepository>(AuthenticationRepositoryImpl())
     ..registerFactory<ProjectsRepository>(ProjectsRepositoryImpl.new)
@@ -38,7 +38,7 @@ final GetIt getIt = GetIt.instance;
 GoRouter get upapiGoRouter => getIt.get<GoRouter>();
 SharedPrefs get sharedPrefs => getIt.get<SharedPrefs>();
 TokenManager get upapiTokenManager => getIt.get<TokenManager>();
-SessionManager get upapiSessionManager => getIt.get<SessionManager>();
+SessionManager<dynamic> get upapiSessionManager => getIt.get<SessionManager<dynamic>>();
 Datasource get upapiDatasource => getIt.get<Datasource>();
 AuthenticationRepository get upapiAuthentication => getIt.get<AuthenticationRepository>();
 ProjectsRepository get upapiProjectsRepository => getIt.get<ProjectsRepository>();

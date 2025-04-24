@@ -18,8 +18,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
       LoginResponse? login;
-      if (response.data is Map<String, dynamic>) {
-        login = LoginResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        login = LoginResponse.fromJson(response.data!);
       }
       return login;
     }
@@ -32,8 +32,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
 
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
       GetUserResponse? info;
-      if (response.data is Map<String, dynamic>) {
-        info = GetUserResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        info = GetUserResponse.fromJson(response.data!);
       }
 
       return info;
@@ -45,19 +45,23 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
   Future<bool> refreshToken() async {
     final refresh = upapiTokenManager.getRefreshToken();
     final userId = upapiSessionManager.userID;
-    final res = await upapiDatasource.post(
+    final response = await upapiDatasource.post(
       'refresh',
       data: {'refreshToken': refresh, 'userId': userId},
       baseUrlType: UpapiDatasourceBaseUrlType.publicUrl,
       //options: Options(headers: {"Authorization": Constants.PUBLIC_API})
     );
-    final responseRefresh = RefreshTokenResponse.fromJson(res?.data as Map<String, dynamic>);
-    if (responseRefresh.success && responseRefresh.token != null) {
-      upapiTokenManager.saveTokens(token: responseRefresh.token);
-      return true;
-    } else {
-      return false;
+    if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
+      RefreshTokenResponse? responseRefresh;
+      if (response.data != null) {
+        responseRefresh = RefreshTokenResponse.fromJson(response.data!);
+        if (responseRefresh.success && responseRefresh.token != null) {
+          upapiTokenManager.saveTokens(token: responseRefresh.token);
+          return true;
+        }
+      }
     }
+    return false;
   }
 
   @override
@@ -69,8 +73,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
       LoginResponse? register;
-      if (response.data is Map<String, dynamic>) {
-        register = LoginResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        register = LoginResponse.fromJson(response.data!);
       }
       return register;
     }
@@ -85,8 +89,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       baseUrlType: UpapiDatasourceBaseUrlType.publicUrl,
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
-      if (response.data is Map<String, dynamic>) {
-        return LostPasswordResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        return LostPasswordResponse.fromJson(response.data!);
       }
     }
     return null;
@@ -99,8 +103,8 @@ class AuthenticationRepositoryImpl implements AuthenticationRepository {
       data: {'firstName': name, 'lastName': surname, 'email': email, 'phone': phone},
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
-      if (response.data is Map<String, dynamic>) {
-        return UpdateUserResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        return UpdateUserResponse.fromJson(response.data!);
       }
     }
     return null;

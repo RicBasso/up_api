@@ -11,8 +11,8 @@ class WebhooksRepositoryImpl implements WebhooksRepository {
       headers: {'Authorization': upapiTokenManager.getToken() ?? ''},
     );
     if (response != null && (response.statusCode ?? 100) >= 200 && (response.statusCode ?? 400) < 300) {
-      if (response.data is Map<String, dynamic>) {
-        return WebhooksResponse.fromJson(response.data as Map<String, dynamic>);
+      if (response.data != null) {
+        return WebhooksResponse.fromJson(response.data!);
       }
     }
     return null;
