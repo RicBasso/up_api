@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_cubit.dart';
-import 'package:up_api/features/theme_mode_swither/bloc/theme_mode_switcher_state.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 
