@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_cubit.dart';
+import 'package:up_api/features/theme_mode_swither/bloc/theme_mode_switcher_state.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 
@@ -58,11 +61,22 @@ class Menu extends StatelessWidget {
               ),
               UpApiSpacing.horizontalDivider,
               const Spacer(),
-              ListTile(
-                onTap: () => upapiAuthentication.logout(),
-                contentPadding: EdgeInsets.zero,
-                leading: const Icon(Icons.logout, color: Colors.white),
-                title: const Text('Esci', style: TextStyle(color: Colors.white)),
+              Row(
+                children: [
+                  Flexible(
+                    child: ListTile(
+                      onTap: () => upapiAuthentication.logout(),
+                      contentPadding: EdgeInsets.zero,
+                      leading: const Icon(Icons.logout, color: Colors.white),
+                      title: const Text('Esci', style: TextStyle(color: Colors.white)),
+                    ),
+                  ),
+                  IconButton(onPressed:
+                      () {
+                    context.read<ThemeModeSwitcherCubit>().switchMode();
+                  }, icon: context.read<ThemeModeSwitcherCubit>().onDark ? const Icon(Icons.dark_mode, color: Colors.white,) : const Icon(Icons.light_mode, color: Colors.white,),
+                  ),
+                ],
               ),
             ],
           ),

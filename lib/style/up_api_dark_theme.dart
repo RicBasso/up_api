@@ -15,6 +15,25 @@ class UpApiDarkTheme {
       ),
     ),
 
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: UpApiColorsDark.primaryBrand, // colore testo & icone
+        side: const BorderSide(color: UpApiColorsDark.primaryBrand), // bordo
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
+        textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+      ),
+    ),
+
+
+    cardTheme: CardTheme(
+      margin: EdgeInsets.zero,
+      color: UpApiColorsDark.secondaryBackground,
+      elevation: 4,
+      shadowColor: Colors.black.withOpacity(0.1),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+    ),
+
     textButtonTheme: const TextButtonThemeData(
       style: ButtonStyle(
         padding: WidgetStatePropertyAll(EdgeInsets.zero),
@@ -27,16 +46,18 @@ class UpApiDarkTheme {
 
     colorScheme: const ColorScheme(
       onPrimary: UpApiColorsDark.primaryBrand,
-      onSecondary: UpApiColorsDark.secondaryBrand,
+      onSecondary: UpApiColorsDark.primaryText,
       primary: UpApiColorsDark.primaryText,
       secondary: UpApiColorsDark.secondaryBrand,
       brightness: Brightness.light,
       error: UpApiColorsDark.error,
       onError: UpApiColorsDark.onError,
       surfaceContainer: UpApiColorsDark.primaryBackground,
-      surface: UpApiColorsDark.secondaryBackground,
+      surface: UpApiColorsDark.primaryBackground,
       onSurface: UpApiColorsDark.primaryText,
     ),
+
+
 
     inputDecorationTheme: InputDecorationTheme(
       border: OutlineInputBorder(

@@ -4,6 +4,8 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/features/connection/cubit/connection_cubit.dart';
 import 'package:up_api/features/connection/cubit/connection_state.dart';
+import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_cubit.dart';
+import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_state.dart';
 import 'package:up_api/style/up_api_dark_theme.dart';
 import 'package:up_api/style/up_api_theme.dart';
 import 'package:up_api/utils/service/service_locator.dart';
@@ -14,22 +16,31 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FlavorBanner(
-      child: BlocProvider<ConnectionCubit>(
-        create: (context) {
-          return ConnectionCubit(ConnectionInternalState());
-        },
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => ConnectionCubit(ConnectionInternalState()),
+          ),
+          BlocProvider(
+            create: (context) => ThemeModeSwitcherCubit(ThemeModeSwitcherState()),
+          ),
+        ],
         child: Builder(
           builder: (context) {
             return BlocListener<ConnectionCubit, ConnectionInternalState>(
               listener: _connectionHandler,
-              child: MaterialApp.router(
-                theme: UpApiTheme.myTheme,
-                darkTheme: UpApiDarkTheme.myTheme,
-                themeMode: ThemeMode.light,
-                localizationsDelegates: AppLocalizations.localizationsDelegates,
-                supportedLocales: AppLocalizations.supportedLocales,
-                //locale: const Locale('it'),
-                routerConfig: upapiGoRouter,
+              child: BlocBuilder<ThemeModeSwitcherCubit, ThemeModeSwitcherState>(
+                builder: (context, state) {
+                  return MaterialApp.router(
+                    theme: UpApiTheme.myTheme,
+                    darkTheme: UpApiDarkTheme.myTheme,
+                    themeMode: state.onDark ? ThemeMode.dark : ThemeMode.light,
+                    localizationsDelegates: AppLocalizations.localizationsDelegates,
+                    supportedLocales: AppLocalizations.supportedLocales,
+                    //locale: const Locale('it'),
+                    routerConfig: upapiGoRouter,
+                  );
+                },
               ),
             );
           },
