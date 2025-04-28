@@ -45,6 +45,8 @@
   "webhooks_requested_at" : "Richiesto alle:",
   "unknown_date_label" : "Errore: data sconosciuta",
 
+  "logout_label" : "exit",
+
   "welcome_label" : "Benvenuto",
 
   "load_more_button" : "Carica altro...",

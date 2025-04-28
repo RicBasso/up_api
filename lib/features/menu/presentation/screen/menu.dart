@@ -56,7 +56,7 @@ class Menu extends StatelessWidget {
                           ..pop()
                           ..go('/home'),
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Dashboard', style: TextStyle(color: Colors.white)),
+                title: Text(AppLocalizations.of(context)?.home_page_title ?? 'home_page_title', style: const TextStyle(color: Colors.white)),
               ),
               UpApiSpacing.horizontalDivider,
               const Spacer(),
@@ -67,7 +67,7 @@ class Menu extends StatelessWidget {
                       onTap: () => upapiAuthentication.logout(),
                       contentPadding: EdgeInsets.zero,
                       leading: const Icon(Icons.logout, color: Colors.white),
-                      title: const Text('Esci', style: TextStyle(color: Colors.white)),
+                      title: Text(AppLocalizations.of(context)?.logout_label ?? 'logout_label', style: const TextStyle(color: Colors.white)),
                     ),
                   ),
                   IconButton(onPressed:
