@@ -18,6 +18,7 @@ class _WelcomePageState extends State<WelcomePage> {
   void initState() {
     upapiSessionManager.keyWelcome = GlobalKey();
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      upapiSessionManager.animation = null;
       showModalHandler(context, const ModalLogin(), 0.35);
     });
     super.initState();
