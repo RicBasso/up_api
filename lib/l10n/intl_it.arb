@@ -46,6 +46,10 @@
   "unknown_date_label" : "Errore: data sconosciuta",
 
   "logout_label" : "Esci",
+  "logout_confirm_title": "Esci",
+  "logout_confirm_message": "Sei sicuro di voler uscire?",
+  "cancel_label": "Indietro",
+  "confirm_label": "Conferma",
 
   "welcome_label" : "Benvenuto",
 
@@ -131,6 +135,8 @@
   "credit_card_not_found": "Carta di credito non trovata",
   "stripe_setup_intent_error": "Errore setup intent Stripe",
   "conversation_order_exists": "Esiste già un ordine per questa conversazione",
-  "product_not_approved_yet": "Prodotto non ancora approvato"
+  "product_not_approved_yet": "Prodotto non ancora approvato",
 
+  "locale_en_label": "EN",
+  "locale_it_label": "IT"
 }

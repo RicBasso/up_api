@@ -4,8 +4,8 @@ import 'package:flutter_flavor/flutter_flavor.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/features/connection/cubit/connection_cubit.dart';
 import 'package:up_api/features/connection/cubit/connection_state.dart';
-import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_cubit.dart';
-import 'package:up_api/features/theme_mode_switcher/bloc/theme_mode_switcher_state.dart';
+import 'package:up_api/features/theme_mode_switcher/bloc/app_preferences_cubit.dart';
+import 'package:up_api/features/theme_mode_switcher/bloc/app_preferences_state.dart';
 import 'package:up_api/style/up_api_dark_theme.dart';
 import 'package:up_api/style/up_api_theme.dart';
 import 'package:up_api/utils/service/service_locator.dart';
@@ -22,14 +22,14 @@ class MyApp extends StatelessWidget {
             create: (context) => ConnectionCubit(ConnectionInternalState()),
           ),
           BlocProvider(
-            create: (context) => ThemeModeSwitcherCubit(ThemeModeSwitcherState()),
+            create: (context) => AppPreferencesCubit(AppPreferencesState()),
           ),
         ],
         child: Builder(
           builder: (context) {
             return BlocListener<ConnectionCubit, ConnectionInternalState>(
               listener: _connectionHandler,
-              child: BlocBuilder<ThemeModeSwitcherCubit, ThemeModeSwitcherState>(
+              child: BlocBuilder<AppPreferencesCubit, AppPreferencesState>(
                 builder: (context, state) {
                   return MaterialApp.router(
                     theme: UpApiTheme.myTheme,
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
                     themeMode: state.onDark ? ThemeMode.dark : ThemeMode.light,
                     localizationsDelegates: AppLocalizations.localizationsDelegates,
                     supportedLocales: AppLocalizations.supportedLocales,
-                    //locale: const Locale('it'),
+                    locale: Locale(state.location),
                     routerConfig: upapiGoRouter,
                   );
                 },
