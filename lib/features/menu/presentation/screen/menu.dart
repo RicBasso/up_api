@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:up_api/features/theme_mode_switcher/bloc/app_preferences_cubit.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
@@ -90,6 +91,17 @@ class Menu extends StatelessWidget {
                   ),
                 ],
               ),
+              FutureBuilder(
+                future: _getAppVersion(),
+                builder: (context, snapshot) {
+                  return Center(
+                    child: Text(
+                      snapshot.data ?? '',
+                      style: const TextStyle(color: Colors.white, fontSize: 8),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -121,4 +133,11 @@ Future<void> _confirmBoxHandler(BuildContext context) async {
   if (confirmed != null && confirmed == true) {
     upapiAuthentication.logout();
   }
+}
+
+Future<String> _getAppVersion() async{
+  final packageInfo = await PackageInfo.fromPlatform();
+  final version = packageInfo.version;
+  final buildNumber = packageInfo.buildNumber;
+  return 'v$version+$buildNumber';
 }
