@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:up_api/style/colors/up_api_colors_dark.dart';
+import 'package:up_api/style/extension/up_api_extra_colors.dart';
 
 class UpApiDarkTheme {
   static ThemeData myTheme = ThemeData(
@@ -77,5 +78,16 @@ class UpApiDarkTheme {
       bodyMedium: TextStyle(fontSize: 15),
       labelMedium: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
     ),
+
+    extensions: const <ThemeExtension<dynamic>>[
+      UpApiExtraColors(
+        success: UpApiColorsDark.success,
+        onSuccess: UpApiColorsDark.onSuccess,
+        attention: UpApiColorsDark.attention,
+        attentionBackground: UpApiColorsDark.attentionBackground,
+      ),
+    ],
   );
 }
+
+

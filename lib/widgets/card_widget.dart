@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:up_api/style/extension/up_api_extra_colors.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 
 
@@ -79,14 +80,14 @@ class CardWidget extends StatelessWidget {
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      decoration: BoxDecoration(color: Color(values.colorBack), borderRadius: BorderRadius.circular(12)),
+      decoration: BoxDecoration(color: values.colorBack, borderRadius: BorderRadius.circular(12)),
       child: Row(
         children: [
-          Icon(values.icon, color: Color(values.colorFront), size: 18),
+          Icon(values.icon, color: values.colorFront, size: 18),
           const SizedBox(width: 4),
           Text(
             values.text,
-            style: TextStyle(color: Color(values.colorFront), fontWeight: FontWeight.bold, fontSize: 14),
+            style: TextStyle(color: values.colorFront, fontWeight: FontWeight.bold, fontSize: 14),
           ),
         ],
       ),
@@ -98,63 +99,63 @@ class _ResultMessageValues {
   _ResultMessageValues(String message, BuildContext context) {
     switch (message) {
       case 'success':
-        colorFront = 0xFF4CAF50;
-        colorBack = 0xB0D3FFCC;
+        colorFront = Theme.of(context).extension<UpApiExtraColors>()!.success;
+        colorBack = Theme.of(context).extension<UpApiExtraColors>()!.onSuccess;
         text = AppLocalizations.of(context)?.positive_result_label ?? 'positive_result_label';
         icon = Icons.check;
 
       case 'waiting_response':
-        colorFront = 0xFF000000;
-        colorBack = 0xFFFFF9C4;
+        colorFront = Theme.of(context).extension<UpApiExtraColors>()!.attention;
+        colorBack = Theme.of(context).extension<UpApiExtraColors>()!.attentionBackground;
         text = AppLocalizations.of(context)?.waiting_response_label ?? 'waiting_response_label';
         icon = Icons.warning_amber_outlined;
 
       case 'exception':
-        colorFront = 0xFFFF0000;
-        colorBack = 0xFFFFEBEB;
+        colorFront = Theme.of(context).colorScheme.error;
+        colorBack = Theme.of(context).colorScheme.onError;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'no_match':
-        colorFront = 0xFFFF0000;
-        colorBack = 0xFFFFEBEB;
+        colorFront = Theme.of(context).colorScheme.error;
+        colorBack = Theme.of(context).colorScheme.onError;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'error':
-        colorFront = 0xFFFF0000;
-        colorBack = 0xFFFFEBEB;
+        colorFront = Theme.of(context).colorScheme.error;
+        colorBack = Theme.of(context).colorScheme.onError;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'networkError':
-        colorFront = 0xFFFF0000;
-        colorBack = 0xFFFFEBEB;
+        colorFront = Theme.of(context).colorScheme.error;
+        colorBack = Theme.of(context).colorScheme.onError;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       case 'generic_error':
-        colorFront = 0xFFFF0000;
-        colorBack = 0xFFFFEBEB;
+        colorFront = Theme.of(context).colorScheme.error;
+        colorBack = Theme.of(context).colorScheme.onError;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
 
       default:
         if (message.length >= 10) {
-          colorFront = 0xFF4CAF50;
-          colorBack = 0xB0D3FFCC;
+          colorFront = Theme.of(context).extension<UpApiExtraColors>()!.attention;
+          colorBack = Theme.of(context).extension<UpApiExtraColors>()!.attentionBackground;
           text = AppLocalizations.of(context)?.positive_result_label ?? 'positive_result_label';
           icon = Icons.check;
         } else {
-          colorFront = 0xFF000000;
-          colorBack = 0xFFFFF9C4;
+          colorFront = Theme.of(context).colorScheme.error;
+          colorBack = Theme.of(context).colorScheme.onError;
           text = 'xxxxxxxxx';
           icon = Icons.warning_amber_outlined;
         }
     }
   }
-  late int colorFront = 0xFF000000;
-  late int colorBack = 0xFFFFF9C4;
+  late Color colorFront;
+  late Color colorBack;
   late String text = '';
   late IconData icon = Icons.warning_amber_outlined;
 }

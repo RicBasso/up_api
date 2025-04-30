@@ -4,7 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:up_api/features/menu/presentation/screen/menu.dart';
 import 'package:up_api/features/user/bloc/user_page_cubit.dart';
 import 'package:up_api/features/user/bloc/user_page_state.dart';
-import 'package:up_api/style/colors/up_api_colors_light.dart';
+import 'package:up_api/style/extension/up_api_extra_colors.dart';
 import 'package:up_api/style/up_api_padding.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/error_messages/error_messages.dart';
@@ -212,20 +212,20 @@ Widget _successMessage(BuildContext context) {
     margin: const EdgeInsets.symmetric(vertical: 16),
     padding: const EdgeInsets.all(12),
     decoration: BoxDecoration(
-      color: Theme.of(context).colorScheme.onTertiary,
-      border: Border.all(color: Theme.of(context).colorScheme.tertiary),
+      color: Theme.of(context).extension<UpApiExtraColors>()!.onSuccess,
+      border: Border.all(color: Theme.of(context).extension<UpApiExtraColors>()!.success),
       borderRadius: BorderRadius.circular(12),
     ),
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.check_circle_outline, color: UpApiColorsLight.success),
+        Icon(Icons.check_circle_outline, color: Theme.of(context).extension<UpApiExtraColors>()!.success),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
             AppLocalizations.of(context)?.modify_complete_label ?? 'modify_complete_label',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Theme.of(context).colorScheme.tertiary,
+              color: Theme.of(context).extension<UpApiExtraColors>()!.success,
               fontWeight: FontWeight.w500,
             ),
           ),
