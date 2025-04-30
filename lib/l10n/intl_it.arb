@@ -97,7 +97,7 @@
 
   "error_lost_password_1": "Non esiste un account associato a questa email",
 
-  "modify_complete_label" : "modifica completata correttamente",
+  "modify_complete_label" : "Modifiche salvate",
 
   "no_internet_connection" : "Nessuna connessione a internet",
   "check_internet_connection" : "Controlla la connessione a internet",

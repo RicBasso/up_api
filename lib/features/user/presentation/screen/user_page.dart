@@ -219,7 +219,7 @@ Widget _successMessage(BuildContext context) {
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Icon(Icons.error_outline, color: UpApiColorsLight.success),
+        const Icon(Icons.check_circle_outline, color: UpApiColorsLight.success),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
