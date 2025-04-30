@@ -44,7 +44,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             UpApiSpacing.medium,
             Row(
               children: [
-                Expanded(child: InputWidget(controller: _searchController)),
+                Expanded(child: InputWidget(controller: _searchController, clearable: true,)),
                 UpApiSpacing.largeHorizontal,
                 SizedBox(
                   height: 55.5,
@@ -53,6 +53,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                     overrideStyle: const ButtonStyle(padding: WidgetStatePropertyAll(EdgeInsets.zero)),
                     child: const Icon(Icons.search, size: 30),
                     onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
                       widget.onSearch?.call(_searchController.text);
                     },
                   ),

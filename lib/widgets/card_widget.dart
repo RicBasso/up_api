@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:up_api/style/up_api_spacing.dart';
 
 
@@ -34,7 +35,9 @@ class CardWidget extends StatelessWidget {
                       const SizedBox(),
                     Expanded(child: Text(title ?? '', style: Theme.of(context).textTheme.bodyLarge)),
                     if (onTap != null)
-                      Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.primary)
+                      SvgPicture.asset(
+                        'assets/images/chevron_right.svg',
+                      )
                     else
                       const SizedBox(),
                   ],
@@ -58,7 +61,7 @@ class CardWidget extends StatelessWidget {
                       ],
                     ),
                   ),
-                  /*if (result != null)*/ _resultMessage(result, context) /*else const SizedBox()*/,
+                  _resultMessage(result, context),
                 ],
               ),
             ],
@@ -69,6 +72,9 @@ class CardWidget extends StatelessWidget {
   }
 
   Widget _resultMessage(String? result, BuildContext context) {
+
+    if (result == null) return const SizedBox();
+
     final values = _ResultMessageValues(result, context);
 
     return Container(
@@ -89,7 +95,7 @@ class CardWidget extends StatelessWidget {
 }
 
 class _ResultMessageValues {
-  _ResultMessageValues(String? message, BuildContext context) {
+  _ResultMessageValues(String message, BuildContext context) {
     switch (message) {
       case 'success':
         colorFront = 0xFF4CAF50;
@@ -132,12 +138,6 @@ class _ResultMessageValues {
         colorBack = 0xFFFFEBEB;
         text = AppLocalizations.of(context)?.negative_result_label ?? 'negative_result_label';
         icon = Icons.close;
-
-      case null:
-        colorFront = 0xFF000000;
-        colorBack = 0xFFFFF9C4;
-        text = AppLocalizations.of(context)?.unknown_response_label ?? 'unknown_response_label';
-        icon = Icons.warning_amber_outlined;
 
       default:
         if (message.length >= 10) {

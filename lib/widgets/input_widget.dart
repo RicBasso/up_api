@@ -6,6 +6,7 @@ class InputWidget extends StatefulWidget {
     this.onChange,
     this.onSubmitted,
     this.password = false,
+    this.clearable = false,
     this.controller,
     this.hintText,
     this.fillColor = Colors.transparent,
@@ -15,6 +16,7 @@ class InputWidget extends StatefulWidget {
   final void Function(String)? onChange;
   final void Function(String)? onSubmitted;
   final bool password;
+  final bool clearable;
   final TextEditingController? controller;
   final String? hintText;
   final Color fillColor;
@@ -51,17 +53,31 @@ class _InputWidgetState extends State<InputWidget> {
           filled: true,
           hintText: widget.hintText,
           hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
-          suffixIcon:
-              widget.password == true
-                  ? IconButton(
-                    splashRadius: 1,
-                    icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off, size: 16),
-                    onPressed: () => setState(() => _obscureText = !_obscureText),
-                  )
-                  : null,
+          suffixIcon: _suffixIconHandler(),
           //isDense: true,
         ),
       ),
     );
   }
+
+  Widget? _suffixIconHandler(){
+    if(widget.password == true){
+      return IconButton(
+        splashRadius: 1,
+        icon: Icon(_obscureText ? Icons.visibility : Icons.visibility_off, size: 16),
+        onPressed: () => setState(() => _obscureText = !_obscureText),
+      );
+    }
+    if(widget.clearable == true){
+      return IconButton(
+        splashRadius: 1,
+        icon: const Icon(Icons.clear, size: 16),
+        onPressed: () => widget.controller?.clear(),
+      );
+    }
+    return null;
+  }
+
 }
+
+
