@@ -116,7 +116,7 @@ class MonitorsScreen extends StatelessWidget {
             finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countMonitors ?? 0,
-            onPressed: () => context.read<MonitorsCubit>().getMonitors(top: 5),
+            onPressed: () => context.read<MonitorsCubit>().getMonitors(top: 20),
           );
         },
       ),

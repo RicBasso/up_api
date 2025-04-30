@@ -126,7 +126,7 @@ class HomeScreen extends StatelessWidget {
             finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countProjects ?? 0,
-            onPressed: () => context.read<HomeCubit>().getProjects(top: 5),
+            onPressed: () => context.read<HomeCubit>().getProjects(top: 20),
           );
         },
       ),

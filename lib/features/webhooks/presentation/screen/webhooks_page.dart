@@ -97,7 +97,7 @@ class WebhooksScreen extends StatelessWidget {
             finishedText: AppLocalizations.of(context)?.load_more_button_finished ?? 'load_more_button_finished',
             current: state.skip,
             total: state.countWebhooks ?? 0,
-            onPressed: () => context.read<WebhooksCubit>().getWebhooks(top: 5),
+            onPressed: () => context.read<WebhooksCubit>().getWebhooks(top: 20),
           );
         },
       ),
