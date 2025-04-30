@@ -116,6 +116,6 @@ class WebhooksScreen extends StatelessWidget {
     final locale = AppLocalizations.of(context)?.localeName; //oppure Localizations.localeOf(context).toLanguageTag()
     final formatter = DateFormat.yMd(locale);
     final time = DateFormat.Hm(locale);
-    return '${formatter.format(date)} - ${time.format(date)}';
+    return '${formatter.format(date.toLocal())} - ${time.format(date.toLocal())}';
   }
 }
