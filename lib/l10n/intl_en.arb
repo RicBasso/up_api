@@ -31,6 +31,8 @@
   "negative_result_label": "Error",
   "empty_monitor": "No monitor available",
 
+  "add_monitor_label" : "Add a monitor",
+
   "day_label": "{count, plural, one {{count} day} other {{count} days}}",
   "hour_label": "{count, plural, one {{count} hour} other {{count} hours}}",
   "minute_label": "{count, plural, one {{count} minute} other {{count} minutes}}",

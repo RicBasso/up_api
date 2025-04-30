@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:up_api/features/add_monitor/presentation/screen/add_monitor_page.dart';
 import 'package:up_api/features/home/presentation/screen/home_page.dart';
 import 'package:up_api/features/monitors/presentation/screen/monitors_page.dart';
 import 'package:up_api/features/user/presentation/screen/user_page.dart';
@@ -35,6 +36,12 @@ GoRouter createGoRouter(String initialPage) {
               return MonitorsPage(projectId: projectId, projectName: projectName);
             },
             routes: [
+              GoRoute(
+                path: Routes.addMonitor,
+                builder: (context, state) {
+                  return const AddMonitorPage();
+                },
+              ),
               GoRoute(
                 path: Routes.webhooks,
                 builder: (context, state) {

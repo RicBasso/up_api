@@ -33,7 +33,12 @@ class MonitorsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: InternalAppBarWidget(title: projectName),
+      appBar: InternalAppBarWidget(
+        title: projectName,
+        action: IconButton(
+        onPressed: () => upapiGoRouter.push('/home/monitors/addMonitor'), icon: const Icon(Icons.add),
+        ),
+      ),
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () => _refreshHandler(context),

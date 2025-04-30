@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class InternalAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const InternalAppBarWidget({this.title, super.key});
+  const InternalAppBarWidget({this.title, super.key, this.action});
   final String? title;
+  final Widget? action;
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +16,9 @@ class InternalAppBarWidget extends StatelessWidget implements PreferredSizeWidge
         title ?? '',
         style: TextStyle(color: Theme.of(context).colorScheme.onSecondary, fontWeight: FontWeight.w700),
       ),
+      actions: [
+        action ?? const SizedBox(),
+      ],
       bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
     );
   }
