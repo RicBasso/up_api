@@ -90,6 +90,7 @@
 
   "go_to_profile_label": "Go to your profile",
 
+  "user_label": "Profile",
   "error_user_update_1": "An error occurred",
 
   "error_lost_password_1": "No account found with this email",

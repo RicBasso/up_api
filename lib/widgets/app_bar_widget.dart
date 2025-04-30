@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+  const AppBarWidget({super.key, this.title});
+  final String? title;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      title: SvgPicture.asset(
+      title: title != null ? Text(title!, style: const TextStyle(color: Colors.white),) : SvgPicture.asset(
         'assets/images/up_api_logo_white.svg',
         semanticsLabel: 'My SVG Image',
       ),

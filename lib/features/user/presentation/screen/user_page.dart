@@ -62,7 +62,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const Menu(),
-      appBar: const AppBarWidget(),
+      appBar: AppBarWidget(title: AppLocalizations.of(context)?.user_label ?? 'user_label',),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
