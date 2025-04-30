@@ -13,6 +13,7 @@ import 'package:up_api/widgets/app_bar_widget.dart';
 import 'package:up_api/widgets/generic_error_box_widget.dart';
 import 'package:up_api/widgets/input_widget.dart';
 import 'package:up_api/widgets/loading_button_widget.dart';
+import 'package:up_api/widgets/user_circle_avatar_widget.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -83,12 +84,7 @@ class _UserScreenState extends State<UserScreen> {
   Widget _buildHeader(BuildContext context) {
     return Column(
       children: [
-        CircleAvatar(
-          backgroundImage: const AssetImage('assets/images/signup_background.png'),
-          maxRadius: 40,
-          minRadius: 40,
-          child: Icon(size: 50, Icons.person, color: Theme.of(context).colorScheme.onSecondary),
-        ),
+        const UserCircleAvatarWidget(radius: 40, iconSize: 50,),
         UpApiSpacing.large,
         BlocBuilder<UserPageCubit,UserPageState>(
           builder: (context, state) => Text(

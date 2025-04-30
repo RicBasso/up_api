@@ -6,6 +6,7 @@ import 'package:up_api/features/theme_mode_switcher/bloc/app_preferences_cubit.d
 import 'package:up_api/style/up_api_spacing.dart';
 import 'package:up_api/utils/service/service_locator.dart';
 import 'package:up_api/widgets/language_selector_widget.dart';
+import 'package:up_api/widgets/user_circle_avatar_widget.dart';
 
 class Menu extends StatelessWidget {
   const Menu({super.key});
@@ -24,10 +25,7 @@ class Menu extends StatelessWidget {
               Row(
                 spacing: 20,
                 children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.person, color: Theme.of(context).colorScheme.secondary),
-                  ),
+                  const UserCircleAvatarWidget(),
                   GestureDetector(
                     onTap:
                         () =>
