@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarWidget({super.key});
@@ -20,7 +21,10 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       ),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.secondary,
-      title: const Image(image: AssetImage('assets/images/up_api_logo_white.png')),
+      title: SvgPicture.asset(
+        'assets/images/up_api_logo_white.svg',
+        semanticsLabel: 'My SVG Image',
+      ),
       bottom: const PreferredSize(preferredSize: Size.fromHeight(10), child: SizedBox()),
     );
   }

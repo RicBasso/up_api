@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:up_api/features/login/presentation/widgets/modal_login.dart';
 import 'package:up_api/features/welcome/bloc/welcome_cubit.dart';
 import 'package:up_api/features/welcome/bloc/welcome_state.dart';
@@ -42,7 +43,10 @@ class _WelcomePageState extends State<WelcomePage> {
               builder: (context, state) {
                 return SizedBox(
                     height: MediaQuery.sizeOf(context).height * context.read<WelcomeCubit>().state.heightPercentage,
-                    child: Image.asset('assets/images/up_api_logo.png'),
+                    child: SvgPicture.asset(
+                      'assets/images/up_api_logo.svg',
+                      semanticsLabel: 'My SVG Image',
+                    ),
                 );
               },
             ),
